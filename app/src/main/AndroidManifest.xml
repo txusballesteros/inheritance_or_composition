@@ -2,7 +2,7 @@
 <!--
  * Copyright Txus Ballesteros 2015 (@txusballesteros)
  *
- * This file is part of some open source application.
+ * This file is part of some open source androidApplication.
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -26,11 +26,23 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.txusballesteros">
   <application
+      android:name=".AndroidApplication"
       android:allowBackup="true"
       android:icon="@mipmap/ic_launcher"
       android:label="@string/app_name"
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
 
+    <activity
+        android:name=".view.activity.ActorsListActivity"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:launchMode="singleTask">
+
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
   </application>
 </manifest>

@@ -22,31 +22,32 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
+package com.txusballesteros.presentation;
 
-android {
-  compileSdkVersion 24
-  buildToolsVersion "23.0.3"
+import android.support.annotation.NonNull;
+import com.txusballesteros.domain.interactor.GetActorsListUseCase;
+import com.txusballesteros.domain.model.Actor;
+import java.util.List;
+import javax.inject.Inject;
 
-  defaultConfig {
-    applicationId "com.txusballesteros"
-    minSdkVersion 21
-    targetSdkVersion 24
-    versionCode 1
-    versionName "1.0"
+public class ActorsListPresenterImpl implements ActorsListPresenter {
+  private final View view;
+  private final GetActorsListUseCase getActorsListUseCase;
+
+  @Inject
+  public ActorsListPresenterImpl(ActorsListPresenter.View view,
+                                 GetActorsListUseCase getActorsListUseCase) {
+    this.view = view;
+    this.getActorsListUseCase = getActorsListUseCase;
   }
-  buildTypes {
-    release {
-      minifyEnabled false
-    }
-  }
-}
 
-dependencies {
-  compile 'com.android.support:appcompat-v7:24.0.0'
-  compile 'com.android.support:recyclerview-v7:24.0.0'
-  compile 'com.jakewharton:butterknife:7.0.1'
-  compile 'com.google.dagger:dagger:2.2'
-  apt 'com.google.dagger:dagger-compiler:2.2'
+  @Override
+  public void onAttach() {
+    getActorsListUseCase.execute(new GetActorsListUseCase.Callback() {
+      @Override
+      public void onActorReady(@NonNull List<Actor> actors) {
+        view.renderActorsList(actors);
+      }
+    });
+  }
 }

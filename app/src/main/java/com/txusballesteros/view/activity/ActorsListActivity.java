@@ -22,6 +22,21 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros;
+package com.txusballesteros.view.activity;
 
-public class MyClass { }
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import com.txusballesteros.R;
+import com.txusballesteros.view.fragment.ActorsListFragment;
+
+public class ActorsListActivity extends AbsActivity {
+  @Override
+  int onRequestLayoutId() {
+    return R.layout.activity_actors_list;
+  }
+
+  @NonNull @Override
+  Fragment onRequestFragment() {
+    return ActorsListFragment.newInstance();
+  }
+}

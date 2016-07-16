@@ -22,31 +22,29 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
+package com.txusballesteros;
 
-android {
-  compileSdkVersion 24
-  buildToolsVersion "23.0.3"
+import com.txusballesteros.di.ApplicationComponent;
+import com.txusballesteros.di.ApplicationModule;
+import com.txusballesteros.di.DaggerApplicationComponent;
 
-  defaultConfig {
-    applicationId "com.txusballesteros"
-    minSdkVersion 21
-    targetSdkVersion 24
-    versionCode 1
-    versionName "1.0"
+public class AndroidApplication extends android.app.Application {
+  private ApplicationComponent applicationComponent;
+
+  @Override
+  public void onCreate() {
+    super.onCreate();
+    initializeInjection();
   }
-  buildTypes {
-    release {
-      minifyEnabled false
-    }
-  }
-}
 
-dependencies {
-  compile 'com.android.support:appcompat-v7:24.0.0'
-  compile 'com.android.support:recyclerview-v7:24.0.0'
-  compile 'com.jakewharton:butterknife:7.0.1'
-  compile 'com.google.dagger:dagger:2.2'
-  apt 'com.google.dagger:dagger-compiler:2.2'
+  public ApplicationComponent getApplicationComponent() {
+    return applicationComponent;
+  }
+
+  private void initializeInjection() {
+    applicationComponent = DaggerApplicationComponent.builder()
+                            .applicationModule(new ApplicationModule(this))
+                            .build();
+    applicationComponent.inject(this);
+  }
 }

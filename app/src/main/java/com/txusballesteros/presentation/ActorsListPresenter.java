@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
- * Copyright Txus Ballesteros 2015 (@txusballesteros)
+/*
+ * Copyright Txus Ballesteros 2016 (@txusballesteros)
  *
- * This file is part of some open source androidApplication.
+ * This file is part of some open source application.
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -22,9 +21,16 @@
  * under the License.
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
--->
-<resources>
-  <color name="colorPrimary">#3F51B5</color>
-  <color name="colorPrimaryDark">#303F9F</color>
-  <color name="colorAccent">#FF4081</color>
-</resources>
+ */
+package com.txusballesteros.presentation;
+
+import com.txusballesteros.domain.model.Actor;
+import java.util.List;
+
+public interface ActorsListPresenter {
+  void onAttach();
+
+  interface View {
+    void renderActorsList(List<Actor> actors);
+  }
+}

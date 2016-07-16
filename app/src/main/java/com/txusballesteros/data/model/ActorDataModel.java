@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
- * Copyright Txus Ballesteros 2015 (@txusballesteros)
+/*
+ * Copyright Txus Ballesteros 2016 (@txusballesteros)
  *
- * This file is part of some open source androidApplication.
+ * This file is part of some open source application.
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -22,9 +21,39 @@
  * under the License.
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
--->
-<resources>
-  <color name="colorPrimary">#3F51B5</color>
-  <color name="colorPrimaryDark">#303F9F</color>
-  <color name="colorAccent">#FF4081</color>
-</resources>
+ */
+package com.txusballesteros.data.model;
+
+public class ActorDataModel {
+  private long id;
+  private String name;
+  private String pictureUrl;
+
+  private ActorDataModel() { }
+
+  public long getId() {
+    return id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public String getPictureUrl() {
+    return pictureUrl;
+  }
+
+  public static class Builder {
+    private ActorDataModel actor = new ActorDataModel();
+
+    public Builder(long id, String name, String pictureUrl) {
+      actor .id = id;
+      actor.name = name;
+      actor.pictureUrl = pictureUrl;
+    }
+
+    public ActorDataModel build() {
+      return actor;
+    }
+  }
+}

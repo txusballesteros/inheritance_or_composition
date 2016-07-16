@@ -1,6 +1,6 @@
 # Copyright Txus Ballesteros 2016 (@txusballesteros)
 #
-# This file is part of some open source application.
+# This file is part of some open source androidApplication.
 #
 # Licensed to the Apache Software Foundation (ASF) under one
 # for more contributor license agreements.  See the NOTICE file
@@ -21,7 +21,7 @@
 #
 # Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
 
-# built application files
+# built androidApplication files
 *.apk
 *.ap_
  

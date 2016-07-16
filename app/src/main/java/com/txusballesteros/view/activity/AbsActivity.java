@@ -22,31 +22,34 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
+package com.txusballesteros.view.activity;
 
-android {
-  compileSdkVersion 24
-  buildToolsVersion "23.0.3"
+import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import com.txusballesteros.R;
 
-  defaultConfig {
-    applicationId "com.txusballesteros"
-    minSdkVersion 21
-    targetSdkVersion 24
-    versionCode 1
-    versionName "1.0"
+abstract class AbsActivity extends AppCompatActivity {
+  @Override
+  public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+    super.onCreate(savedInstanceState, persistentState);
+    setContentView(onRequestLayoutId());
+    initializeFragment();
   }
-  buildTypes {
-    release {
-      minifyEnabled false
-    }
-  }
-}
 
-dependencies {
-  compile 'com.android.support:appcompat-v7:24.0.0'
-  compile 'com.android.support:recyclerview-v7:24.0.0'
-  compile 'com.jakewharton:butterknife:7.0.1'
-  compile 'com.google.dagger:dagger:2.2'
-  apt 'com.google.dagger:dagger-compiler:2.2'
+  private void initializeFragment() {
+    final Fragment fragment = onRequestFragment();
+    getSupportFragmentManager().beginTransaction()
+            .add(R.id.fragment_place_holder, fragment)
+            .commit();
+  }
+
+  @LayoutRes
+  abstract int onRequestLayoutId();
+
+  @NonNull
+  abstract Fragment onRequestFragment();
 }
