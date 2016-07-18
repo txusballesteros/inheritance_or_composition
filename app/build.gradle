@@ -25,17 +25,25 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 
+def globalConfiguration = rootProject.extensions.getByName("ext")
+
 android {
-  compileSdkVersion 24
-  buildToolsVersion "23.0.3"
+  compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
+  buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
 
   defaultConfig {
-    applicationId "com.txusballesteros"
-    minSdkVersion 21
-    targetSdkVersion 24
-    versionCode 1
-    versionName "1.0"
+    applicationId globalConfiguration.getAt("androidApplicationId")
+    minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
+    targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
+    versionCode globalConfiguration.getAt("androidVersionCode")
+    versionName globalConfiguration.getAt("androidVersionName")
   }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_7
+    targetCompatibility JavaVersion.VERSION_1_7
+  }
+
   buildTypes {
     release {
       minifyEnabled false
@@ -44,10 +52,13 @@ android {
 }
 
 dependencies {
-  compile 'com.android.support:appcompat-v7:24.0.0'
-  compile 'com.android.support:recyclerview-v7:24.0.0'
-  compile 'com.jakewharton:butterknife:8.2.1'
-  compile 'com.google.dagger:dagger:2.5'
-  apt 'com.google.dagger:dagger-compiler:2.5'
-  apt 'com.jakewharton:butterknife-compiler:8.2.1'
+  def mobileDependencies = globalConfiguration.mobileDependencies
+  compile mobileDependencies.AppCompat
+  compile mobileDependencies.CardView
+  compile mobileDependencies.RecyclerView
+  compile mobileDependencies.Design
+  compile mobileDependencies.Dagger
+  compile mobileDependencies.ButterKnife
+  apt mobileDependencies.DaggerCompiler
+  apt mobileDependencies.ButterKnifeCompiler
 }
