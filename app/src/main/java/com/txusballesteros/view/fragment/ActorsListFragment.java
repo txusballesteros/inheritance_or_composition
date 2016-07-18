@@ -31,6 +31,7 @@ import com.txusballesteros.R;
 import com.txusballesteros.di.ApplicationComponent;
 import com.txusballesteros.domain.model.Actor;
 import com.txusballesteros.presentation.ActorsListPresenter;
+import com.txusballesteros.view.adapter.ActorsListAdapter;
 import com.txusballesteros.view.di.DaggerViewComponent;
 import com.txusballesteros.view.di.ViewModule;
 import java.util.List;

@@ -22,7 +22,7 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.view.fragment;
+package com.txusballesteros.view.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -30,6 +30,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.txusballesteros.R;
 import com.txusballesteros.domain.model.Actor;
+import com.txusballesteros.view.adapter.holder.ActorsListAdapterViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 

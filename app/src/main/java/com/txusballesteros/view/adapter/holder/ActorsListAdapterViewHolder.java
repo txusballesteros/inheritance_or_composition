@@ -22,7 +22,7 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.view.fragment;
+package com.txusballesteros.view.adapter.holder;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
