@@ -25,7 +25,8 @@
 package com.txusballesteros.data.actors.datasource;
 
 import com.txusballesteros.data.model.ActorDataModel;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
@@ -39,7 +40,7 @@ public class ActorsInMemoryDataSource implements ActorsDataSource {
   }
 
   private void initializeAndFetchDataSet() {
-    dataSet = new HashMap<>();
+    dataSet = new LinkedHashMap<>();
     persistActor(new ActorDataModel.Builder(1, "Emilia Clarke", "goo.gl/N3v3yA").build());
     persistActor(new ActorDataModel.Builder(2, "Kit Harington", "http://goo.gl/N3v3yA").build());
     persistActor(new ActorDataModel.Builder(3, "Peter Dinklage", "http://goo.gl/uZi901").build());
@@ -55,7 +56,7 @@ public class ActorsInMemoryDataSource implements ActorsDataSource {
 
   @Override
   public List<ActorDataModel> getActors() {
-    return null;
+    return new ArrayList<>(dataSet.values());
   }
 
   @Override

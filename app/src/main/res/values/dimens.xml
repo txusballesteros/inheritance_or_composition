@@ -1,7 +1,8 @@
-/*
- * Copyright Txus Ballesteros 2016 (@txusballesteros)
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Copyright Txus Ballesteros 2015 (@txusballesteros)
  *
- * This file is part of some open source application.
+ * This file is part of some open source androidApplication.
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -21,18 +22,7 @@
  * under the License.
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
- */
-package com.txusballesteros.domain.interactor.di;
-
-import com.txusballesteros.domain.interactor.GetActorsListInteractor;
-import com.txusballesteros.domain.interactor.GetActorsListUseCase;
-import dagger.Module;
-import dagger.Provides;
-
-@Module
-public class UseCasesModule {
-  @Provides
-  GetActorsListUseCase provideGetActorsListUseCase(GetActorsListInteractor useCase) {
-    return useCase;
-  }
-}
+-->
+<resources>
+  <dimen name="content_padding">8dp</dimen>
+</resources>

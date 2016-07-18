@@ -24,7 +24,9 @@
  */
 package com.txusballesteros.view.fragment;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import butterknife.BindView;
 import com.txusballesteros.R;
 import com.txusballesteros.di.ApplicationComponent;
 import com.txusballesteros.domain.model.Actor;
@@ -32,12 +34,12 @@ import com.txusballesteros.presentation.ActorsListPresenter;
 import com.txusballesteros.view.di.DaggerViewComponent;
 import com.txusballesteros.view.di.ViewModule;
 import java.util.List;
-import butterknife.Bind;
 import javax.inject.Inject;
 
 public class ActorsListFragment extends AbsFragment implements ActorsListPresenter.View {
+  private ActorsListAdapter adapter;
   @Inject ActorsListPresenter presenter;
-  @Bind(R.id.list) RecyclerView listView;
+  @BindView(R.id.list) RecyclerView listView;
 
   public static ActorsListFragment newInstance() {
     return new ActorsListFragment();
@@ -63,5 +65,21 @@ public class ActorsListFragment extends AbsFragment implements ActorsListPresent
   }
 
   @Override
-  public void renderActorsList(List<Actor> actors) { }
+  public void onViewReady() {
+    initializeList();
+  }
+
+  private void initializeList() {
+    adapter = new ActorsListAdapter();
+    listView.setHasFixedSize(true);
+    listView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+    listView.setAdapter(adapter);
+  }
+
+  @Override
+  public void renderActorsList(List<Actor> actors) {
+    adapter.clear();
+    adapter.addAll(actors);
+    adapter.notifyDataSetChanged();
+  }
 }

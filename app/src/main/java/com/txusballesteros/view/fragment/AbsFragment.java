@@ -59,14 +59,13 @@ abstract class AbsFragment extends Fragment {
 
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
-    doViewInjection();
-    onPresenterShouldBeAttached();
+    doViewInjection(view);
     onViewReady();
+    onPresenterShouldBeAttached();
   }
 
-  private void doViewInjection() {
-    ButterKnife.bind(this, getView());
+  private void doViewInjection(View view) {
+    ButterKnife.bind(this, view);
   }
 
   public void onPresenterShouldBeAttached() { }

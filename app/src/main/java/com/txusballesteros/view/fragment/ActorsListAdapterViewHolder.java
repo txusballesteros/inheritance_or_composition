@@ -22,17 +22,25 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.domain.interactor.di;
+package com.txusballesteros.view.fragment;
 
-import com.txusballesteros.domain.interactor.GetActorsListInteractor;
-import com.txusballesteros.domain.interactor.GetActorsListUseCase;
-import dagger.Module;
-import dagger.Provides;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import com.txusballesteros.R;
 
-@Module
-public class UseCasesModule {
-  @Provides
-  GetActorsListUseCase provideGetActorsListUseCase(GetActorsListInteractor useCase) {
-    return useCase;
+public class ActorsListAdapterViewHolder extends RecyclerView.ViewHolder {
+  @BindView(R.id.name) TextView nameView;
+
+  public void renderName(@NonNull String name) {
+    nameView.setText(name);
+  }
+
+  public ActorsListAdapterViewHolder(View view) {
+    super(view);
+    ButterKnife.bind(this, view);
   }
 }
