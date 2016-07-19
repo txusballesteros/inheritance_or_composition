@@ -59,6 +59,7 @@ dependencies {
   compile mobileDependencies.Design
   compile mobileDependencies.Dagger
   compile mobileDependencies.ButterKnife
+  compile mobileDependencies.Picasso
   apt mobileDependencies.DaggerCompiler
   apt mobileDependencies.ButterKnifeCompiler
 }

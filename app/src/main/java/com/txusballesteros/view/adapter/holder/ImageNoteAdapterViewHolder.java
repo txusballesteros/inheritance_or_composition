@@ -24,10 +24,21 @@
  */
 package com.txusballesteros.view.adapter.holder;
 
+import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.ImageView;
+import butterknife.BindView;
+import com.txusballesteros.R;
+import com.txusballesteros.instrumentation.ImageDownloader;
 
 public class ImageNoteAdapterViewHolder extends NoteAdapterViewHolder {
+  @BindView(R.id.image) ImageView imageView;
+
   public ImageNoteAdapterViewHolder(View view) {
     super(view);
+  }
+
+  public void renderImage(@NonNull ImageDownloader imageDownloader, @NonNull String imageUrl) {
+    imageDownloader.downloadImage(imageUrl, imageView);
   }
 }

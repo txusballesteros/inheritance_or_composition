@@ -31,6 +31,7 @@ import com.txusballesteros.domain.model.Note;
 import com.txusballesteros.domain.model.NoteType;
 import com.txusballesteros.domain.model.TaskListNote;
 import com.txusballesteros.domain.model.TextNote;
+import com.txusballesteros.instrumentation.ImageDownloader;
 import com.txusballesteros.view.adapter.holder.ImageNoteAdapterViewHolder;
 import com.txusballesteros.view.adapter.holder.NoteAdapterViewHolder;
 import com.txusballesteros.view.adapter.holder.NoteAdapterViewHolderFactory;
@@ -41,8 +42,10 @@ import java.util.List;
 
 public class ActorsListAdapter extends RecyclerView.Adapter<NoteAdapterViewHolder> {
   private final List<Note> dataSet;
+  private final ImageDownloader imageDownloader;
 
-  public ActorsListAdapter() {
+  public ActorsListAdapter(ImageDownloader imageDownloader) {
+    this.imageDownloader = imageDownloader;
     dataSet = new ArrayList<>();
   }
 
@@ -95,6 +98,7 @@ public class ActorsListAdapter extends RecyclerView.Adapter<NoteAdapterViewHolde
   private void renderImageNote(ImageNote note, ImageNoteAdapterViewHolder viewHolder) {
     viewHolder.renderTitle(note.getTitle());
     viewHolder.renderDescription(note.getDescription());
+    viewHolder.renderImage(imageDownloader, note.getImageUrl());
   }
 
   @Override

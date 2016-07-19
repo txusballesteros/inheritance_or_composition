@@ -31,11 +31,13 @@ import com.txusballesteros.domain.executor.JobExecutor;
 import com.txusballesteros.domain.executor.MainThreadExecutor;
 import com.txusballesteros.domain.executor.PostExecutionThread;
 import com.txusballesteros.domain.executor.ThreadExecutor;
+import com.txusballesteros.instrumentation.di.InstrumentationModule;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
 
 @Module(includes = {
+     InstrumentationModule.class,
      RepositoriesModule.class,
      DataSourcesModule.class
 })

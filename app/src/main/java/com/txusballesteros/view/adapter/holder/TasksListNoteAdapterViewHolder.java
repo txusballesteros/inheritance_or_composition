@@ -38,6 +38,10 @@ import java.util.List;
 public class TasksListNoteAdapterViewHolder extends NoteAdapterViewHolder {
   @BindView(R.id.tasks_holder) ViewGroup tasksHolderView;
 
+  public TasksListNoteAdapterViewHolder(View view) {
+    super(view);
+  }
+
   public void renderTasks(@NonNull List<Task> tasks) {
     tasksHolderView.removeAllViews();
     for(Task task : tasks) {
@@ -55,13 +59,5 @@ public class TasksListNoteAdapterViewHolder extends NoteAdapterViewHolder {
     taskView.setText(task.getTitle());
     taskView.setChecked(task.isDone());
     tasksHolderView.addView(taskView);
-  }
-
-  private void renderDone(CheckBox view, boolean done) {
-    view.setChecked(done);
-  }
-
-  public TasksListNoteAdapterViewHolder(View view) {
-    super(view);
   }
 }

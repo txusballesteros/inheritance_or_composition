@@ -30,6 +30,7 @@ import butterknife.BindView;
 import com.txusballesteros.R;
 import com.txusballesteros.di.ApplicationComponent;
 import com.txusballesteros.domain.model.Note;
+import com.txusballesteros.instrumentation.ImageDownloader;
 import com.txusballesteros.presentation.NotesListPresenter;
 import com.txusballesteros.view.adapter.ActorsListAdapter;
 import com.txusballesteros.view.di.DaggerViewComponent;
@@ -40,6 +41,7 @@ import javax.inject.Inject;
 public class ActorsListFragment extends AbsFragment implements NotesListPresenter.View {
   private ActorsListAdapter adapter;
   @Inject NotesListPresenter presenter;
+  @Inject ImageDownloader imageDownloader;
   @BindView(R.id.list) RecyclerView listView;
 
   public static ActorsListFragment newInstance() {
@@ -71,7 +73,7 @@ public class ActorsListFragment extends AbsFragment implements NotesListPresente
   }
 
   private void initializeList() {
-    adapter = new ActorsListAdapter();
+    adapter = new ActorsListAdapter(imageDownloader);
     listView.setHasFixedSize(true);
     listView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
     listView.setAdapter(adapter);

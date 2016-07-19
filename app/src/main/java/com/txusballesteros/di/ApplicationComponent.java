@@ -29,12 +29,15 @@ import com.txusballesteros.AndroidApplication;
 import com.txusballesteros.data.di.RepositoriesProvider;
 import com.txusballesteros.domain.executor.PostExecutionThread;
 import com.txusballesteros.domain.executor.ThreadExecutor;
+import com.txusballesteros.instrumentation.di.InstrumentationProvider;
 import dagger.Component;
 import javax.inject.Singleton;
 
 @Singleton
 @Component(modules = { ApplicationModule.class })
-public interface ApplicationComponent extends RepositoriesProvider, MappersProvider {
+public interface ApplicationComponent extends RepositoriesProvider,
+                                              MappersProvider,
+                                              InstrumentationProvider {
   void inject(AndroidApplication androidApplication);
 
   Application getApplication();

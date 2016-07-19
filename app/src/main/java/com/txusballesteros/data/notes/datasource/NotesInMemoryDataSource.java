@@ -47,7 +47,9 @@ public class NotesInMemoryDataSource implements NotesDataSource {
     dataSet = new LinkedHashMap<>();
     buildTextNote(1, "Learning Clean Code & SOLID", "Which is the best way to learn Clean Code and SOLID?");
     buildTasksListNote(2, "Pokemon GO", "Pokemons on my Pokédex", buildPokemonsList());
-    buildImageNote(3, "My Best Picture...", "This is my favorite picture.", "https://goo.gl/tNGwt2");
+    buildImageNote(3, "My Best Picture...", "This is my favorite picture.", "http://lorempixel.com/400/600/abstract/");
+    buildTextNote(4, "This is really awesome", "This technique of programing is really nice. Remember learn more about that in the future, and if you want more info about that, please feel free to contact with me.");
+    buildImageNote(5, "I love this city", "Remembering my travel to this great city.", "http://lorempixel.com/400/600/city/");
   }
 
   private List<TaskDataModel> buildPokemonsList() {
