@@ -22,16 +22,49 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.domain.interactor;
+package com.txusballesteros.data.model;
 
 import android.support.annotation.NonNull;
-import com.txusballesteros.domain.model.Actor;
-import java.util.List;
 
-public interface GetActorsListUseCase {
-  void execute(@NonNull Callback callback);
+public final class TaskDataModel {
+  private int order;
+  private String title;
+  private boolean isDone;
 
-  interface Callback {
-    void onActorReady(@NonNull List<Actor> actors);
+  private TaskDataModel() { }
+
+  public int getOrder() {
+    return order;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public boolean isDone() {
+    return isDone;
+  }
+
+  public static class Builder {
+    private final TaskDataModel taskDataModel = new TaskDataModel();
+
+    public Builder setOrder(int order) {
+      taskDataModel.order = order;
+      return this;
+    }
+
+    public Builder setIsDone(boolean isDone) {
+      taskDataModel.isDone = isDone;
+      return this;
+    }
+
+    public Builder setTitle(@NonNull String title) {
+      taskDataModel.title = title;
+      return this;
+    }
+
+    public TaskDataModel build() {
+      return taskDataModel;
+    }
   }
 }

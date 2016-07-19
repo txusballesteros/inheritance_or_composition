@@ -24,10 +24,10 @@
  */
 package com.txusballesteros.domain.repository;
 
-import com.txusballesteros.domain.model.Actor;
+import com.txusballesteros.domain.model.Note;
 import java.util.List;
 
-public interface ActorsRepository {
-  List<Actor> getActors();
-  Actor getActorById(long id);
+public interface NotesRepository {
+  List<Note> getNotes();
+  Note getNoteById(long id);
 }

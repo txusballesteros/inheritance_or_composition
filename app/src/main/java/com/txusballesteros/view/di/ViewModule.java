@@ -25,7 +25,7 @@
 package com.txusballesteros.view.di;
 
 import com.txusballesteros.domain.interactor.di.UseCasesModule;
-import com.txusballesteros.presentation.ActorsListPresenter;
+import com.txusballesteros.presentation.NotesListPresenter;
 import com.txusballesteros.presentation.di.PresentersModule;
 import dagger.Module;
 import dagger.Provides;
@@ -35,14 +35,14 @@ import dagger.Provides;
     UseCasesModule.class
 })
 public class ViewModule {
-  private ActorsListPresenter.View actorsListPresenterView;
+  private NotesListPresenter.View actorsListPresenterView;
 
-  public ViewModule(ActorsListPresenter.View view) {
+  public ViewModule(NotesListPresenter.View view) {
     this.actorsListPresenterView = view;
   }
 
   @Provides
-  ActorsListPresenter.View provideActorsListPresenterView() {
+  NotesListPresenter.View provideActorsListPresenterView() {
     return actorsListPresenterView;
   }
 }

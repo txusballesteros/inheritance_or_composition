@@ -24,16 +24,15 @@
  */
 package com.txusballesteros.data.di;
 
-import com.txusballesteros.data.actors.repository.ActorsRepositoryImpl;
-import com.txusballesteros.domain.repository.ActorsRepository;
+import com.txusballesteros.data.notes.repository.NotesRepositoryImpl;
+import com.txusballesteros.domain.repository.NotesRepository;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
 
 @Module
 public class RepositoriesModule {
-  @Provides @Singleton
-  ActorsRepository provideActorsRepository(ActorsRepositoryImpl repository) {
+  @Provides @Singleton NotesRepository provideActorsRepository(NotesRepositoryImpl repository) {
     return repository;
   }
 }

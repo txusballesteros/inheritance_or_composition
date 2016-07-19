@@ -22,12 +22,15 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.data.actors.datasource;
+package com.txusballesteros.presentation;
 
-import com.txusballesteros.data.model.ActorDataModel;
+import com.txusballesteros.domain.model.Note;
 import java.util.List;
 
-public interface ActorsDataSource {
-  List<ActorDataModel> getActors();
-  ActorDataModel getActorById(long id);
+public interface NotesListPresenter {
+  void onAttach();
+
+  interface View {
+    void renderActorsList(List<Note> notes);
+  }
 }

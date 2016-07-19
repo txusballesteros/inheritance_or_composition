@@ -25,28 +25,28 @@
 package com.txusballesteros.presentation;
 
 import android.support.annotation.NonNull;
-import com.txusballesteros.domain.interactor.GetActorsListUseCase;
-import com.txusballesteros.domain.model.Actor;
+import com.txusballesteros.domain.interactor.GetNotesUseCase;
+import com.txusballesteros.domain.model.Note;
 import java.util.List;
 import javax.inject.Inject;
 
-public class ActorsListPresenterImpl implements ActorsListPresenter {
+public class NotesListPresenterImpl implements NotesListPresenter {
   private final View view;
-  private final GetActorsListUseCase getActorsListUseCase;
+  private final GetNotesUseCase getNotesUseCase;
 
   @Inject
-  public ActorsListPresenterImpl(ActorsListPresenter.View view,
-                                 GetActorsListUseCase getActorsListUseCase) {
+  public NotesListPresenterImpl(NotesListPresenter.View view,
+                                GetNotesUseCase getNotesUseCase) {
     this.view = view;
-    this.getActorsListUseCase = getActorsListUseCase;
+    this.getNotesUseCase = getNotesUseCase;
   }
 
   @Override
   public void onAttach() {
-    getActorsListUseCase.execute(new GetActorsListUseCase.Callback() {
+    getNotesUseCase.execute(new GetNotesUseCase.Callback() {
       @Override
-      public void onActorReady(@NonNull List<Actor> actors) {
-        view.renderActorsList(actors);
+      public void onActorReady(@NonNull List<Note> notes) {
+        view.renderActorsList(notes);
       }
     });
   }

@@ -29,13 +29,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.txusballesteros.R;
-import com.txusballesteros.domain.model.Actor;
+import com.txusballesteros.domain.model.Note;
 import com.txusballesteros.view.adapter.holder.ActorsListAdapterViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ActorsListAdapter extends RecyclerView.Adapter<ActorsListAdapterViewHolder> {
-  private final List<Actor> dataSet;
+  private final List<Note> dataSet;
 
   public ActorsListAdapter() {
     dataSet = new ArrayList<>();
@@ -45,8 +45,8 @@ public class ActorsListAdapter extends RecyclerView.Adapter<ActorsListAdapterVie
     dataSet.clear();
   }
 
-  public void addAll(List<Actor> actors) {
-    dataSet.addAll(actors);
+  public void addAll(List<Note> notes) {
+    dataSet.addAll(notes);
   }
 
   @Override
@@ -58,8 +58,8 @@ public class ActorsListAdapter extends RecyclerView.Adapter<ActorsListAdapterVie
 
   @Override
   public void onBindViewHolder(ActorsListAdapterViewHolder viewHolder, int position) {
-    Actor actor = dataSet.get(position);
-    viewHolder.renderName(actor.getName());
+    Note note = dataSet.get(position);
+    viewHolder.renderName(note.getTitle());
   }
 
   @Override

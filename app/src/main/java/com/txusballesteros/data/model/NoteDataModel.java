@@ -22,38 +22,55 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.domain.model;
+package com.txusballesteros.data.model;
 
-public class Actor {
-  private long id;
-  private String name;
-  private String pictureUrl;
+import android.support.annotation.NonNull;
 
-  private Actor() { }
+public abstract class NoteDataModel {
+  private final long id;
+  private final String title;
+  private final String description;
+
+  NoteDataModel(Builder builder) {
+    this.id = builder.id;
+    this.title = builder.title;
+    this.description = builder.description;
+  }
 
   public long getId() {
     return id;
   }
 
-  public String getName() {
-    return name;
+  public String getTitle() {
+    return title;
   }
 
-  public String getPictureUrl() {
-    return pictureUrl;
+  public String getDescription() {
+    return description;
   }
 
-  public static class Builder {
-    private Actor actor = new Actor();
+  public abstract NoteTypeDataModel getType();
 
-    public Builder(long id, String name, String pictureUrl) {
-      actor .id = id;
-      actor.name = name;
-      actor.pictureUrl = pictureUrl;
+  public static abstract class Builder {
+    private long id;
+    private String title;
+    private String description;
+
+    public Builder setId(long id) {
+      this.id = id;
+      return this;
     }
 
-    public Actor build() {
-      return actor;
+    public Builder setTitle(@NonNull String title) {
+      this.title = title;
+      return this;
     }
+
+    public Builder setDescription(@NonNull String description) {
+      this.description = description;
+      return this;
+    }
+
+    public abstract NoteDataModel build();
   }
 }

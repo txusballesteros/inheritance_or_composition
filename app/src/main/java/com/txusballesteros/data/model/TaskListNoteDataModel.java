@@ -22,22 +22,40 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.di;
+package com.txusballesteros.data.model;
 
-import android.app.Application;
-import com.txusballesteros.AndroidApplication;
-import com.txusballesteros.data.di.RepositoriesProvider;
-import com.txusballesteros.domain.executor.PostExecutionThread;
-import com.txusballesteros.domain.executor.ThreadExecutor;
-import dagger.Component;
-import javax.inject.Singleton;
+import android.support.annotation.NonNull;
+import java.util.ArrayList;
+import java.util.List;
 
-@Singleton
-@Component(modules = { ApplicationModule.class })
-public interface ApplicationComponent extends RepositoriesProvider, MappersProvider {
-  void inject(AndroidApplication androidApplication);
+public final class TaskListNoteDataModel extends NoteDataModel {
+  private final List<TaskDataModel> taskDataModels;
 
-  Application getApplication();
-  ThreadExecutor getThreadExecutor();
-  PostExecutionThread getPostExecutionThread();
+  private TaskListNoteDataModel(Builder builder) {
+    super(builder);
+    this.taskDataModels = builder.tasks;
+  }
+
+  public List<TaskDataModel> getTasks() {
+    return taskDataModels;
+  }
+
+  @Override
+  public NoteTypeDataModel getType() {
+    return NoteTypeDataModel.TASK_LIST;
+  }
+
+  public static class Builder extends NoteDataModel.Builder {
+    private List<TaskDataModel> tasks = new ArrayList<>();
+
+    public Builder setTasks(@NonNull List<TaskDataModel> tasks) {
+      this.tasks = tasks;
+      return this;
+    }
+
+    @Override
+    public NoteDataModel build() {
+      return new TaskListNoteDataModel(this);
+    }
+  }
 }

@@ -22,22 +22,22 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.di;
+package com.txusballesteros.data.model;
 
-import android.app.Application;
-import com.txusballesteros.AndroidApplication;
-import com.txusballesteros.data.di.RepositoriesProvider;
-import com.txusballesteros.domain.executor.PostExecutionThread;
-import com.txusballesteros.domain.executor.ThreadExecutor;
-import dagger.Component;
-import javax.inject.Singleton;
+public final class TextNoteDataModel extends NoteDataModel {
+  private TextNoteDataModel(NoteDataModel.Builder builder) {
+    super(builder);
+  }
 
-@Singleton
-@Component(modules = { ApplicationModule.class })
-public interface ApplicationComponent extends RepositoriesProvider, MappersProvider {
-  void inject(AndroidApplication androidApplication);
+  @Override
+  public NoteTypeDataModel getType() {
+    return NoteTypeDataModel.TEXT;
+  }
 
-  Application getApplication();
-  ThreadExecutor getThreadExecutor();
-  PostExecutionThread getPostExecutionThread();
+  public static class Builder extends NoteDataModel.Builder {
+    @Override
+    public NoteDataModel build() {
+      return new TextNoteDataModel(this);
+    }
+  }
 }

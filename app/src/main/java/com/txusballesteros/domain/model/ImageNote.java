@@ -22,22 +22,38 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.di;
+package com.txusballesteros.domain.model;
 
-import android.app.Application;
-import com.txusballesteros.AndroidApplication;
-import com.txusballesteros.data.di.RepositoriesProvider;
-import com.txusballesteros.domain.executor.PostExecutionThread;
-import com.txusballesteros.domain.executor.ThreadExecutor;
-import dagger.Component;
-import javax.inject.Singleton;
+import android.support.annotation.NonNull;
 
-@Singleton
-@Component(modules = { ApplicationModule.class })
-public interface ApplicationComponent extends RepositoriesProvider, MappersProvider {
-  void inject(AndroidApplication androidApplication);
+public final class ImageNote extends Note {
+  private String imageUrl;
 
-  Application getApplication();
-  ThreadExecutor getThreadExecutor();
-  PostExecutionThread getPostExecutionThread();
+  private ImageNote(Builder builder) {
+    super(builder);
+    this.imageUrl = builder.imageUrl;
+  }
+
+  public String getImageUrl() {
+    return imageUrl;
+  }
+
+  @Override
+  public NoteType getType() {
+    return NoteType.IMAGE;
+  }
+
+  public static class Builder extends Note.Builder {
+    private String imageUrl;
+
+    public Builder setImageUrl(@NonNull String imageUrl) {
+      this.imageUrl = imageUrl;
+      return this;
+    }
+
+    @Override
+    public Note build() {
+      return new ImageNote(this);
+    }
+  }
 }

@@ -22,28 +22,49 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.data.model;
+package com.txusballesteros.domain.model;
 
-import com.txusballesteros.domain.model.Actor;
-import java.util.ArrayList;
-import java.util.List;
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import android.support.annotation.NonNull;
 
-@Singleton
-public class ActorDataModelMapper {
-  @Inject
-  public ActorDataModelMapper() { }
+public final class Task {
+  private int order;
+  private String title;
+  private boolean isDone;
 
-  public List<Actor> map(List<ActorDataModel> source) {
-    List<Actor> result = new ArrayList<>(source.size());
-    for(ActorDataModel actorDataModel : source) {
-      result.add(map(actorDataModel));
-    }
-    return result;
+  private Task() { }
+
+  public int getOrder() {
+    return order;
   }
 
-  public Actor map(ActorDataModel source) {
-    return new Actor.Builder(source.getId(), source.getName(), source.getPictureUrl()).build();
+  public String getTitle() {
+    return title;
+  }
+
+  public boolean isDone() {
+    return isDone;
+  }
+  
+  public static class Builder {
+    private final Task task = new Task();
+
+    public Builder setOrder(int order) {
+      task.order = order;
+      return this;
+    }
+
+    public Builder setTitle(@NonNull String title) {
+      task.title = title;
+      return this;
+    }
+
+    public Builder setIsDone(boolean isDone) {
+      task.isDone = isDone;
+      return this;
+    }
+
+    public Task build() {
+      return task;
+    }
   }
 }

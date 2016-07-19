@@ -27,20 +27,20 @@ package com.txusballesteros.domain.interactor;
 import android.support.annotation.NonNull;
 import com.txusballesteros.domain.executor.PostExecutionThread;
 import com.txusballesteros.domain.executor.ThreadExecutor;
-import com.txusballesteros.domain.model.Actor;
-import com.txusballesteros.domain.repository.ActorsRepository;
+import com.txusballesteros.domain.model.Note;
+import com.txusballesteros.domain.repository.NotesRepository;
 import java.util.List;
 import javax.inject.Inject;
 
-public class GetActorsListInteractor implements GetActorsListUseCase, Runnable {
-  private final ActorsRepository repository;
+public class GetNotesInteractor implements GetNotesUseCase, Runnable {
+  private final NotesRepository repository;
   private final ThreadExecutor executor;
   private final PostExecutionThread postExecutor;
   private Callback callback;
 
   @Inject
-  public GetActorsListInteractor(ActorsRepository repository,
-                                 ThreadExecutor executor, PostExecutionThread postExecutor) {
+  public GetNotesInteractor(NotesRepository repository,
+                            ThreadExecutor executor, PostExecutionThread postExecutor) {
     this.repository = repository;
     this.executor = executor;
     this.postExecutor = postExecutor;
@@ -54,11 +54,11 @@ public class GetActorsListInteractor implements GetActorsListUseCase, Runnable {
 
   @Override
   public void run() {
-    final List<Actor> actors = repository.getActors();
+    final List<Note> notes = repository.getNotes();
     postExecutor.execute(new Runnable() {
       @Override
       public void run() {
-        callback.onActorReady(actors);
+        callback.onActorReady(notes);
       }
     });
   }

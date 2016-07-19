@@ -24,15 +24,14 @@
  */
 package com.txusballesteros.domain.interactor.di;
 
-import com.txusballesteros.domain.interactor.GetActorsListInteractor;
-import com.txusballesteros.domain.interactor.GetActorsListUseCase;
+import com.txusballesteros.domain.interactor.GetNotesInteractor;
+import com.txusballesteros.domain.interactor.GetNotesUseCase;
 import dagger.Module;
 import dagger.Provides;
 
 @Module
 public class UseCasesModule {
-  @Provides
-  GetActorsListUseCase provideGetActorsListUseCase(GetActorsListInteractor useCase) {
+  @Provides GetNotesUseCase provideGetActorsListUseCase(GetNotesInteractor useCase) {
     return useCase;
   }
 }

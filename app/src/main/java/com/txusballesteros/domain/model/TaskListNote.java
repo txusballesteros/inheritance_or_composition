@@ -22,22 +22,40 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.di;
+package com.txusballesteros.domain.model;
 
-import android.app.Application;
-import com.txusballesteros.AndroidApplication;
-import com.txusballesteros.data.di.RepositoriesProvider;
-import com.txusballesteros.domain.executor.PostExecutionThread;
-import com.txusballesteros.domain.executor.ThreadExecutor;
-import dagger.Component;
-import javax.inject.Singleton;
+import android.support.annotation.NonNull;
+import java.util.ArrayList;
+import java.util.List;
 
-@Singleton
-@Component(modules = { ApplicationModule.class })
-public interface ApplicationComponent extends RepositoriesProvider, MappersProvider {
-  void inject(AndroidApplication androidApplication);
+public final class TaskListNote extends Note {
+  private final List<Task> tasks;
 
-  Application getApplication();
-  ThreadExecutor getThreadExecutor();
-  PostExecutionThread getPostExecutionThread();
+  private TaskListNote(Builder builder) {
+    super(builder);
+    this.tasks = builder.tasks;
+  }
+
+  public List<Task> getTasks() {
+    return tasks;
+  }
+
+  @Override
+  public NoteType getType() {
+    return NoteType.TASK_LIST;
+  }
+
+  public static class Builder extends Note.Builder {
+    private List<Task> tasks = new ArrayList<>();
+
+    public Builder setTasks(@NonNull List<Task> tasks) {
+      this.tasks = tasks;
+      return this;
+    }
+
+    @Override
+    public Note build() {
+      return new TaskListNote(this);
+    }
+  }
 }

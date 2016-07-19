@@ -24,15 +24,14 @@
  */
 package com.txusballesteros.presentation.di;
 
-import com.txusballesteros.presentation.ActorsListPresenter;
-import com.txusballesteros.presentation.ActorsListPresenterImpl;
+import com.txusballesteros.presentation.NotesListPresenter;
+import com.txusballesteros.presentation.NotesListPresenterImpl;
 import dagger.Module;
 import dagger.Provides;
 
 @Module
 public class PresentersModule {
-  @Provides
-  ActorsListPresenter provideActorsListPresenter(ActorsListPresenterImpl presenter) {
+  @Provides NotesListPresenter provideActorsListPresenter(NotesListPresenterImpl presenter) {
     return presenter;
   }
 }

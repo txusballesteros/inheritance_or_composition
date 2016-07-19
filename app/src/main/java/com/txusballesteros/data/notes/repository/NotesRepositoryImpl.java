@@ -22,37 +22,37 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.data.actors.repository;
+package com.txusballesteros.data.notes.repository;
 
-import com.txusballesteros.data.actors.datasource.ActorsDataSource;
-import com.txusballesteros.data.model.ActorDataModel;
-import com.txusballesteros.data.model.ActorDataModelMapper;
-import com.txusballesteros.domain.model.Actor;
-import com.txusballesteros.domain.repository.ActorsRepository;
+import com.txusballesteros.data.notes.datasource.NotesDataSource;
+import com.txusballesteros.data.model.NoteDataModel;
+import com.txusballesteros.data.model.NoteDataModelMapper;
+import com.txusballesteros.domain.model.Note;
+import com.txusballesteros.domain.repository.NotesRepository;
 import java.util.List;
 import javax.inject.Inject;
 
-public class ActorsRepositoryImpl implements ActorsRepository {
-  private final ActorsDataSource dataSource;
-  private final ActorDataModelMapper mapper;
+public class NotesRepositoryImpl implements NotesRepository {
+  private final NotesDataSource dataSource;
+  private final NoteDataModelMapper mapper;
 
   @Inject
-  public ActorsRepositoryImpl(ActorsDataSource dataSource, ActorDataModelMapper mapper) {
+  public NotesRepositoryImpl(NotesDataSource dataSource, NoteDataModelMapper mapper) {
     this.dataSource = dataSource;
     this.mapper = mapper;
   }
 
   @Override
-  public List<Actor> getActors() {
-    List<ActorDataModel> actors = dataSource.getActors();
-    List<Actor> result = mapper.map(actors);
+  public List<Note> getNotes() {
+    List<NoteDataModel> actors = dataSource.getNotes();
+    List<Note> result = mapper.map(actors);
     return result;
   }
 
   @Override
-  public Actor getActorById(long id) {
-    ActorDataModel actor = dataSource.getActorById(id);
-    Actor result = mapper.map(actor);
+  public Note getNoteById(long id) {
+    NoteDataModel actor = dataSource.getNotesById(id);
+    Note result = mapper.map(actor);
     return result;
   }
 }

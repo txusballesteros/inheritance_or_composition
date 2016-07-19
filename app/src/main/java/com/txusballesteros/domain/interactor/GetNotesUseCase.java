@@ -22,15 +22,16 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.presentation;
+package com.txusballesteros.domain.interactor;
 
-import com.txusballesteros.domain.model.Actor;
+import android.support.annotation.NonNull;
+import com.txusballesteros.domain.model.Note;
 import java.util.List;
 
-public interface ActorsListPresenter {
-  void onAttach();
+public interface GetNotesUseCase {
+  void execute(@NonNull Callback callback);
 
-  interface View {
-    void renderActorsList(List<Actor> actors);
+  interface Callback {
+    void onActorReady(@NonNull List<Note> notes);
   }
 }

@@ -24,15 +24,14 @@
  */
 package com.txusballesteros.data.di;
 
-import com.txusballesteros.data.actors.datasource.ActorsDataSource;
-import com.txusballesteros.data.actors.datasource.ActorsInMemoryDataSource;
+import com.txusballesteros.data.notes.datasource.NotesDataSource;
+import com.txusballesteros.data.notes.datasource.NotesInMemoryDataSource;
 import dagger.Module;
 import dagger.Provides;
 
 @Module
 public class DataSourcesModule {
-  @Provides
-  ActorsDataSource provideActorsDataSource(ActorsInMemoryDataSource dataSource) {
+  @Provides NotesDataSource provideActorsDataSource(NotesInMemoryDataSource dataSource) {
     return dataSource;
   }
 }

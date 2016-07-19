@@ -24,8 +24,8 @@
  */
 package com.txusballesteros.data.di;
 
-import com.txusballesteros.domain.repository.ActorsRepository;
+import com.txusballesteros.domain.repository.NotesRepository;
 
 public interface RepositoriesProvider {
-  ActorsRepository getActorsRepository();
+  NotesRepository getActorsRepository();
 }

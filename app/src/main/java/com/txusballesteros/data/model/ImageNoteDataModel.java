@@ -24,36 +24,36 @@
  */
 package com.txusballesteros.data.model;
 
-public class ActorDataModel {
-  private long id;
-  private String name;
-  private String pictureUrl;
+import android.support.annotation.NonNull;
 
-  private ActorDataModel() { }
+public final class ImageNoteDataModel extends NoteDataModel {
+  private String imageUrl;
 
-  public long getId() {
-    return id;
+  private ImageNoteDataModel(Builder builder) {
+    super(builder);
+    this.imageUrl = builder.imageUrl;
   }
 
-  public String getName() {
-    return name;
+  public String getImageUrl() {
+    return imageUrl;
   }
 
-  public String getPictureUrl() {
-    return pictureUrl;
+  @Override
+  public NoteTypeDataModel getType() {
+    return NoteTypeDataModel.IMAGE;
   }
 
-  public static class Builder {
-    private ActorDataModel actor = new ActorDataModel();
+  public static class Builder extends NoteDataModel.Builder {
+    private String imageUrl;
 
-    public Builder(long id, String name, String pictureUrl) {
-      actor .id = id;
-      actor.name = name;
-      actor.pictureUrl = pictureUrl;
+    public Builder setImageUrl(@NonNull String imageUrl) {
+      this.imageUrl = imageUrl;
+      return this;
     }
 
-    public ActorDataModel build() {
-      return actor;
+    @Override
+    public NoteDataModel build() {
+      return new ImageNoteDataModel(this);
     }
   }
 }
