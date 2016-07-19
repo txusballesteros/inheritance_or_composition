@@ -33,6 +33,7 @@
       android:id="@+id/list"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:background="@color/background"
       tools:listitem="@layout/item_note_text" />
 
 </FrameLayout>
