@@ -33,8 +33,13 @@ import butterknife.ButterKnife;
 import com.txusballesteros.R;
 
 public class NoteAdapterViewHolder extends RecyclerView.ViewHolder {
+  private View rootView;
   @BindView(R.id.title) TextView nameView;
   @BindView(R.id.description) TextView descriptionView;
+
+  protected View getView() {
+    return rootView;
+  }
 
   public void renderTitle(@NonNull String name) {
     nameView.setText(name);
@@ -46,6 +51,7 @@ public class NoteAdapterViewHolder extends RecyclerView.ViewHolder {
 
   public NoteAdapterViewHolder(View view) {
     super(view);
+    this.rootView = view;
     ButterKnife.bind(this, view);
   }
 }

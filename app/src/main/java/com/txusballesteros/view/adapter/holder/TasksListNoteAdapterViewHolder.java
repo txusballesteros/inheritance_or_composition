@@ -24,9 +24,43 @@
  */
 package com.txusballesteros.view.adapter.holder;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
+import butterknife.BindView;
+import com.txusballesteros.R;
+import com.txusballesteros.domain.model.Task;
+import java.util.List;
 
 public class TasksListNoteAdapterViewHolder extends NoteAdapterViewHolder {
+  @BindView(R.id.tasks_holder) ViewGroup tasksHolderView;
+
+  public void renderTasks(@NonNull List<Task> tasks) {
+    tasksHolderView.removeAllViews();
+    for(Task task : tasks) {
+      renderTask(task);
+    }
+  }
+
+  @SuppressWarnings("deprecated")
+  private void renderTask(Task task) {
+    final Context context = getView().getContext();
+    CheckBox taskView = new CheckBox(context);
+    taskView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                                           ViewGroup.LayoutParams.WRAP_CONTENT));
+    taskView.setTextAppearance(context, R.style.task);
+    taskView.setText(task.getTitle());
+    taskView.setChecked(task.isDone());
+    tasksHolderView.addView(taskView);
+  }
+
+  private void renderDone(CheckBox view, boolean done) {
+    view.setChecked(done);
+  }
+
   public TasksListNoteAdapterViewHolder(View view) {
     super(view);
   }

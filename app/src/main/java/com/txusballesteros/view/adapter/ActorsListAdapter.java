@@ -89,6 +89,7 @@ public class ActorsListAdapter extends RecyclerView.Adapter<NoteAdapterViewHolde
   private void renderTasksListNote(TaskListNote note, TasksListNoteAdapterViewHolder viewHolder) {
     viewHolder.renderTitle(note.getTitle());
     viewHolder.renderDescription(note.getDescription());
+    viewHolder.renderTasks(note.getTasks());
   }
 
   private void renderImageNote(ImageNote note, ImageNoteAdapterViewHolder viewHolder) {

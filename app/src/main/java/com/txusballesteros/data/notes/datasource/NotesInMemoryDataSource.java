@@ -55,7 +55,7 @@ public class NotesInMemoryDataSource implements NotesDataSource {
     result.add(new TaskDataModel.Builder().setOrder(1).setTitle("Pikachu").setIsDone(true).build());
     result.add(new TaskDataModel.Builder().setOrder(2).setTitle("Bulbasaur").setIsDone(true).build());
     result.add(new TaskDataModel.Builder().setOrder(3).setTitle("Ivysaur").setIsDone(false).build());
-    result.add(new TaskDataModel.Builder().setOrder(4).setTitle("Venusaur").setIsDone(false).build());
+    result.add(new TaskDataModel.Builder().setOrder(4).setTitle("Venusaur").setIsDone(true).build());
     result.add(new TaskDataModel.Builder().setOrder(5).setTitle("Blastoise").setIsDone(false).build());
     return result;
   }
