@@ -25,16 +25,21 @@
 package com.txusballesteros.view.adapter;
 
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import com.txusballesteros.R;
+import com.txusballesteros.domain.model.ImageNote;
 import com.txusballesteros.domain.model.Note;
-import com.txusballesteros.view.adapter.holder.ActorsListAdapterViewHolder;
+import com.txusballesteros.domain.model.NoteType;
+import com.txusballesteros.domain.model.TaskListNote;
+import com.txusballesteros.domain.model.TextNote;
+import com.txusballesteros.view.adapter.holder.ImageNoteAdapterViewHolder;
+import com.txusballesteros.view.adapter.holder.NoteAdapterViewHolder;
+import com.txusballesteros.view.adapter.holder.NoteAdapterViewHolderFactory;
+import com.txusballesteros.view.adapter.holder.TasksListNoteAdapterViewHolder;
+import com.txusballesteros.view.adapter.holder.TextNoteAdapterViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActorsListAdapter extends RecyclerView.Adapter<ActorsListAdapterViewHolder> {
+public class ActorsListAdapter extends RecyclerView.Adapter<NoteAdapterViewHolder> {
   private final List<Note> dataSet;
 
   public ActorsListAdapter() {
@@ -50,16 +55,45 @@ public class ActorsListAdapter extends RecyclerView.Adapter<ActorsListAdapterVie
   }
 
   @Override
-  public ActorsListAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_actors_list, parent, false);
-    ActorsListAdapterViewHolder result = new ActorsListAdapterViewHolder(itemView);
-    return result;
+  public int getItemViewType(int position) {
+    Note note = dataSet.get(position);
+    return note.getType().ordinal();
   }
 
   @Override
-  public void onBindViewHolder(ActorsListAdapterViewHolder viewHolder, int position) {
+  public NoteAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    return NoteAdapterViewHolderFactory.build(parent, NoteType.fromInt(viewType));
+  }
+
+  @Override
+  public void onBindViewHolder(NoteAdapterViewHolder viewHolder, int position) {
     Note note = dataSet.get(position);
-    viewHolder.renderName(note.getTitle());
+    switch(note.getType()) {
+      case TEXT:
+        renderTextNote((TextNote) note, (TextNoteAdapterViewHolder) viewHolder);
+        break;
+      case IMAGE:
+        renderImageNote((ImageNote) note, (ImageNoteAdapterViewHolder) viewHolder);
+        break;
+      case TASK_LIST:
+        renderTasksListNote((TaskListNote) note, (TasksListNoteAdapterViewHolder) viewHolder);
+        break;
+    }
+  }
+
+  private void renderTextNote(TextNote note, TextNoteAdapterViewHolder viewHolder) {
+    viewHolder.renderTitle(note.getTitle());
+    viewHolder.renderDescription(note.getDescription());
+  }
+
+  private void renderTasksListNote(TaskListNote note, TasksListNoteAdapterViewHolder viewHolder) {
+    viewHolder.renderTitle(note.getTitle());
+    viewHolder.renderDescription(note.getDescription());
+  }
+
+  private void renderImageNote(ImageNote note, ImageNoteAdapterViewHolder viewHolder) {
+    viewHolder.renderTitle(note.getTitle());
+    viewHolder.renderDescription(note.getDescription());
   }
 
   @Override

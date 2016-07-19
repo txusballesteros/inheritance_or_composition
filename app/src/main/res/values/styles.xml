@@ -24,9 +24,35 @@
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
 -->
 <resources>
-  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
   </style>
+
+  <style name="card">
+    <item name="android:background">@android:color/white</item>
+    <item name="android:layout_marginTop">@dimen/vertical_margin</item>
+    <item name="android:layout_marginBottom">@dimen/vertical_margin</item>
+    <item name="android:layout_marginLeft">@dimen/horizontal_margin</item>
+    <item name="android:layout_marginRight">@dimen/horizontal_margin</item>
+  </style>
+
+  <style name="title">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textSize">@dimen/text_size_medium</item>
+    <item name="android:textColor">@color/text_color_dark</item>
+  </style>
+
+  <style name="title.short">
+    <item name="android:maxLines">2</item>
+    <item name="android:ellipsize">end</item>
+  </style>
+
+  <style name="description">
+    <item name="android:fontFamily">sans-serif-light</item>
+    <item name="android:textSize">@dimen/text_size_medium</item>
+    <item name="android:textColor">@color/text_color_dark</item>
+  </style>
 </resources>
+

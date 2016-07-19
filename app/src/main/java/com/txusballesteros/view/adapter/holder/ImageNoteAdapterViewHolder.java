@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
- * Copyright Txus Ballesteros 2015 (@txusballesteros)
+/*
+ * Copyright Txus Ballesteros 2016 (@txusballesteros)
  *
- * This file is part of some open source androidApplication.
+ * This file is part of some open source application.
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -22,18 +21,13 @@
  * under the License.
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
--->
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/content_padding">
+ */
+package com.txusballesteros.view.adapter.holder;
 
-  <android.support.v7.widget.AppCompatTextView
-      android:id="@+id/name"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      tools:text="Actor Name"/>
+import android.view.View;
 
-</FrameLayout>
+public class ImageNoteAdapterViewHolder extends NoteAdapterViewHolder {
+  public ImageNoteAdapterViewHolder(View view) {
+    super(view);
+  }
+}

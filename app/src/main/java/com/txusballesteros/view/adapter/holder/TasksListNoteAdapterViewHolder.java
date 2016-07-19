@@ -22,26 +22,12 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.domain.model;
+package com.txusballesteros.view.adapter.holder;
 
-public enum NoteType {
-  TEXT,
-  IMAGE,
-  TASK_LIST;
+import android.view.View;
 
-  public static NoteType fromInt(int value) {
-    NoteType result;
-    switch(value) {
-      case 1:
-        result = IMAGE;
-        break;
-      case 2:
-        result = TASK_LIST;
-        break;
-      default:
-        result = TEXT;
-        break;
-    }
-    return result;
+public class TasksListNoteAdapterViewHolder extends NoteAdapterViewHolder {
+  public TasksListNoteAdapterViewHolder(View view) {
+    super(view);
   }
 }

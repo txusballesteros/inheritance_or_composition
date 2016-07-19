@@ -24,23 +24,10 @@
  */
 package com.txusballesteros.view.adapter.holder;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import com.txusballesteros.R;
 
-public class ActorsListAdapterViewHolder extends RecyclerView.ViewHolder {
-  @BindView(R.id.name) TextView nameView;
-
-  public void renderName(@NonNull String name) {
-    nameView.setText(name);
-  }
-
-  public ActorsListAdapterViewHolder(View view) {
+public class TextNoteAdapterViewHolder extends NoteAdapterViewHolder {
+  public TextNoteAdapterViewHolder(View view) {
     super(view);
-    ButterKnife.bind(this, view);
   }
 }

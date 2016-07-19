@@ -22,26 +22,30 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.domain.model;
+package com.txusballesteros.view.adapter.holder;
 
-public enum NoteType {
-  TEXT,
-  IMAGE,
-  TASK_LIST;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import com.txusballesteros.R;
 
-  public static NoteType fromInt(int value) {
-    NoteType result;
-    switch(value) {
-      case 1:
-        result = IMAGE;
-        break;
-      case 2:
-        result = TASK_LIST;
-        break;
-      default:
-        result = TEXT;
-        break;
-    }
-    return result;
+public class NoteAdapterViewHolder extends RecyclerView.ViewHolder {
+  @BindView(R.id.title) TextView nameView;
+  @BindView(R.id.description) TextView descriptionView;
+
+  public void renderTitle(@NonNull String name) {
+    nameView.setText(name);
+  }
+
+  public void renderDescription(@NonNull String description) {
+    descriptionView.setText(description);
+  }
+
+  public NoteAdapterViewHolder(View view) {
+    super(view);
+    ButterKnife.bind(this, view);
   }
 }
