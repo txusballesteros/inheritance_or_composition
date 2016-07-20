@@ -30,6 +30,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ public abstract class AbsActivity extends AppCompatActivity {
   @BindView(R.id.content_place_holder) ViewGroup contentPlaceHolder;
   @BindView(R.id.loading_place_holder) ViewGroup loadingPlaceHolder;
   @BindView(R.id.fab) FloatingActionButton fabView;
+  @BindView(R.id.toolbar) Toolbar toolbar;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,11 @@ public abstract class AbsActivity extends AppCompatActivity {
     injectViews();
     attachActivityContent();
     initializeFragment();
+    initializeToolbar();
+  }
+
+  private void initializeToolbar() {
+    setSupportActionBar(toolbar);
   }
 
   private void injectViews() {
@@ -80,11 +87,6 @@ public abstract class AbsActivity extends AppCompatActivity {
   public void showFabButton(View.OnClickListener listener) {
     fabView.setOnClickListener(listener);
     fabView.setVisibility(View.VISIBLE);
-  }
-
-  public void hideFabButton() {
-    fabView.setOnClickListener(null);
-    fabView.setVisibility(View.GONE);
   }
 
   @LayoutRes

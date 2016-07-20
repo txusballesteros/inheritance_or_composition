@@ -23,43 +23,53 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
 -->
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.design.widget.CoordinatorLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
 
-  <FrameLayout
-      android:id="@+id/loading_place_holder"
+  <include layout="@layout/include_default_toolbar"
       android:layout_width="match_parent"
-      android:layout_height="match_parent">
+      android:layout_height="wrap_content" />
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <FrameLayout
+        android:id="@+id/loading_place_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+      <ProgressBar
+          style="?android:attr/progressBarStyleLarge"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/content_place_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        android:layout_margin="@dimen/fab_padding"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_add_white_24dp"
+        android:clickable="true"
+        android:visibility="gone"
+        app:borderWidth="0dp"
+        app:fabSize="normal"
+        app:elevation="4dp"
+        app:useCompatPadding="true" />
 
-  </FrameLayout>
-
-  <FrameLayout
-      android:id="@+id/content_place_holder"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent" />
-
-  <android.support.design.widget.FloatingActionButton
-      android:id="@+id/fab"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_margin="@dimen/fab_padding"
-      android:layout_alignParentBottom="true"
-      android:layout_alignParentRight="true"
-      android:src="@drawable/ic_add_white_24dp"
-      android:clickable="true"
-      android:visibility="gone"
-      app:borderWidth="0dp"
-      app:fabSize="normal"
-      app:elevation="4dp"
-      app:useCompatPadding="true" />
-
-</RelativeLayout>
+  </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
