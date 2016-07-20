@@ -62,5 +62,19 @@
     <item name="android:textSize">@dimen/text_size_medium</item>
     <item name="android:textColor">@color/text_color_dark</item>
   </style>
+
+  <style name="floatingButton">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_alignParentBottom">true</item>
+    <item name="android:clickable">true</item>
+    <item name="android:visibility">gone</item>
+    <item name="elevation">6dp</item>
+    <item name="useCompatPadding">true</item>
+  </style>
+
+  <style name="floatingButton.normal">
+    <item name="fabSize">normal</item>
+  </style>
 </resources>
 
