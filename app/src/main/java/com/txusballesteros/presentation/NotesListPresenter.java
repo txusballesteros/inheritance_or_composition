@@ -29,6 +29,7 @@ import java.util.List;
 
 public interface NotesListPresenter {
   void onAttach();
+  void onAddNewNoteClick();
 
   interface View {
     void renderNotesList(List<Note> notes);

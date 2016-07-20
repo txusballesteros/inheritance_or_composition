@@ -34,7 +34,6 @@ import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import com.txusballesteros.AndroidApplication;
 import com.txusballesteros.di.ApplicationComponent;
-import com.txusballesteros.view.activity.AbsActivity;
 
 abstract class AbsFragment extends Fragment {
   @Override
@@ -75,17 +74,5 @@ abstract class AbsFragment extends Fragment {
 
   private ApplicationComponent getApplicationComponent() {
     return ((AndroidApplication) getActivity().getApplication()).getApplicationComponent();
-  }
-
-  public void showLoading() {
-    if (isAdded()) {
-      ((AbsActivity) getActivity()).showLoading();
-    }
-  }
-
-  public void hideLoading() {
-    if (isAdded()) {
-      ((AbsActivity) getActivity()).hideLoading();
-    }
   }
 }

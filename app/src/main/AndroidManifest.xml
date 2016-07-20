@@ -37,7 +37,7 @@
       android:theme="@style/AppTheme">
 
     <activity
-        android:name=".view.activity.ActorsListActivity"
+        android:name=".view.activity.NotesListActivity"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:launchMode="singleTask">

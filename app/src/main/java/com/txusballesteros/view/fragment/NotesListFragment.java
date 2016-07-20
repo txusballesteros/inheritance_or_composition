@@ -26,12 +26,14 @@ package com.txusballesteros.view.fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import butterknife.BindView;
 import com.txusballesteros.R;
 import com.txusballesteros.di.ApplicationComponent;
 import com.txusballesteros.domain.model.Note;
 import com.txusballesteros.instrumentation.ImageDownloader;
 import com.txusballesteros.presentation.NotesListPresenter;
+import com.txusballesteros.view.activity.NotesListActivity;
 import com.txusballesteros.view.adapter.NotesListAdapter;
 import com.txusballesteros.view.di.DaggerViewComponent;
 import com.txusballesteros.view.di.ViewModule;
@@ -70,6 +72,7 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
   @Override
   public void onViewReady() {
     initializeList();
+    initializeFabButton();
   }
 
   private void initializeList() {
@@ -86,13 +89,28 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
     adapter.notifyDataSetChanged();
   }
 
+  private void initializeFabButton() {
+    if (isAdded()) {
+      ((NotesListActivity) getActivity()).showFabButton(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          presenter.onAddNewNoteClick();
+        }
+      });
+    }
+  }
+
   @Override
   public void showLoading() {
-    super.showLoading();
+    if (isAdded()) {
+      ((NotesListActivity) getActivity()).showLoading();
+    }
   }
 
   @Override
   public void hideLoading() {
-    super.hideLoading();
+    if (isAdded()) {
+      ((NotesListActivity) getActivity()).hideLoading();
+    }
   }
 }

@@ -52,4 +52,7 @@ public class NotesListPresenterImpl implements NotesListPresenter {
       }
     });
   }
+
+  @Override
+  public void onAddNewNoteClick() { }
 }

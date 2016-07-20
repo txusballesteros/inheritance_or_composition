@@ -27,6 +27,7 @@ package com.txusballesteros.view.activity;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -39,6 +40,7 @@ import com.txusballesteros.R;
 public abstract class AbsActivity extends AppCompatActivity {
   @BindView(R.id.content_place_holder) ViewGroup contentPlaceHolder;
   @BindView(R.id.loading_place_holder) ViewGroup loadingPlaceHolder;
+  @BindView(R.id.fab) FloatingActionButton fabView;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,16 @@ public abstract class AbsActivity extends AppCompatActivity {
   public void hideLoading() {
     contentPlaceHolder.setVisibility(View.VISIBLE);
     loadingPlaceHolder.setVisibility(View.GONE);
+  }
+
+  public void showFabButton(View.OnClickListener listener) {
+    fabView.setOnClickListener(listener);
+    fabView.setVisibility(View.VISIBLE);
+  }
+
+  public void hideFabButton() {
+    fabView.setOnClickListener(null);
+    fabView.setVisibility(View.GONE);
   }
 
   @LayoutRes

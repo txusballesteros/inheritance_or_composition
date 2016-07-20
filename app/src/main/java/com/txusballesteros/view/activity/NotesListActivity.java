@@ -29,7 +29,7 @@ import android.support.v4.app.Fragment;
 import com.txusballesteros.R;
 import com.txusballesteros.view.fragment.NotesListFragment;
 
-public class ActorsListActivity extends AbsActivity {
+public class NotesListActivity extends AbsActivity {
   @Override
   int onRequestLayoutId() {
     return R.layout.activity_notes_list;
