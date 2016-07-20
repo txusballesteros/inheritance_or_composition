@@ -24,25 +24,31 @@
  */
 package com.txusballesteros.presentation;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import com.txusballesteros.domain.interactor.GetNotesUseCase;
 import com.txusballesteros.domain.model.Note;
+import com.txusballesteros.domain.model.NoteType;
+import com.txusballesteros.navigation.Navigator;
 import java.util.List;
 import javax.inject.Inject;
 
 public class NotesListPresenterImpl implements NotesListPresenter {
   private final View view;
   private final GetNotesUseCase getNotesUseCase;
+  private final Navigator navigator;
 
   @Inject
   public NotesListPresenterImpl(NotesListPresenter.View view,
-                                GetNotesUseCase getNotesUseCase) {
+                                GetNotesUseCase getNotesUseCase,
+                                Navigator navigator) {
     this.view = view;
     this.getNotesUseCase = getNotesUseCase;
+    this.navigator = navigator;
   }
 
   @Override
-  public void onAttach() {
+  public void onResume() {
     view.showLoading();
     getNotesUseCase.execute(new GetNotesUseCase.Callback() {
       @Override
@@ -54,5 +60,7 @@ public class NotesListPresenterImpl implements NotesListPresenter {
   }
 
   @Override
-  public void onAddNewNoteClick() { }
+  public void onAddNewNoteClick(@NonNull Context context) {
+    navigator.navigateToCreateNewNote(context, NoteType.TEXT);
+  }
 }

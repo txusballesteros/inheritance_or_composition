@@ -25,7 +25,10 @@
 package com.txusballesteros.data.model;
 
 import android.support.annotation.NonNull;
+import com.txusballesteros.domain.model.ImageNote;
 import com.txusballesteros.domain.model.Note;
+import com.txusballesteros.domain.model.TaskListNote;
+import com.txusballesteros.domain.model.TextNote;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -65,6 +68,22 @@ public class NoteDataModelMapper {
         break;
       default:
         result = textNoteDataModelMapper.map((TextNoteDataModel) source);
+        break;
+    }
+    return result;
+  }
+
+  public NoteDataModel map(@NonNull Note source) {
+    NoteDataModel result;
+    switch(source.getType()) {
+      case TASK_LIST:
+        result = tasksListNoteDataModelMapper.map((TaskListNote) source);
+        break;
+      case IMAGE:
+        result = imageNoteDataModelMapper.map((ImageNote) source);
+        break;
+      default:
+        result = textNoteDataModelMapper.map((TextNote) source);
         break;
     }
     return result;

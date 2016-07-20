@@ -36,7 +36,6 @@ import java.util.Map;
 import javax.inject.Inject;
 
 public class NotesInMemoryLocalDataSource implements NotesLocalDataSource {
-  public static final int SIMULATED_DELAY_IN_MS = (3 * 1000);
   private Map<Long, NoteDataModel> dataSet;
 
   @Inject
@@ -68,7 +67,7 @@ public class NotesInMemoryLocalDataSource implements NotesLocalDataSource {
     builder.setId(id);
     builder.setTitle(title);
     builder.setDescription(description);
-    storeNote(builder.build());
+    fetchNote(builder.build());
   }
 
   private void buildTasksListNote(long id, String title, String description, List<TaskDataModel> tasks) {
@@ -77,7 +76,7 @@ public class NotesInMemoryLocalDataSource implements NotesLocalDataSource {
     builder.setTitle(title);
     builder.setDescription(description);
     builder.setTasks(tasks);
-    storeNote(builder.build());
+    fetchNote(builder.build());
   }
 
   private void buildImageNote(long id, String title, String description, String imageUrl) {
@@ -86,12 +85,17 @@ public class NotesInMemoryLocalDataSource implements NotesLocalDataSource {
     builder.setTitle(title);
     builder.setDescription(description);
     builder.setImageUrl(imageUrl);
-    storeNote(builder.build());
+    fetchNote(builder.build());
+  }
+
+  private void fetchNote(NoteDataModel note) {
+    dataSet.put(note.getId(), note);
   }
 
   @Override
   public void storeNote(NoteDataModel note) {
-    dataSet.put(note.getId(), note);
+    long noteId = calculateNoteId();
+    dataSet.put(noteId, note);
   }
 
   @Override
@@ -103,5 +107,9 @@ public class NotesInMemoryLocalDataSource implements NotesLocalDataSource {
   public NoteDataModel getNotesById(long id) {
     NoteDataModel result = dataSet.get(id);
     return result;
+  }
+
+  private long calculateNoteId() {
+    return dataSet.size() + 1;
   }
 }

@@ -22,38 +22,24 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.view.di;
+package com.txusballesteros.view.activity;
 
-import com.txusballesteros.domain.interactor.di.UseCasesModule;
-import com.txusballesteros.presentation.CreateNotePresenter;
-import com.txusballesteros.presentation.NotesListPresenter;
-import com.txusballesteros.presentation.di.PresentersModule;
-import dagger.Module;
-import dagger.Provides;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import com.txusballesteros.domain.model.NoteType;
+import com.txusballesteros.view.fragment.CreateTextNoteFragment;
 
-@Module( includes = {
-    PresentersModule.class,
-    UseCasesModule.class
-})
-public class ViewModule {
-  private NotesListPresenter.View actorsListPresenterView;
-  private CreateNotePresenter.View createNotePresenterView;
+public class CreateNoteActivity extends AbsActivity {
+  public static final String EXTRA_NOTE_TYPE = "note:type";
 
-  public ViewModule(NotesListPresenter.View view) {
-    this.actorsListPresenterView = view;
+  @NonNull @Override
+  Fragment onRequestFragment() {
+    NoteType type = getNoteType();
+    return CreateTextNoteFragment.newInstance();
   }
 
-  public ViewModule(CreateNotePresenter.View view) {
-    this.createNotePresenterView = view;
-  }
-
-  @Provides
-  NotesListPresenter.View provideActorsListPresenterView() {
-    return actorsListPresenterView;
-  }
-
-  @Provides
-  CreateNotePresenter.View provideCreateNotePresenterView() {
-    return createNotePresenterView;
+  private NoteType getNoteType() {
+    int noteType = getIntent().getExtras().getInt(EXTRA_NOTE_TYPE);
+    return NoteType.fromInt(noteType);
   }
 }

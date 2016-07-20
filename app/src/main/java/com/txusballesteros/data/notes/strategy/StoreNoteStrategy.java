@@ -22,38 +22,23 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.view.di;
+package com.txusballesteros.data.notes.strategy;
 
-import com.txusballesteros.domain.interactor.di.UseCasesModule;
-import com.txusballesteros.presentation.CreateNotePresenter;
-import com.txusballesteros.presentation.NotesListPresenter;
-import com.txusballesteros.presentation.di.PresentersModule;
-import dagger.Module;
-import dagger.Provides;
+import com.txusballesteros.data.model.NoteDataModel;
+import com.txusballesteros.data.notes.datasource.NotesLocalDataSource;
+import com.txusballesteros.data.strategy.StoreStrategy;
+import javax.inject.Inject;
 
-@Module( includes = {
-    PresentersModule.class,
-    UseCasesModule.class
-})
-public class ViewModule {
-  private NotesListPresenter.View actorsListPresenterView;
-  private CreateNotePresenter.View createNotePresenterView;
+public class StoreNoteStrategy extends StoreStrategy<NoteDataModel> {
+  private final NotesLocalDataSource localDataSource;
 
-  public ViewModule(NotesListPresenter.View view) {
-    this.actorsListPresenterView = view;
+  @Inject
+  public StoreNoteStrategy(NotesLocalDataSource localDataSource) {
+    this.localDataSource = localDataSource;
   }
 
-  public ViewModule(CreateNotePresenter.View view) {
-    this.createNotePresenterView = view;
-  }
-
-  @Provides
-  NotesListPresenter.View provideActorsListPresenterView() {
-    return actorsListPresenterView;
-  }
-
-  @Provides
-  CreateNotePresenter.View provideCreateNotePresenterView() {
-    return createNotePresenterView;
+  @Override
+  protected void storeOnLocalDataSource(NoteDataModel note) {
+    localDataSource.storeNote(note);
   }
 }

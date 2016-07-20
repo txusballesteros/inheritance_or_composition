@@ -22,38 +22,12 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.view.di;
+package com.txusballesteros.data.strategy;
 
-import com.txusballesteros.domain.interactor.di.UseCasesModule;
-import com.txusballesteros.presentation.CreateNotePresenter;
-import com.txusballesteros.presentation.NotesListPresenter;
-import com.txusballesteros.presentation.di.PresentersModule;
-import dagger.Module;
-import dagger.Provides;
-
-@Module( includes = {
-    PresentersModule.class,
-    UseCasesModule.class
-})
-public class ViewModule {
-  private NotesListPresenter.View actorsListPresenterView;
-  private CreateNotePresenter.View createNotePresenterView;
-
-  public ViewModule(NotesListPresenter.View view) {
-    this.actorsListPresenterView = view;
+public abstract class StoreStrategy<T> implements Strategy {
+  public void execte(T value) {
+    storeOnLocalDataSource(value);
   }
 
-  public ViewModule(CreateNotePresenter.View view) {
-    this.createNotePresenterView = view;
-  }
-
-  @Provides
-  NotesListPresenter.View provideActorsListPresenterView() {
-    return actorsListPresenterView;
-  }
-
-  @Provides
-  CreateNotePresenter.View provideCreateNotePresenterView() {
-    return createNotePresenterView;
-  }
+  protected abstract void storeOnLocalDataSource(T value);
 }

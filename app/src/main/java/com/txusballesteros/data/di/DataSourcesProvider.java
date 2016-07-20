@@ -22,38 +22,12 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.view.di;
+package com.txusballesteros.data.di;
 
-import com.txusballesteros.domain.interactor.di.UseCasesModule;
-import com.txusballesteros.presentation.CreateNotePresenter;
-import com.txusballesteros.presentation.NotesListPresenter;
-import com.txusballesteros.presentation.di.PresentersModule;
-import dagger.Module;
-import dagger.Provides;
+import com.txusballesteros.data.notes.datasource.NotesCloudDataSource;
+import com.txusballesteros.data.notes.datasource.NotesLocalDataSource;
 
-@Module( includes = {
-    PresentersModule.class,
-    UseCasesModule.class
-})
-public class ViewModule {
-  private NotesListPresenter.View actorsListPresenterView;
-  private CreateNotePresenter.View createNotePresenterView;
-
-  public ViewModule(NotesListPresenter.View view) {
-    this.actorsListPresenterView = view;
-  }
-
-  public ViewModule(CreateNotePresenter.View view) {
-    this.createNotePresenterView = view;
-  }
-
-  @Provides
-  NotesListPresenter.View provideActorsListPresenterView() {
-    return actorsListPresenterView;
-  }
-
-  @Provides
-  CreateNotePresenter.View provideCreateNotePresenterView() {
-    return createNotePresenterView;
-  }
+public interface DataSourcesProvider {
+  NotesLocalDataSource getNotesLocalDataSource();
+  NotesCloudDataSource getNotesCloudDataSource();
 }

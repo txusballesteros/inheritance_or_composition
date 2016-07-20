@@ -32,7 +32,8 @@ import javax.inject.Singleton;
 
 @Module
 public class RepositoriesModule {
-  @Provides @Singleton NotesRepository provideActorsRepository(NotesRepositoryImpl repository) {
+  @Provides @Singleton
+  NotesRepository provideActorsRepository(NotesRepositoryImpl repository) {
     return repository;
   }
 }

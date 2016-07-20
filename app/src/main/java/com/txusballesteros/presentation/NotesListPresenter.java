@@ -24,12 +24,13 @@
  */
 package com.txusballesteros.presentation;
 
+import android.content.Context;
 import com.txusballesteros.domain.model.Note;
 import java.util.List;
 
 public interface NotesListPresenter {
-  void onAttach();
-  void onAddNewNoteClick();
+  void onResume();
+  void onAddNewNoteClick(Context context);
 
   interface View {
     void renderNotesList(List<Note> notes);

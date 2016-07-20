@@ -22,38 +22,26 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.view.di;
+package com.txusballesteros.navigation.command;
 
-import com.txusballesteros.domain.interactor.di.UseCasesModule;
-import com.txusballesteros.presentation.CreateNotePresenter;
-import com.txusballesteros.presentation.NotesListPresenter;
-import com.txusballesteros.presentation.di.PresentersModule;
-import dagger.Module;
-import dagger.Provides;
+import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import com.txusballesteros.domain.model.NoteType;
+import com.txusballesteros.view.activity.CreateNoteActivity;
 
-@Module( includes = {
-    PresentersModule.class,
-    UseCasesModule.class
-})
-public class ViewModule {
-  private NotesListPresenter.View actorsListPresenterView;
-  private CreateNotePresenter.View createNotePresenterView;
+public class CreateNewNoteNavigationCommand extends NavigationCommand {
+  private final NoteType type;
 
-  public ViewModule(NotesListPresenter.View view) {
-    this.actorsListPresenterView = view;
+  public CreateNewNoteNavigationCommand(Context context, NoteType type) {
+    super(context);
+    this.type = type;
   }
 
-  public ViewModule(CreateNotePresenter.View view) {
-    this.createNotePresenterView = view;
-  }
-
-  @Provides
-  NotesListPresenter.View provideActorsListPresenterView() {
-    return actorsListPresenterView;
-  }
-
-  @Provides
-  CreateNotePresenter.View provideCreateNotePresenterView() {
-    return createNotePresenterView;
+  @NonNull @Override
+  Intent onRequestIntent(Context context) {
+    final Intent intent = new Intent(context, CreateNoteActivity.class);
+    intent.putExtra(CreateNoteActivity.EXTRA_NOTE_TYPE, type.ordinal());
+    return intent;
   }
 }

@@ -30,4 +30,5 @@ import java.util.List;
 public interface NotesRepository {
   List<Note> getNotes();
   Note getNoteById(long id);
+  void storeNote(Note note);
 }

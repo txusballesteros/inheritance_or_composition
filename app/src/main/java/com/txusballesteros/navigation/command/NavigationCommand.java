@@ -22,38 +22,23 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.view.di;
+package com.txusballesteros.navigation.command;
 
-import com.txusballesteros.domain.interactor.di.UseCasesModule;
-import com.txusballesteros.presentation.CreateNotePresenter;
-import com.txusballesteros.presentation.NotesListPresenter;
-import com.txusballesteros.presentation.di.PresentersModule;
-import dagger.Module;
-import dagger.Provides;
+import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 
-@Module( includes = {
-    PresentersModule.class,
-    UseCasesModule.class
-})
-public class ViewModule {
-  private NotesListPresenter.View actorsListPresenterView;
-  private CreateNotePresenter.View createNotePresenterView;
+public abstract class NavigationCommand {
+  private final Context context;
 
-  public ViewModule(NotesListPresenter.View view) {
-    this.actorsListPresenterView = view;
+  public NavigationCommand(Context context) {
+    this.context = context;
   }
 
-  public ViewModule(CreateNotePresenter.View view) {
-    this.createNotePresenterView = view;
+  public void execute() {
+    Intent intent = onRequestIntent(context);
+    context.startActivity(intent);
   }
 
-  @Provides
-  NotesListPresenter.View provideActorsListPresenterView() {
-    return actorsListPresenterView;
-  }
-
-  @Provides
-  CreateNotePresenter.View provideCreateNotePresenterView() {
-    return createNotePresenterView;
-  }
+  @NonNull abstract Intent onRequestIntent(Context context);
 }

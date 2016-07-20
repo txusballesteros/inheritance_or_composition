@@ -26,12 +26,20 @@ package com.txusballesteros.domain.interactor.di;
 
 import com.txusballesteros.domain.interactor.GetNotesInteractor;
 import com.txusballesteros.domain.interactor.GetNotesUseCase;
+import com.txusballesteros.domain.interactor.StoreNoteUseCase;
+import com.txusballesteros.domain.interactor.StoreNoteUseInterface;
 import dagger.Module;
 import dagger.Provides;
 
 @Module
 public class UseCasesModule {
-  @Provides GetNotesUseCase provideGetActorsListUseCase(GetNotesInteractor useCase) {
+  @Provides
+  GetNotesUseCase provideGetActorsListUseCase(GetNotesInteractor useCase) {
+    return useCase;
+  }
+
+  @Provides
+  StoreNoteUseCase provideStoreNoteUseCase(StoreNoteUseInterface useCase) {
     return useCase;
   }
 }

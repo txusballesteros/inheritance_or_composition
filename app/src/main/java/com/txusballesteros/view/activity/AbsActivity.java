@@ -25,13 +25,11 @@
 package com.txusballesteros.view.activity;
 
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import butterknife.BindView;
@@ -49,7 +47,6 @@ public abstract class AbsActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_base);
     injectViews();
-    attachActivityContent();
     initializeFragment();
     initializeToolbar();
   }
@@ -62,15 +59,10 @@ public abstract class AbsActivity extends AppCompatActivity {
     ButterKnife.bind(this);
   }
 
-  private void attachActivityContent() {
-    int activityLayoutResourceID = onRequestLayoutId();
-    LayoutInflater.from(this).inflate(activityLayoutResourceID, contentPlaceHolder, true);
-  }
-
   private void initializeFragment() {
     final Fragment fragment = onRequestFragment();
     getSupportFragmentManager().beginTransaction()
-            .add(R.id.fragment_place_holder, fragment)
+            .add(R.id.content_place_holder, fragment)
             .commit();
   }
 
@@ -88,9 +80,6 @@ public abstract class AbsActivity extends AppCompatActivity {
     fabView.setOnClickListener(listener);
     fabView.setVisibility(View.VISIBLE);
   }
-
-  @LayoutRes
-  abstract int onRequestLayoutId();
 
   @NonNull
   abstract Fragment onRequestFragment();

@@ -26,15 +26,9 @@ package com.txusballesteros.view.activity;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import com.txusballesteros.R;
 import com.txusballesteros.view.fragment.NotesListFragment;
 
 public class NotesListActivity extends AbsActivity {
-  @Override
-  int onRequestLayoutId() {
-    return R.layout.activity_notes_list;
-  }
-
   @NonNull @Override
   Fragment onRequestFragment() {
     return NotesListFragment.newInstance();

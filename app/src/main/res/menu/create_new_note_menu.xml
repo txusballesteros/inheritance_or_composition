@@ -1,7 +1,8 @@
-/*
- * Copyright Txus Ballesteros 2016 (@txusballesteros)
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Copyright Txus Ballesteros 2015 (@txusballesteros)
  *
- * This file is part of some open source application.
+ * This file is part of some open source androidApplication.
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -21,26 +22,14 @@
  * under the License.
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
- */
-package com.txusballesteros.data.di;
+-->
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
-import com.txusballesteros.data.notes.datasource.NotesApiCloudDataSource;
-import com.txusballesteros.data.notes.datasource.NotesCloudDataSource;
-import com.txusballesteros.data.notes.datasource.NotesLocalDataSource;
-import com.txusballesteros.data.notes.datasource.NotesInMemoryLocalDataSource;
-import dagger.Module;
-import dagger.Provides;
-import javax.inject.Singleton;
-
-@Module
-public class DataSourcesModule {
-  @Singleton @Provides
-  NotesLocalDataSource provideActorsDataSource(NotesInMemoryLocalDataSource dataSource) {
-    return dataSource;
-  }
-
-  @Singleton @Provides
-  NotesCloudDataSource provideNotesCloudDataSource(NotesApiCloudDataSource dataSource) {
-    return dataSource;
-  }
-}
+  <item
+      android:id="@+id/save"
+      android:icon="@drawable/ic_save_white_24dp"
+      android:title="@string/app_name"
+      app:showAsAction="always" />
+</menu>

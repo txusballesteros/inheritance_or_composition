@@ -26,10 +26,12 @@ package com.txusballesteros.di;
 
 import android.app.Application;
 import com.txusballesteros.AndroidApplication;
+import com.txusballesteros.data.di.DataSourcesProvider;
 import com.txusballesteros.data.di.RepositoriesProvider;
 import com.txusballesteros.domain.executor.PostExecutionThread;
 import com.txusballesteros.domain.executor.ThreadExecutor;
 import com.txusballesteros.instrumentation.di.InstrumentationProvider;
+import com.txusballesteros.navigation.Navigator;
 import dagger.Component;
 import javax.inject.Singleton;
 
@@ -37,10 +39,12 @@ import javax.inject.Singleton;
 @Component(modules = { ApplicationModule.class })
 public interface ApplicationComponent extends RepositoriesProvider,
                                               MappersProvider,
-                                              InstrumentationProvider {
+                                              InstrumentationProvider,
+                                              DataSourcesProvider {
   void inject(AndroidApplication androidApplication);
 
   Application getApplication();
   ThreadExecutor getThreadExecutor();
   PostExecutionThread getPostExecutionThread();
+  Navigator getNavigator();
 }

@@ -23,14 +23,34 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
 -->
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:padding="@dimen/content_padding"
+  android:background="@color/white"
+  tools:context=".view.activity.CreateNoteActivity">
 
-  <FrameLayout
-      android:id="@+id/fragment_place_holder"
+  <EditText
+      style="@style/title"
+      android:id="@+id/title"
       android:layout_width="match_parent"
-      android:layout_height="match_parent" />
+      android:layout_height="wrap_content"
+      android:gravity="top|left"
+      android:hint="@string/hint_title"
+      android:background="@android:color/transparent"
+      android:textSize="@dimen/text_size_big"/>
 
-</FrameLayout>
+  <EditText
+      style="@style/description"
+      android:id="@+id/description"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/title"
+      android:layout_marginTop="@dimen/content_padding"
+      android:gravity="top|left"
+      android:hint="@string/hint_description"
+      android:background="@android:color/transparent" />
+
+</RelativeLayout>

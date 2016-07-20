@@ -22,38 +22,27 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.view.di;
+package com.txusballesteros.navigation;
 
-import com.txusballesteros.domain.interactor.di.UseCasesModule;
-import com.txusballesteros.presentation.CreateNotePresenter;
-import com.txusballesteros.presentation.NotesListPresenter;
-import com.txusballesteros.presentation.di.PresentersModule;
-import dagger.Module;
-import dagger.Provides;
+import android.content.Context;
+import android.support.annotation.NonNull;
+import com.txusballesteros.domain.model.NoteType;
+import com.txusballesteros.navigation.command.CreateNewNoteNavigationCommand;
+import com.txusballesteros.navigation.command.NavigationCommand;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
-@Module( includes = {
-    PresentersModule.class,
-    UseCasesModule.class
-})
-public class ViewModule {
-  private NotesListPresenter.View actorsListPresenterView;
-  private CreateNotePresenter.View createNotePresenterView;
+@Singleton
+public class Navigator {
+  @Inject
+  public Navigator() { }
 
-  public ViewModule(NotesListPresenter.View view) {
-    this.actorsListPresenterView = view;
+  public void navigateToCreateNewNote(@NonNull Context context, @NonNull NoteType type) {
+    final NavigationCommand navigationCommand = new CreateNewNoteNavigationCommand(context, type);
+    navigate(navigationCommand);
   }
 
-  public ViewModule(CreateNotePresenter.View view) {
-    this.createNotePresenterView = view;
-  }
-
-  @Provides
-  NotesListPresenter.View provideActorsListPresenterView() {
-    return actorsListPresenterView;
-  }
-
-  @Provides
-  CreateNotePresenter.View provideCreateNotePresenterView() {
-    return createNotePresenterView;
+  private void navigate(NavigationCommand navigationCommand) {
+    navigationCommand.execute();
   }
 }

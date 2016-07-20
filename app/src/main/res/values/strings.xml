@@ -25,4 +25,7 @@
 -->
 <resources>
   <string name="app_name">My Notes</string>
+  <string name="title_create_new_note">New Note</string>
+  <string name="hint_title">Title</string>
+  <string name="hint_description">Description</string>
 </resources>

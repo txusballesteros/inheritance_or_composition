@@ -28,12 +28,14 @@ import com.txusballesteros.data.model.NoteDataModel;
 import com.txusballesteros.data.model.NoteDataModelMapper;
 import com.txusballesteros.data.notes.strategy.GetNoteByIdStrategy;
 import com.txusballesteros.data.notes.strategy.GetNotesStrategy;
+import com.txusballesteros.data.notes.strategy.StoreNoteStrategy;
 import com.txusballesteros.domain.model.Note;
 import com.txusballesteros.domain.repository.NotesRepository;
 import java.util.List;
 import javax.inject.Inject;
 
 public class NotesRepositoryImpl implements NotesRepository {
+  private final StoreNoteStrategy storeNoteStrategy;
   private final NoteDataModelMapper mapper;
   private final GetNoteByIdStrategy getNoteByIdStrategy;
   private final GetNotesStrategy getNotesStrategy;
@@ -41,9 +43,11 @@ public class NotesRepositoryImpl implements NotesRepository {
   @Inject
   public NotesRepositoryImpl(GetNotesStrategy getNotesStrategy,
                              GetNoteByIdStrategy getNoteByIdStrategy,
+                             StoreNoteStrategy storeNoteStrategy,
                              NoteDataModelMapper mapper) {
     this.getNotesStrategy = getNotesStrategy;
     this.getNoteByIdStrategy = getNoteByIdStrategy;
+    this.storeNoteStrategy = storeNoteStrategy;
     this.mapper = mapper;
   }
 
@@ -56,8 +60,14 @@ public class NotesRepositoryImpl implements NotesRepository {
 
   @Override
   public Note getNoteById(long id) {
-    NoteDataModel actor = getNoteByIdStrategy.execute(id);
-    Note result = mapper.map(actor);
+    NoteDataModel note = getNoteByIdStrategy.execute(id);
+    Note result = mapper.map(note);
     return result;
+  }
+
+  @Override
+  public void storeNote(Note note) {
+    NoteDataModel noteDataModel = mapper.map(note);
+    storeNoteStrategy.execte(noteDataModel);
   }
 }

@@ -26,6 +26,7 @@ package com.txusballesteros.view.di;
 
 import com.txusballesteros.di.ApplicationComponent;
 import com.txusballesteros.di.scope.PerView;
+import com.txusballesteros.view.fragment.CreateTextNoteFragment;
 import com.txusballesteros.view.fragment.NotesListFragment;
 import dagger.Component;
 
@@ -36,4 +37,5 @@ import dagger.Component;
 )
 public interface ViewComponent {
   void inject(NotesListFragment view);
+  void inject(CreateTextNoteFragment view);
 }

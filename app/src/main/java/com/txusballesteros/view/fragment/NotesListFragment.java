@@ -65,8 +65,9 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
   }
 
   @Override
-  public void onPresenterShouldBeAttached() {
-    presenter.onAttach();
+  public void onResume() {
+    super.onResume();
+    presenter.onResume();
   }
 
   @Override
@@ -94,7 +95,7 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
       ((NotesListActivity) getActivity()).showFabButton(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          presenter.onAddNewNoteClick();
+          presenter.onAddNewNoteClick(getActivity());
         }
       });
     }
