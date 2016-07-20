@@ -40,11 +40,11 @@ import com.txusballesteros.view.adapter.holder.TextNoteAdapterViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActorsListAdapter extends RecyclerView.Adapter<NoteAdapterViewHolder> {
+public class NotesListAdapter extends RecyclerView.Adapter<NoteAdapterViewHolder> {
   private final List<Note> dataSet;
   private final ImageDownloader imageDownloader;
 
-  public ActorsListAdapter(ImageDownloader imageDownloader) {
+  public NotesListAdapter(ImageDownloader imageDownloader) {
     this.imageDownloader = imageDownloader;
     dataSet = new ArrayList<>();
   }

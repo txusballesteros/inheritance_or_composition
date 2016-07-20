@@ -46,7 +46,7 @@ public class NotesListPresenterImpl implements NotesListPresenter {
     getNotesUseCase.execute(new GetNotesUseCase.Callback() {
       @Override
       public void onActorReady(@NonNull List<Note> notes) {
-        view.renderActorsList(notes);
+        view.renderNotesList(notes);
       }
     });
   }

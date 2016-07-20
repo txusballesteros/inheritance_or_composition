@@ -26,7 +26,7 @@ package com.txusballesteros.view.di;
 
 import com.txusballesteros.di.ApplicationComponent;
 import com.txusballesteros.di.scope.PerView;
-import com.txusballesteros.view.fragment.ActorsListFragment;
+import com.txusballesteros.view.fragment.NotesListFragment;
 import dagger.Component;
 
 @PerView
@@ -35,5 +35,5 @@ import dagger.Component;
   modules = { ViewModule.class }
 )
 public interface ViewComponent {
-  void inject(ActorsListFragment view);
+  void inject(NotesListFragment view);
 }

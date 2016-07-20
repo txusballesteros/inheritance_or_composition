@@ -31,6 +31,6 @@ public interface NotesListPresenter {
   void onAttach();
 
   interface View {
-    void renderActorsList(List<Note> notes);
+    void renderNotesList(List<Note> notes);
   }
 }

@@ -32,20 +32,20 @@ import com.txusballesteros.di.ApplicationComponent;
 import com.txusballesteros.domain.model.Note;
 import com.txusballesteros.instrumentation.ImageDownloader;
 import com.txusballesteros.presentation.NotesListPresenter;
-import com.txusballesteros.view.adapter.ActorsListAdapter;
+import com.txusballesteros.view.adapter.NotesListAdapter;
 import com.txusballesteros.view.di.DaggerViewComponent;
 import com.txusballesteros.view.di.ViewModule;
 import java.util.List;
 import javax.inject.Inject;
 
-public class ActorsListFragment extends AbsFragment implements NotesListPresenter.View {
-  private ActorsListAdapter adapter;
+public class NotesListFragment extends AbsFragment implements NotesListPresenter.View {
+  private NotesListAdapter adapter;
   @Inject NotesListPresenter presenter;
   @Inject ImageDownloader imageDownloader;
   @BindView(R.id.list) RecyclerView listView;
 
-  public static ActorsListFragment newInstance() {
-    return new ActorsListFragment();
+  public static NotesListFragment newInstance() {
+    return new NotesListFragment();
   }
 
   @Override
@@ -59,7 +59,7 @@ public class ActorsListFragment extends AbsFragment implements NotesListPresente
 
   @Override
   int onRequestLayoutResourceId() {
-    return R.layout.fragment_actors_list;
+    return R.layout.fragment_notes_list;
   }
 
   @Override
@@ -73,14 +73,14 @@ public class ActorsListFragment extends AbsFragment implements NotesListPresente
   }
 
   private void initializeList() {
-    adapter = new ActorsListAdapter(imageDownloader);
-    listView.setHasFixedSize(true);
+    adapter = new NotesListAdapter(imageDownloader);
     listView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+    listView.setHasFixedSize(true);
     listView.setAdapter(adapter);
   }
 
   @Override
-  public void renderActorsList(List<Note> notes) {
+  public void renderNotesList(List<Note> notes) {
     adapter.clear();
     adapter.addAll(notes);
     adapter.notifyDataSetChanged();

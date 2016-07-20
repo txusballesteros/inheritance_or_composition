@@ -27,16 +27,16 @@ package com.txusballesteros.view.activity;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import com.txusballesteros.R;
-import com.txusballesteros.view.fragment.ActorsListFragment;
+import com.txusballesteros.view.fragment.NotesListFragment;
 
 public class ActorsListActivity extends AbsActivity {
   @Override
   int onRequestLayoutId() {
-    return R.layout.activity_actors_list;
+    return R.layout.activity_notes_list;
   }
 
   @NonNull @Override
   Fragment onRequestFragment() {
-    return ActorsListFragment.newInstance();
+    return NotesListFragment.newInstance();
   }
 }
