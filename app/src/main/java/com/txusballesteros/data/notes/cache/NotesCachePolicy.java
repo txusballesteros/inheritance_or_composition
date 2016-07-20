@@ -24,10 +24,11 @@
  */
 package com.txusballesteros.data.notes.cache;
 
+import com.txusballesteros.data.cache.CachePolicy;
 import java.util.GregorianCalendar;
 import javax.inject.Inject;
 
-public class NotesCachePolicy {
+public class NotesCachePolicy implements CachePolicy {
   private final long EXPIRATION_TIME_IN_MS = (15 * 1000);
   private final long INITIAL_EXPIRATION_TIME = -1;
   private long lastCacheTime = INITIAL_EXPIRATION_TIME;
@@ -35,14 +36,17 @@ public class NotesCachePolicy {
   @Inject
   public NotesCachePolicy() { }
 
+  @Override
   public void invalidate() {
     lastCacheTime = INITIAL_EXPIRATION_TIME;
   }
 
+  @Override
   public void refresh() {
     lastCacheTime = GregorianCalendar.getInstance().getTimeInMillis();
   }
 
+  @Override
   public boolean hasExpired() {
     boolean result = true;
     if (lastCacheTime != INITIAL_EXPIRATION_TIME) {
