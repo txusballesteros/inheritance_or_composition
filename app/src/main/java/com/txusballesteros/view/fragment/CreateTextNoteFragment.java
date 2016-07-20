@@ -57,6 +57,12 @@ public class CreateTextNoteFragment extends AbsFragment implements CreateNotePre
   }
 
   @Override
+  public void onInitializeToolbar() {
+    getToolbar().setDisplayHomeAsUpEnabled(true);
+    getToolbar().setHomeButtonEnabled(true);
+  }
+
+  @Override
   int onRequestLayoutResourceId() {
     return R.layout.fragment_create_text_note;
   }
@@ -69,18 +75,27 @@ public class CreateTextNoteFragment extends AbsFragment implements CreateNotePre
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    boolean result;
-    if (item.getItemId() == R.id.save) {
-      final Note note = new TextNote.Builder()
-                            .setTitle(titleView.getText().toString())
-                            .setDescription(descriptionView.getText().toString())
-                            .build();
-      presenter.onCreateNote(note);
-      result = true;
-    } else {
-      result = super.onOptionsItemSelected(item);
+    boolean result = true;
+    switch(item.getItemId()) {
+      case R.id.save:
+        createNote();
+        break;
+      case android.R.id.home:
+        closeView();
+        break;
+      default:
+        result = super.onOptionsItemSelected(item);
+        break;
     }
     return result;
+  }
+
+  private void createNote() {
+    final Note note = new TextNote.Builder()
+                      .setTitle(titleView.getText().toString())
+                      .setDescription(descriptionView.getText().toString())
+                      .build();
+    presenter.onCreateNote(note);
   }
 
   @Override
