@@ -23,12 +23,12 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
 -->
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                    xmlns:tools="http://schemas.android.com/tools"
-                                    xmlns:tool="http://schemas.android.com/apk/res-auto"
-                                    style="@style/card"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
   <RelativeLayout
       android:layout_width="match_parent"
