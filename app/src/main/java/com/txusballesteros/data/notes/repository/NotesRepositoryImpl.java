@@ -24,52 +24,39 @@
  */
 package com.txusballesteros.data.notes.repository;
 
-import com.txusballesteros.data.notes.cache.NotesCachePolicy;
-import com.txusballesteros.data.notes.datasource.NotesCloudDataSource;
-import com.txusballesteros.data.notes.datasource.NotesLocalDataSource;
 import com.txusballesteros.data.model.NoteDataModel;
 import com.txusballesteros.data.model.NoteDataModelMapper;
+import com.txusballesteros.data.notes.strategy.GetNoteByIdStrategy;
+import com.txusballesteros.data.notes.strategy.GetNotesStrategy;
 import com.txusballesteros.domain.model.Note;
 import com.txusballesteros.domain.repository.NotesRepository;
 import java.util.List;
 import javax.inject.Inject;
 
 public class NotesRepositoryImpl implements NotesRepository {
-  private final NotesCachePolicy cachePolicy;
-  private final NotesLocalDataSource localDataSource;
-  private final NotesCloudDataSource cloudDataSource;
   private final NoteDataModelMapper mapper;
+  private final GetNoteByIdStrategy getNoteByIdStrategy;
+  private final GetNotesStrategy getNotesStrategy;
 
   @Inject
-  public NotesRepositoryImpl(NotesCachePolicy cachePolicy,
-                             NotesLocalDataSource localDataSource,
-                             NotesCloudDataSource cloudDataSource,
+  public NotesRepositoryImpl(GetNotesStrategy getNotesStrategy,
+                             GetNoteByIdStrategy getNoteByIdStrategy,
                              NoteDataModelMapper mapper) {
-    this.cachePolicy = cachePolicy;
-    this.localDataSource = localDataSource;
-    this.cloudDataSource = cloudDataSource;
+    this.getNotesStrategy = getNotesStrategy;
+    this.getNoteByIdStrategy = getNoteByIdStrategy;
     this.mapper = mapper;
   }
 
   @Override
   public List<Note> getNotes() {
-    if (cachePolicy.hasExpired()) {
-      cloudDataSource.getNotes();
-      cachePolicy.refresh();
-    }
-    List<Note> result = getNotesFromLocal();
-    return result;
-  }
-
-  private List<Note> getNotesFromLocal() {
-    List<NoteDataModel> actors = localDataSource.getNotes();
+    List<NoteDataModel> actors = getNotesStrategy.execute();
     List<Note> result = mapper.map(actors);
     return result;
   }
 
   @Override
   public Note getNoteById(long id) {
-    NoteDataModel actor = localDataSource.getNotesById(id);
+    NoteDataModel actor = getNoteByIdStrategy.execute(id);
     Note result = mapper.map(actor);
     return result;
   }
