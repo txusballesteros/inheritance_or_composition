@@ -24,9 +24,9 @@
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
 -->
 <resources>
-  <color name="colorPrimary">#3F51B5</color>
-  <color name="colorPrimaryDark">#303F9F</color>
-  <color name="colorAccent">#FF4081</color>
+  <color name="colorPrimary">#13C1AC</color>
+  <color name="colorPrimaryDark">#0F9989</color>
+  <color name="colorAccent">#13C1AC</color>
   <color name="text_color_dark">#292929</color>
   <color name="background">#ededed</color>
   <color name="box_70">#B4292929</color>
