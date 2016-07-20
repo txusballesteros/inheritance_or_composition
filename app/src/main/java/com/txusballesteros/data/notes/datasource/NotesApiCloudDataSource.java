@@ -27,7 +27,7 @@ package com.txusballesteros.data.notes.datasource;
 import javax.inject.Inject;
 
 public class NotesApiCloudDataSource implements NotesCloudDataSource {
-  public static final int SIMULATED_DELAY_IN_MS = (3 * 1000);
+  public static final int SIMULATED_DELAY_IN_MS = (1 * 1000);
 
   @Inject
   public NotesApiCloudDataSource() { }
