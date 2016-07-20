@@ -78,10 +78,14 @@ abstract class AbsFragment extends Fragment {
   }
 
   public void showLoading() {
-    ((AbsActivity) getActivity()).showLoading();
+    if (isAdded()) {
+      ((AbsActivity) getActivity()).showLoading();
+    }
   }
 
   public void hideLoading() {
-    ((AbsActivity) getActivity()).hideLoading();
+    if (isAdded()) {
+      ((AbsActivity) getActivity()).hideLoading();
+    }
   }
 }

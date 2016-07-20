@@ -7,6 +7,12 @@ import javax.inject.Inject;
 
 public class GetNoteByIdStrategy extends LocalStrategy<NoteDataModel> {
   private final NotesLocalDataSource localDataSource;
+  private long id;
+
+  public  NoteDataModel execute(long id) {
+    this.id = id;
+    return super.execute();
+  }
 
   @Inject
   public GetNoteByIdStrategy(NotesLocalDataSource localDataSource) {
@@ -14,7 +20,7 @@ public class GetNoteByIdStrategy extends LocalStrategy<NoteDataModel> {
   }
 
   @Override
-  protected NoteDataModel callToLocalRepository(long id) {
+  protected NoteDataModel callToLocalRepository() {
     return localDataSource.getNotesById(id);
   }
 }

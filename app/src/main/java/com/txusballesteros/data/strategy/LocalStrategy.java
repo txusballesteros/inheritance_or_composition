@@ -25,10 +25,10 @@
 package com.txusballesteros.data.strategy;
 
 public abstract class LocalStrategy<T> implements Strategy {
-  public T execute(long id) {
-    T result = callToLocalRepository(id);
+  protected T execute() {
+    T result = callToLocalRepository();
     return result;
   }
 
-  protected abstract T callToLocalRepository(long id);
+  protected abstract T callToLocalRepository();
 }
