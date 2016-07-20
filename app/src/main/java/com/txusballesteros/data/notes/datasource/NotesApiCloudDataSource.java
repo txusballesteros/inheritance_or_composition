@@ -22,24 +22,24 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.data.di;
+package com.txusballesteros.data.notes.datasource;
 
-import com.txusballesteros.data.notes.datasource.NotesApiCloudDataSource;
-import com.txusballesteros.data.notes.datasource.NotesCloudDataSource;
-import com.txusballesteros.data.notes.datasource.NotesLocalDataSource;
-import com.txusballesteros.data.notes.datasource.NotesInMemoryLocalDataSource;
-import dagger.Module;
-import dagger.Provides;
+import javax.inject.Inject;
 
-@Module
-public class DataSourcesModule {
-  @Provides
-  NotesLocalDataSource provideActorsDataSource(NotesInMemoryLocalDataSource dataSource) {
-    return dataSource;
+public class NotesApiCloudDataSource implements NotesCloudDataSource {
+  public static final int SIMULATED_DELAY_IN_MS = (3 * 1000);
+
+  @Inject
+  public NotesApiCloudDataSource() { }
+
+  @Override
+  public void getNotes() {
+    simulateDelay();
   }
 
-  @Provides
-  NotesCloudDataSource provideNotesCloudDataSource(NotesApiCloudDataSource dataSource) {
-    return dataSource;
+  private void simulateDelay() {
+    try {
+      Thread.sleep(SIMULATED_DELAY_IN_MS);
+    } catch(InterruptedException e) { }
   }
 }

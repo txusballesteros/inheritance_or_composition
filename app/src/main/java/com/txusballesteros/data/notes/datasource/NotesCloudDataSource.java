@@ -22,24 +22,8 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.data.di;
+package com.txusballesteros.data.notes.datasource;
 
-import com.txusballesteros.data.notes.datasource.NotesApiCloudDataSource;
-import com.txusballesteros.data.notes.datasource.NotesCloudDataSource;
-import com.txusballesteros.data.notes.datasource.NotesLocalDataSource;
-import com.txusballesteros.data.notes.datasource.NotesInMemoryLocalDataSource;
-import dagger.Module;
-import dagger.Provides;
-
-@Module
-public class DataSourcesModule {
-  @Provides
-  NotesLocalDataSource provideActorsDataSource(NotesInMemoryLocalDataSource dataSource) {
-    return dataSource;
-  }
-
-  @Provides
-  NotesCloudDataSource provideNotesCloudDataSource(NotesApiCloudDataSource dataSource) {
-    return dataSource;
-  }
+public interface NotesCloudDataSource {
+  void getNotes();
 }

@@ -27,7 +27,7 @@ package com.txusballesteros.data.notes.datasource;
 import com.txusballesteros.data.model.NoteDataModel;
 import java.util.List;
 
-public interface NotesDataSource {
+public interface NotesLocalDataSource {
   List<NoteDataModel> getNotes();
   NoteDataModel getNotesById(long id);
   void storeNote(NoteDataModel note);

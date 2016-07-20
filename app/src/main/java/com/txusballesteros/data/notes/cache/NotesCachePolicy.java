@@ -22,24 +22,34 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.data.di;
+package com.txusballesteros.data.notes.cache;
 
-import com.txusballesteros.data.notes.datasource.NotesApiCloudDataSource;
-import com.txusballesteros.data.notes.datasource.NotesCloudDataSource;
-import com.txusballesteros.data.notes.datasource.NotesLocalDataSource;
-import com.txusballesteros.data.notes.datasource.NotesInMemoryLocalDataSource;
-import dagger.Module;
-import dagger.Provides;
+import java.util.GregorianCalendar;
+import javax.inject.Inject;
 
-@Module
-public class DataSourcesModule {
-  @Provides
-  NotesLocalDataSource provideActorsDataSource(NotesInMemoryLocalDataSource dataSource) {
-    return dataSource;
+public class NotesCachePolicy {
+  private final long EXPIRATION_TIME_IN_MS = (15 * 1000);
+  private final long INITIAL_EXPIRATION_TIME = -1;
+  private long lastCacheTime = INITIAL_EXPIRATION_TIME;
+
+  @Inject
+  public NotesCachePolicy() { }
+
+  public void invalidate() {
+    lastCacheTime = INITIAL_EXPIRATION_TIME;
   }
 
-  @Provides
-  NotesCloudDataSource provideNotesCloudDataSource(NotesApiCloudDataSource dataSource) {
-    return dataSource;
+  public void refresh() {
+    lastCacheTime = GregorianCalendar.getInstance().getTimeInMillis();
+  }
+
+  public boolean hasExpired() {
+    boolean result = true;
+    if (lastCacheTime != INITIAL_EXPIRATION_TIME) {
+      long currentTime = GregorianCalendar.getInstance().getTimeInMillis();
+      long periodDifference = currentTime - lastCacheTime;
+      result = periodDifference > EXPIRATION_TIME_IN_MS;
+    }
+    return result;
   }
 }

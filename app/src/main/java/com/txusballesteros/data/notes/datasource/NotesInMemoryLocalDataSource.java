@@ -35,12 +35,12 @@ import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
 
-public class NotesInMemoryDataSource implements NotesDataSource {
+public class NotesInMemoryLocalDataSource implements NotesLocalDataSource {
   public static final int SIMULATED_DELAY_IN_MS = (3 * 1000);
   private Map<Long, NoteDataModel> dataSet;
 
   @Inject
-  public NotesInMemoryDataSource() {
+  public NotesInMemoryLocalDataSource() {
     initializeAndFetchDataSet();
   }
 
@@ -96,7 +96,6 @@ public class NotesInMemoryDataSource implements NotesDataSource {
 
   @Override
   public List<NoteDataModel> getNotes() {
-    simulateDelay();
     return new ArrayList<>(dataSet.values());
   }
 
@@ -104,11 +103,5 @@ public class NotesInMemoryDataSource implements NotesDataSource {
   public NoteDataModel getNotesById(long id) {
     NoteDataModel result = dataSet.get(id);
     return result;
-  }
-
-  private void simulateDelay() {
-    try {
-      Thread.sleep(SIMULATED_DELAY_IN_MS);
-    } catch(InterruptedException e) { }
   }
 }
