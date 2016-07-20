@@ -85,4 +85,14 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
     adapter.addAll(notes);
     adapter.notifyDataSetChanged();
   }
+
+  @Override
+  public void showLoading() {
+    super.showLoading();
+  }
+
+  @Override
+  public void hideLoading() {
+    super.hideLoading();
+  }
 }

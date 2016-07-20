@@ -29,14 +29,33 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.txusballesteros.R;
 
-abstract class AbsActivity extends AppCompatActivity {
+public abstract class AbsActivity extends AppCompatActivity {
+  @BindView(R.id.content_place_holder) ViewGroup contentPlaceHolder;
+  @BindView(R.id.loading_place_holder) ViewGroup loadingPlaceHolder;
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(onRequestLayoutId());
+    setContentView(R.layout.activity_base);
+    injectViews();
+    attachActivityContent();
     initializeFragment();
+  }
+
+  private void injectViews() {
+    ButterKnife.bind(this);
+  }
+
+  private void attachActivityContent() {
+    int activityLayoutResourceID = onRequestLayoutId();
+    LayoutInflater.from(this).inflate(activityLayoutResourceID, contentPlaceHolder, true);
   }
 
   private void initializeFragment() {
@@ -44,6 +63,16 @@ abstract class AbsActivity extends AppCompatActivity {
     getSupportFragmentManager().beginTransaction()
             .add(R.id.fragment_place_holder, fragment)
             .commit();
+  }
+
+  public void showLoading() {
+    contentPlaceHolder.setVisibility(View.GONE);
+    loadingPlaceHolder.setVisibility(View.VISIBLE);
+  }
+
+  public void hideLoading() {
+    contentPlaceHolder.setVisibility(View.VISIBLE);
+    loadingPlaceHolder.setVisibility(View.GONE);
   }
 
   @LayoutRes

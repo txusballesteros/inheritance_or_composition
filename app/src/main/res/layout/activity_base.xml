@@ -1,7 +1,8 @@
-/*
- * Copyright Txus Ballesteros 2016 (@txusballesteros)
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Copyright Txus Ballesteros 2015 (@txusballesteros)
  *
- * This file is part of some open source application.
+ * This file is part of some open source androidApplication.
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -21,18 +22,28 @@
  * under the License.
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
- */
-package com.txusballesteros.presentation;
+-->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-import com.txusballesteros.domain.model.Note;
-import java.util.List;
+  <FrameLayout
+      android:id="@+id/loading_place_holder"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
 
-public interface NotesListPresenter {
-  void onAttach();
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 
-  interface View {
-    void renderNotesList(List<Note> notes);
-    void showLoading();
-    void hideLoading();
-  }
-}
+  </FrameLayout>
+
+  <FrameLayout
+      android:id="@+id/content_place_holder"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
+
+</RelativeLayout>
