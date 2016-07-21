@@ -29,7 +29,7 @@
 
   <item
       android:id="@+id/presentation_mode"
-      android:icon="@drawable/ic_mode_list_white_24dp"
+      android:icon="@drawable/ic_mode_grid_white_24dp"
       android:title="@string/menu_presentation_mode"
       app:showAsAction="always" />
 
