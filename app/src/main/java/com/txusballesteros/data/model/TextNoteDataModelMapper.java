@@ -33,6 +33,14 @@ public class TextNoteDataModelMapper {
   @Inject
   public TextNoteDataModelMapper() { }
 
+  public TextNoteDataModel update(TextNoteDataModel source, long id) {
+    final TextNoteDataModel.Builder builder = new TextNoteDataModel.Builder();
+    builder.setId(id);
+    builder.setTitle(source.getTitle());
+    builder.setDescription(source.getDescription());
+    return (TextNoteDataModel) builder.build();
+  }
+
   public TextNote map(TextNoteDataModel source) {
     final TextNote.Builder builder = new TextNote.Builder();
     builder.setId(source.getId());

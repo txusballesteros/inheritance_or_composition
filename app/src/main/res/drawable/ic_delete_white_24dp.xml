@@ -23,15 +23,12 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
 -->
-<resources>
-  <string name="app_name">My Notes</string>
-  <string name="title_create_new_note">New Note</string>
-  <string name="title_note_detail">Note</string>
-  <string name="hint_title">Note Title</string>
-  <string name="hint_description">Write something....</string>
-  <string name="menu_save">Save</string>
-  <string name="menu_delete">Delete</string>
-  <string name="menu_presentation_mode">Mode</string>
-  <string name="menu_about">About</string>
-  <string name="message_title_required">Upps! You should write a title.</string>
-</resources>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="24dp"
+        android:height="24dp"
+        android:viewportWidth="24.0"
+        android:viewportHeight="24.0">
+    <path
+        android:fillColor="@color/white"
+        android:pathData="M19,6.41L17.59,5 12,10.59 6.41,5 5,6.41 10.59,12 5,17.59 6.41,19 12,13.41 17.59,19 19,17.59 13.41,12z"/>
+</vector>

@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
- * Copyright Txus Ballesteros 2015 (@txusballesteros)
+/*
+ * Copyright Txus Ballesteros 2016 (@txusballesteros)
  *
- * This file is part of some open source androidApplication.
+ * This file is part of some open source application.
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -22,16 +21,16 @@
  * under the License.
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
--->
-<resources>
-  <string name="app_name">My Notes</string>
-  <string name="title_create_new_note">New Note</string>
-  <string name="title_note_detail">Note</string>
-  <string name="hint_title">Note Title</string>
-  <string name="hint_description">Write something....</string>
-  <string name="menu_save">Save</string>
-  <string name="menu_delete">Delete</string>
-  <string name="menu_presentation_mode">Mode</string>
-  <string name="menu_about">About</string>
-  <string name="message_title_required">Upps! You should write a title.</string>
-</resources>
+ */
+package com.txusballesteros.domain.interactor;
+
+import android.support.annotation.NonNull;
+import com.txusballesteros.domain.model.Note;
+
+public interface GetNoteByIdUseCase {
+  void execute(long noteId, Callback callback);
+
+  interface Callback {
+    void onNoteReady(@NonNull Note note);
+  }
+}

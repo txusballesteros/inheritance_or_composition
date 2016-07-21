@@ -39,6 +39,15 @@ public class TasksListNoteDataModelMapper {
     this.taskDataModelMapper = taskDataModelMapper;
   }
 
+  public TaskListNoteDataModel update(TaskListNoteDataModel source, long id) {
+    final TaskListNoteDataModel.Builder builder = new TaskListNoteDataModel.Builder();
+    builder.setId(id);
+    builder.setTitle(source.getTitle());
+    builder.setDescription(source.getDescription());
+    builder.setTasks(source.getTasks());
+    return (TaskListNoteDataModel) builder.build();
+  }
+
   public TaskListNote map(TaskListNoteDataModel source) {
     final List<Task> tasks = taskDataModelMapper.map(source.getTasks());
     final TaskListNote.Builder builder = new TaskListNote.Builder();

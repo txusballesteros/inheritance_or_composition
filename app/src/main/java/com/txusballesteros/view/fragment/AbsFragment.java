@@ -48,11 +48,15 @@ abstract class AbsFragment extends Fragment {
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     onRequestInjection(getApplicationComponent());
-    setHasOptionsMenu(true);
+    setHasOptionsMenu(fragmentHasOptionsMenu());
     initializeToolbar();
   }
 
-  abstract void onRequestInjection(ApplicationComponent applicationComponent);
+  protected boolean fragmentHasOptionsMenu() {
+    return true;
+  }
+
+  void onRequestInjection(ApplicationComponent applicationComponent) { }
 
   public void onInitializeToolbar() { }
 
@@ -81,6 +85,8 @@ abstract class AbsFragment extends Fragment {
     int menuResourceId = onRequestMenuResourceId();
     if (menuResourceId != WITHOUT_MENU) {
       inflater.inflate(menuResourceId, this.menu);
+    } else {
+      super.onCreateOptionsMenu(menu, inflater);
     }
   }
 

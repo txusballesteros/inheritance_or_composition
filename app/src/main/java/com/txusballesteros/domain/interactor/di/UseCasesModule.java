@@ -24,6 +24,8 @@
  */
 package com.txusballesteros.domain.interactor.di;
 
+import com.txusballesteros.domain.interactor.GetNoteByIdInteractor;
+import com.txusballesteros.domain.interactor.GetNoteByIdUseCase;
 import com.txusballesteros.domain.interactor.GetNotesInteractor;
 import com.txusballesteros.domain.interactor.GetNotesUseCase;
 import com.txusballesteros.domain.interactor.StoreNoteUseCase;
@@ -40,6 +42,11 @@ public class UseCasesModule {
 
   @Provides
   StoreNoteUseCase provideStoreNoteUseCase(StoreNoteUseInterface useCase) {
+    return useCase;
+  }
+
+  @Provides
+  GetNoteByIdUseCase provideGetNoteByIdUseCase(GetNoteByIdInteractor useCase) {
     return useCase;
   }
 }

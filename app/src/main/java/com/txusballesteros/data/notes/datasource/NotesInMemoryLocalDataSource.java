@@ -26,6 +26,7 @@ package com.txusballesteros.data.notes.datasource;
 
 import com.txusballesteros.data.model.ImageNoteDataModel;
 import com.txusballesteros.data.model.NoteDataModel;
+import com.txusballesteros.data.model.NoteDataModelMapper;
 import com.txusballesteros.data.model.TaskDataModel;
 import com.txusballesteros.data.model.TaskListNoteDataModel;
 import com.txusballesteros.data.model.TextNoteDataModel;
@@ -36,10 +37,12 @@ import java.util.Map;
 import javax.inject.Inject;
 
 public class NotesInMemoryLocalDataSource implements NotesLocalDataSource {
+  private final NoteDataModelMapper mapper;
   private Map<Long, NoteDataModel> dataSet;
 
   @Inject
-  public NotesInMemoryLocalDataSource() {
+  public NotesInMemoryLocalDataSource(NoteDataModelMapper mapper) {
+    this.mapper = mapper;
     initializeAndFetchDataSet();
   }
 
@@ -47,7 +50,7 @@ public class NotesInMemoryLocalDataSource implements NotesLocalDataSource {
     dataSet = new LinkedHashMap<>();
     buildTextNote(1, "Learning Clean Code & SOLID", "Which is the best way to learn Clean Code and SOLID?");
     buildTasksListNote(2, "Pokemon GO", "Pokemons on my Pokédex", buildPokemonsList());
-    buildImageNote(3, "My Best Picture...", "This is my favorite picture.", "http://lorempixel.com/400/400/abstract/");
+    buildImageNote(3, "My Best Picture...", "This is my favorite picture.", "http://lorempixel.com/400/400/nature/");
     buildTextNote(4, "This is really awesome", "This technique of programing is really nice. Remember learn more about that in the future and if you want to have more info about that, please feel free to contact with me.");
     buildImageNote(5, "I love this city", "Remembering my travel to this great city.", "http://lorempixel.com/400/400/city/");
   }
@@ -95,7 +98,8 @@ public class NotesInMemoryLocalDataSource implements NotesLocalDataSource {
   @Override
   public void storeNote(NoteDataModel note) {
     long noteId = calculateNoteId();
-    dataSet.put(noteId, note);
+    NoteDataModel updatedNote = mapper.update(note, noteId);
+    dataSet.put(updatedNote.getId(), updatedNote);
   }
 
   @Override

@@ -24,10 +24,19 @@
  */
 package com.txusballesteros.presentation;
 
+import com.txusballesteros.domain.model.ImageNote;
 import com.txusballesteros.domain.model.NoteType;
+import com.txusballesteros.domain.model.TaskListNote;
+import com.txusballesteros.domain.model.TextNote;
 
 public interface NoteDetailPresenter {
   void onAttach(long noteId, NoteType type);
+  void onRequestDeleteNote();
 
-  interface View { }
+  interface View {
+    void closeView();
+    void showTextNoteDetail(TextNote note);
+    void showTasksListNoteDetail(TaskListNote note);
+    void showImageNoteDetail(ImageNote note);
+  }
 }

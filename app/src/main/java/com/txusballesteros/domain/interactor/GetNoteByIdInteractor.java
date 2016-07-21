@@ -24,44 +24,43 @@
  */
 package com.txusballesteros.domain.interactor;
 
-import android.support.annotation.NonNull;
 import com.txusballesteros.domain.executor.PostExecutionThread;
 import com.txusballesteros.domain.executor.ThreadExecutor;
 import com.txusballesteros.domain.model.Note;
 import com.txusballesteros.domain.repository.NotesRepository;
 import javax.inject.Inject;
 
-public class StoreNoteUseInterface implements StoreNoteUseCase, Runnable {
+public class GetNoteByIdInteractor implements GetNoteByIdUseCase, Runnable {
   private final NotesRepository repository;
   private final ThreadExecutor executor;
   private final PostExecutionThread postExecutor;
-  private Note note;
+  private long noteId;
   private Callback callback;
 
   @Inject
-  public StoreNoteUseInterface(NotesRepository repository,
+  public GetNoteByIdInteractor(NotesRepository repository,
                                ThreadExecutor executor,
                                PostExecutionThread postExecutor) {
-
     this.repository = repository;
     this.executor = executor;
     this.postExecutor = postExecutor;
   }
 
+
   @Override
-  public void execute(@NonNull Note note, @NonNull Callback callback) {
-    this.note = note;
+  public void execute(long noteId, Callback callback) {
+    this.noteId = noteId;
     this.callback = callback;
     executor.execute(this);
   }
 
   @Override
   public void run() {
-    repository.storeNote(note);
+    final Note note = repository.getNoteById(noteId);
     postExecutor.execute(new Runnable() {
       @Override
       public void run() {
-        callback.onNoteSaved();
+        callback.onNoteReady(note);
       }
     });
   }

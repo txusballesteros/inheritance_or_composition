@@ -50,13 +50,11 @@
 
     <activity
         android:name=".view.activity.CreateNoteActivity"
-        android:icon="@mipmap/ic_launcher"
         android:label="@string/title_create_new_note" />
 
     <activity
         android:name=".view.activity.NoteDetailActivity"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/title_create_new_note" />
+        android:label="@string/title_note_detail"/>
 
   </application>
 </manifest>

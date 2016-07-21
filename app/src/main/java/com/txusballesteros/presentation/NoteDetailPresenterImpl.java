@@ -24,18 +24,54 @@
  */
 package com.txusballesteros.presentation;
 
+import android.support.annotation.NonNull;
+import com.txusballesteros.domain.interactor.GetNoteByIdUseCase;
+import com.txusballesteros.domain.model.ImageNote;
+import com.txusballesteros.domain.model.Note;
 import com.txusballesteros.domain.model.NoteType;
+import com.txusballesteros.domain.model.TaskListNote;
+import com.txusballesteros.domain.model.TextNote;
 import javax.inject.Inject;
 
 public class NoteDetailPresenterImpl implements NoteDetailPresenter {
   private final View view;
+  private final GetNoteByIdUseCase getNoteByIdUseCase;
+  private Note note;
 
   @Inject
-  public NoteDetailPresenterImpl(NoteDetailPresenter.View view) { this.view = view;}
+  public NoteDetailPresenterImpl(NoteDetailPresenter.View view,
+                                 GetNoteByIdUseCase getNoteByIdUseCase) {
+    this.view = view;
+    this.getNoteByIdUseCase = getNoteByIdUseCase;
+  }
 
   @Override
   public void onAttach(long noteId, NoteType type) {
-    String a = "";
-    a += "";
+    getNoteByIdUseCase.execute(noteId, new GetNoteByIdUseCase.Callback() {
+      @Override
+      public void onNoteReady(@NonNull Note note) {
+        NoteDetailPresenterImpl.this.note = note;
+        displayNoteDetail();
+      }
+    });
+  }
+
+  @Override
+  public void onRequestDeleteNote() {
+    view.closeView();
+  }
+
+  private void displayNoteDetail() {
+    switch(note.getType()) {
+      case TEXT:
+        view.showTextNoteDetail((TextNote) note);
+        break;
+      case TASK_LIST:
+        view.showTasksListNoteDetail((TaskListNote) note);
+        break;
+      case IMAGE:
+        view.showImageNoteDetail((ImageNote) note);
+        break;
+    }
   }
 }

@@ -26,9 +26,13 @@ package com.txusballesteros.view.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.MenuItem;
 import com.txusballesteros.R;
 import com.txusballesteros.di.ApplicationComponent;
+import com.txusballesteros.domain.model.ImageNote;
 import com.txusballesteros.domain.model.NoteType;
+import com.txusballesteros.domain.model.TaskListNote;
+import com.txusballesteros.domain.model.TextNote;
 import com.txusballesteros.presentation.NoteDetailPresenter;
 import com.txusballesteros.view.di.DaggerViewComponent;
 import com.txusballesteros.view.di.ViewModule;
@@ -69,6 +73,39 @@ public class NoteDetailFragment extends AbsFragment implements NoteDetailPresent
     presenter.onAttach(noteId, noteType);
   }
 
+  @Override
+  public void onInitializeToolbar() {
+    getToolbar().setDisplayHomeAsUpEnabled(true);
+    getToolbar().setHomeButtonEnabled(true);
+  }
+
+  @Override
+  protected int onRequestMenuResourceId() {
+    return R.menu.note_detail_menu;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    boolean result = true;
+    switch(item.getItemId()) {
+      case R.id.delete:
+        presenter.onRequestDeleteNote();
+        break;
+      case android.R.id.home:
+        closeView();
+        break;
+      default:
+        result = super.onOptionsItemSelected(item);
+        break;
+    }
+    return result;
+  }
+
+  @Override
+  public void closeView() {
+    getActivity().finish();
+  }
+
   private long getNoteId() {
     return getArguments().getLong(EXTRA_NOTE_ID);
   }
@@ -76,5 +113,29 @@ public class NoteDetailFragment extends AbsFragment implements NoteDetailPresent
   private NoteType getNoteType() {
     int noteType = getArguments().getInt(EXTRA_NOTE_TYPE);
     return NoteType.fromInt(noteType);
+  }
+
+  @Override
+  public void showTextNoteDetail(TextNote note) {
+    TextNoteDetailFragment fragment = TextNoteDetailFragment.newInstance();
+    fragment.setNote(note);
+    showContent(fragment);
+  }
+
+  @Override
+  public void showTasksListNoteDetail(TaskListNote note) {
+
+  }
+
+  @Override
+  public void showImageNoteDetail(ImageNote note) {
+
+  }
+
+  private void showContent(Fragment content) {
+    getActivity().getSupportFragmentManager()
+        .beginTransaction()
+        .add(R.id.note_detail_place_holder, content)
+        .commit();
   }
 }

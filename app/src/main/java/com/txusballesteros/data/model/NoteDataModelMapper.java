@@ -57,6 +57,22 @@ public class NoteDataModelMapper {
     return result;
   }
 
+  public NoteDataModel update(@NonNull NoteDataModel source, long id) {
+    NoteDataModel result;
+    switch(source.getType()) {
+      case TASK_LIST:
+        result = tasksListNoteDataModelMapper.update((TaskListNoteDataModel) source, id);
+        break;
+      case IMAGE:
+        result = imageNoteDataModelMapper.update((ImageNoteDataModel) source, id);
+        break;
+      default:
+        result = textNoteDataModelMapper.update((TextNoteDataModel) source, id);
+        break;
+    }
+    return result;
+  }
+
   public Note map(@NonNull NoteDataModel source) {
     Note result;
     switch(source.getType()) {

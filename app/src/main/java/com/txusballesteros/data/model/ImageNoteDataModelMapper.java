@@ -33,6 +33,15 @@ public class ImageNoteDataModelMapper {
   @Inject
   public ImageNoteDataModelMapper() { }
 
+  public ImageNoteDataModel update(ImageNoteDataModel source, long id) {
+    final ImageNoteDataModel.Builder builder = new ImageNoteDataModel.Builder();
+    builder.setId(id);
+    builder.setTitle(source.getTitle());
+    builder.setDescription(source.getDescription());
+    builder.setImageUrl(source.getImageUrl());
+    return (ImageNoteDataModel) builder.build();
+  }
+
   public ImageNote map(ImageNoteDataModel source) {
     final ImageNote.Builder builder = new ImageNote.Builder();
     builder.setId(source.getId());

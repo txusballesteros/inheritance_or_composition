@@ -28,9 +28,9 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Note Detail"/>
+  <FrameLayout
+      android:id="@+id/note_detail_place_holder"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
 
 </FrameLayout>
