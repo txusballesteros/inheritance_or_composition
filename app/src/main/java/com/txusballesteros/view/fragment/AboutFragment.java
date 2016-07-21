@@ -25,9 +25,16 @@
 package com.txusballesteros.view.fragment;
 
 import android.support.v4.app.Fragment;
+import android.text.Html;
+import android.text.Spanned;
+import android.view.MenuItem;
+import android.widget.TextView;
+import butterknife.BindView;
 import com.txusballesteros.R;
 
 public class AboutFragment extends AbsFragment {
+  @BindView(R.id.about) TextView aboutView;
+
   public static Fragment newInstance() {
     return new AboutFragment();
   }
@@ -35,5 +42,32 @@ public class AboutFragment extends AbsFragment {
   @Override
   int onRequestLayoutResourceId() {
     return R.layout.fragment_about;
+  }
+
+  @Override
+  public void onInitializeToolbar() {
+    getToolbar().setDisplayHomeAsUpEnabled(true);
+    getToolbar().setHomeButtonEnabled(true);
+  }
+
+  @Override
+  public void onViewReady() {
+    Spanned content = Html.fromHtml(getString(R.string.about_text));
+    aboutView.setText(content);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    boolean result = true;
+    if (item.getItemId() == android.R.id.home) {
+      closeView();
+    } else {
+      result = super.onOptionsItemSelected(item);
+    }
+    return result;
+  }
+
+  private void closeView() {
+    getActivity().finish();
   }
 }
