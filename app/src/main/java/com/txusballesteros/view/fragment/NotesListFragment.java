@@ -71,6 +71,7 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
   @Override
   public void onResume() {
     super.onResume();
+    presenter.onResume();
   }
 
   @Override
