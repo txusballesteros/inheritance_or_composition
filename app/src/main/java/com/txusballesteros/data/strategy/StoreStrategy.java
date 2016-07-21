@@ -25,7 +25,7 @@
 package com.txusballesteros.data.strategy;
 
 public abstract class StoreStrategy<T> implements Strategy {
-  public void execte(T value) {
+  public void execute(T value) {
     storeOnLocalDataSource(value);
   }
 

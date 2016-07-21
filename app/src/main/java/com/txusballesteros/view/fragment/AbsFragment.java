@@ -49,7 +49,7 @@ abstract class AbsFragment extends Fragment {
     super.onCreate(savedInstanceState);
     onRequestInjection(getApplicationComponent());
     setHasOptionsMenu(true);
-    onInitializeToolbar();
+    initializeToolbar();
   }
 
   abstract void onRequestInjection(ApplicationComponent applicationComponent);
@@ -97,6 +97,13 @@ abstract class AbsFragment extends Fragment {
     doViewInjection(view);
     onViewReady();
     onPresenterShouldBeAttached();
+    initializeToolbar();
+  }
+
+  private void initializeToolbar() {
+    if (getToolbar() != null) {
+      onInitializeToolbar();
+    }
   }
 
   private void doViewInjection(View view) {

@@ -68,6 +68,6 @@ public class NotesRepositoryImpl implements NotesRepository {
   @Override
   public void storeNote(Note note) {
     NoteDataModel noteDataModel = mapper.map(note);
-    storeNoteStrategy.execte(noteDataModel);
+    storeNoteStrategy.execute(noteDataModel);
   }
 }
