@@ -24,12 +24,6 @@
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
 -->
 <resources>
-  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
-  </style>
-
   <style name="card">
     <item name="android:background">@android:color/white</item>
     <item name="android:layout_marginTop">@dimen/vertical_margin</item>
@@ -55,6 +49,11 @@
     <item name="android:fontFamily">sans-serif-light</item>
     <item name="android:textSize">@dimen/text_size_medium</item>
     <item name="android:textColor">@color/text_color_dark</item>
+  </style>
+
+  <style name="description.short">
+    <item name="android:maxLines">4</item>
+    <item name="android:ellipsize">end</item>
   </style>
 
   <style name="task">
