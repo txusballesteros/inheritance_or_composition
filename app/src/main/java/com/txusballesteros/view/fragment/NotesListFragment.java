@@ -95,7 +95,7 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
         presenter.onRequestChangePresentationMode();
         break;
       case R.id.about:
-        presenter.onRequestAbout();
+        presenter.onRequestAbout(getActivity());
         break;
       default:
         result = super.onOptionsItemSelected(item);

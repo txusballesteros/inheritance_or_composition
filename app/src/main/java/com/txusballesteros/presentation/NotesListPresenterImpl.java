@@ -87,8 +87,8 @@ public class NotesListPresenterImpl implements NotesListPresenter {
   }
 
   @Override
-  public void onRequestAbout() {
-
+  public void onRequestAbout(@NonNull Context context) {
+    navigator.navigateToAbout(context);
   }
 
   @Override

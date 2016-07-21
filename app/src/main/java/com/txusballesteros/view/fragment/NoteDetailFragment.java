@@ -126,7 +126,9 @@ public class NoteDetailFragment extends AbsFragment implements NoteDetailPresent
 
   @Override
   public void showTasksListNoteDetail(TaskListNote note) {
-
+    TasksListNoteDetailFragment fragment = TasksListNoteDetailFragment.newInstance();
+    fragment.setNote(note);
+    showContent(fragment);
   }
 
   @Override

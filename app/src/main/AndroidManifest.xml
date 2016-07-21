@@ -57,5 +57,9 @@
         android:label="@string/title_note_detail"
         android:configChanges="screenSize|orientation|keyboardHidden" />
 
+    <activity
+        android:name=".view.activity.AboutActivity"
+        android:label="@string/title_about" />
+
   </application>
 </manifest>

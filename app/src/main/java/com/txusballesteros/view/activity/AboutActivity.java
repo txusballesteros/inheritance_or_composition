@@ -22,17 +22,15 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.navigation;
+package com.txusballesteros.view.activity;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.view.View;
-import com.txusballesteros.domain.model.Note;
-import com.txusballesteros.domain.model.NoteType;
+import android.support.v4.app.Fragment;
+import com.txusballesteros.view.fragment.AboutFragment;
 
-public interface Navigator {
-  void navigateToCreateNewNote(@NonNull Context context, @NonNull NoteType type);
-  void navigateToNoteDetail(@NonNull Context context, @NonNull Note note, @Nullable View sharedElement);
-  void navigateToAbout(@NonNull Context context);
+public class AboutActivity extends AbsActivity {
+  @NonNull @Override
+  Fragment onRequestFragment() {
+    return AboutFragment.newInstance();
+  }
 }

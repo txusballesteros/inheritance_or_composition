@@ -34,7 +34,7 @@ public interface NotesListPresenter {
   void onResume();
   void onAddNewNoteClick(Context context);
   void onRequestChangePresentationMode();
-  void onRequestAbout();
+  void onRequestAbout(@NonNull Context context);
   void onRequestNoteDetail(@NonNull Context context, @NonNull Note note, @Nullable android.view.View sharedView);
 
   enum PresentationMode {

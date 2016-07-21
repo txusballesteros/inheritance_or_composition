@@ -22,17 +22,21 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.navigation;
+package com.txusballesteros.navigation.command;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.view.View;
-import com.txusballesteros.domain.model.Note;
-import com.txusballesteros.domain.model.NoteType;
+import com.txusballesteros.view.activity.AboutActivity;
 
-public interface Navigator {
-  void navigateToCreateNewNote(@NonNull Context context, @NonNull NoteType type);
-  void navigateToNoteDetail(@NonNull Context context, @NonNull Note note, @Nullable View sharedElement);
-  void navigateToAbout(@NonNull Context context);
+public class AboutNavigationCommand extends NavigationCommand {
+  public AboutNavigationCommand(Context context) {
+    super(context);
+  }
+
+  @NonNull @Override
+  Intent onRequestIntent(Context context) {
+    final Intent intent = new Intent(context, AboutActivity.class);
+    return intent;
+  }
 }

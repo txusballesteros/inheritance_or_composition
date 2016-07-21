@@ -30,6 +30,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import com.txusballesteros.domain.model.Note;
 import com.txusballesteros.domain.model.NoteType;
+import com.txusballesteros.navigation.command.AboutNavigationCommand;
 import com.txusballesteros.navigation.command.CreateNewNoteNavigationCommand;
 import com.txusballesteros.navigation.command.NavigationCommand;
 import com.txusballesteros.navigation.command.NoteDetailNavigationCommand;
@@ -48,6 +49,12 @@ public class ApplicationNavigator implements Navigator {
   @Override
   public void navigateToNoteDetail(@NonNull Context context, @NonNull Note note, @Nullable View sharedElement) {
     final NavigationCommand navigationCommand = new NoteDetailNavigationCommand(context, note, sharedElement);
+    navigate(navigationCommand);
+  }
+
+  @Override
+  public void navigateToAbout(@NonNull Context context) {
+    final AboutNavigationCommand navigationCommand = new AboutNavigationCommand(context);
     navigate(navigationCommand);
   }
 
