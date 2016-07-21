@@ -25,11 +25,13 @@
 package com.txusballesteros.view.activity;
 
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import butterknife.BindView;
@@ -39,16 +41,29 @@ import com.txusballesteros.R;
 public abstract class AbsActivity extends AppCompatActivity {
   @BindView(R.id.content_place_holder) ViewGroup contentPlaceHolder;
   @BindView(R.id.loading_place_holder) ViewGroup loadingPlaceHolder;
+  @BindView(R.id.toolbar_place_holder) ViewGroup toolbarPlaceHolder;
   @BindView(R.id.fab) FloatingActionButton fabView;
-  @BindView(R.id.toolbar) Toolbar toolbar;
+  private Toolbar toolbar;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_base);
     injectViews();
+    attachToolbar();
     initializeFragment();
     initializeToolbar();
+  }
+
+  private void attachToolbar() {
+    int toolbarLayoutResourceId = onRequestToolbarLayoutResourceId();
+    LayoutInflater.from(this).inflate(toolbarLayoutResourceId, toolbarPlaceHolder, true);
+    toolbar = (Toolbar) findViewById(R.id.toolbar);
+  }
+
+  @LayoutRes
+  protected int onRequestToolbarLayoutResourceId() {
+    return R.layout.toolbar_default;
   }
 
   private void initializeToolbar() {
