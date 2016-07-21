@@ -33,6 +33,7 @@ import com.txusballesteros.domain.model.ImageNote;
 import com.txusballesteros.domain.model.NoteType;
 import com.txusballesteros.domain.model.TaskListNote;
 import com.txusballesteros.domain.model.TextNote;
+import com.txusballesteros.instrumentation.ImageDownloader;
 import com.txusballesteros.presentation.NoteDetailPresenter;
 import com.txusballesteros.view.di.DaggerViewComponent;
 import com.txusballesteros.view.di.ViewModule;
@@ -42,6 +43,7 @@ public class NoteDetailFragment extends AbsFragment implements NoteDetailPresent
   public static final String EXTRA_NOTE_TYPE = "note:type";
   public static final String EXTRA_NOTE_ID = "note:id";
   @Inject NoteDetailPresenter presenter;
+  @Inject ImageDownloader imageDownloader;
 
   public static Fragment newInstance(long noteId, NoteType type) {
     Bundle arguments = new Bundle(2);
@@ -129,7 +131,10 @@ public class NoteDetailFragment extends AbsFragment implements NoteDetailPresent
 
   @Override
   public void showImageNoteDetail(ImageNote note) {
-
+    ImageNoteDetailFragment fragment = ImageNoteDetailFragment.newInstance();
+    fragment.setImageDownloader(imageDownloader);
+    fragment.setNote(note);
+    showContent(fragment);
   }
 
   private void showContent(Fragment content) {

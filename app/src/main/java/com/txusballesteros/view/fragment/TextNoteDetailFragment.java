@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.widget.TextView;
 import butterknife.BindView;
 import com.txusballesteros.R;
-import com.txusballesteros.domain.model.TextNote;
+import com.txusballesteros.domain.model.Note;
 
 public class TextNoteDetailFragment extends AbsFragment {
   public static final String EXTRA_NOTE_TITLE = "note:title";
@@ -20,7 +20,7 @@ public class TextNoteDetailFragment extends AbsFragment {
     return new TextNoteDetailFragment();
   }
 
-  public void setNote(@NonNull TextNote note) {
+  public void setNote(@NonNull Note note) {
     this.noteTitle = note.getTitle();
     this.noteDescription = note.getDescription();
   }

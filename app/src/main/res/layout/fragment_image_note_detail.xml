@@ -24,30 +24,22 @@
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
 -->
 <RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:padding="@dimen/content_padding">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-  <TextView
-      style="@style/title"
-      android:id="@+id/title"
+  <ImageView
+      android:id="@+id/image"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/content_padding"
-      android:gravity="top|left"
-      android:textSize="@dimen/text_size_big"
-      tools:text="Note Title" />
+      android:scaleType="centerCrop"
+      android:elevation="4dp"/>
 
-  <TextView
-      style="@style/description"
-      android:id="@+id/description"
+  <FrameLayout
+      android:id="@+id/text_note_place_holder"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_below="@+id/title"
       android:layout_marginTop="@dimen/content_padding"
-      android:gravity="top|left"
-      tools:text="Note description..."  />
+      android:layout_below="@+id/image"/>
 
 </RelativeLayout>
