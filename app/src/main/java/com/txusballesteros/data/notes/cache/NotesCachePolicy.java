@@ -29,7 +29,7 @@ import java.util.GregorianCalendar;
 import javax.inject.Inject;
 
 public class NotesCachePolicy implements CachePolicy {
-  private final long EXPIRATION_TIME_IN_MS = (15 * 1000);
+  private final long EXPIRATION_TIME_IN_MS = (60 * 60 * 1000); // 1 Hour
   private final long INITIAL_EXPIRATION_TIME = -1;
   private long lastCacheTime = INITIAL_EXPIRATION_TIME;
 
