@@ -38,6 +38,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import com.txusballesteros.AndroidApplication;
+import com.txusballesteros.R;
 import com.txusballesteros.di.ApplicationComponent;
 
 abstract class AbsFragment extends Fragment {
@@ -74,6 +75,14 @@ abstract class AbsFragment extends Fragment {
     return result;
   }
 
+  @Override
+  public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    doViewInjection(view);
+    onViewReady();
+    onPresenterShouldBeAttached();
+    initializeToolbar();
+  }
+
   protected Menu getMenu() {
     return menu;
   }
@@ -98,14 +107,6 @@ abstract class AbsFragment extends Fragment {
   @LayoutRes
   abstract int onRequestLayoutResourceId();
 
-  @Override
-  public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-    doViewInjection(view);
-    onViewReady();
-    onPresenterShouldBeAttached();
-    initializeToolbar();
-  }
-
   private void initializeToolbar() {
     if (getToolbar() != null) {
       onInitializeToolbar();
@@ -113,7 +114,11 @@ abstract class AbsFragment extends Fragment {
   }
 
   private void doViewInjection(View view) {
-    ButterKnife.bind(this, view);
+    View bindingView = view;
+    if (isAdded()) {
+      bindingView = getActivity().findViewById(R.id.rootView);
+    }
+    ButterKnife.bind(this, bindingView);
   }
 
   public void onPresenterShouldBeAttached() { }

@@ -1,6 +1,7 @@
 package com.txusballesteros.view.fragment;
 
 import android.support.annotation.NonNull;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.widget.ImageView;
 import butterknife.BindView;
 import com.txusballesteros.R;
@@ -10,7 +11,8 @@ import com.txusballesteros.instrumentation.ImageDownloader;
 public class ImageNoteDetailFragment extends AbsFragment {
   private ImageDownloader imageDownloader;
   private ImageNote note;
-  @BindView(R.id.image) ImageView imageView;
+  @BindView(R.id.headerImage) ImageView imageView;
+  @BindView(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbarLayout;
 
   public static ImageNoteDetailFragment newInstance() {
     return new ImageNoteDetailFragment();
@@ -38,9 +40,15 @@ public class ImageNoteDetailFragment extends AbsFragment {
   public void onViewReady() {
     renderImage();
     renderText();
+    renderToolbar();
+  }
+
+  private void renderToolbar() {
+    collapsingToolbarLayout.setTitle(note.getTitle());
   }
 
   private void renderText() {
+
     TextNoteDetailFragment fragment = TextNoteDetailFragment.newInstance();
     fragment.setNote(note);
     getActivity().getSupportFragmentManager()

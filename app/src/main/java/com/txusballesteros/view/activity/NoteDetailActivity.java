@@ -26,6 +26,7 @@ package com.txusballesteros.view.activity;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import com.txusballesteros.R;
 import com.txusballesteros.domain.model.NoteType;
 import com.txusballesteros.view.fragment.NoteDetailFragment;
 
@@ -38,6 +39,15 @@ public class NoteDetailActivity extends AbsActivity {
     long noteId = getNoteId();
     NoteType noteType = getNoteType();
     return NoteDetailFragment.newInstance(noteId, noteType);
+  }
+
+  @Override
+  protected int onRequestToolbarLayoutResourceId() {
+    int resut = super.onRequestToolbarLayoutResourceId();
+    if (getNoteType() == NoteType.IMAGE) {
+      resut = R.layout.toolbar_with_image;
+    }
+    return resut;
   }
 
   private long getNoteId() {

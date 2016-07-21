@@ -24,12 +24,5 @@
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
 -->
 <resources>
-  <dimen name="vertical_margin">4dp</dimen>
-  <dimen name="horizontal_margin">8dp</dimen>
-  <dimen name="content_padding">8dp</dimen>
-  <dimen name="fab_padding">16dp</dimen>
-  <dimen name="text_size_big">22sp</dimen>
-  <dimen name="text_size_medium">18sp</dimen>
-  <dimen name="text_size_normal">15sp</dimen>
-  <dimen name="toolbar_image_height">300dp</dimen>
+  <dimen name="toolbar_image_height">100dp</dimen>
 </resources>
