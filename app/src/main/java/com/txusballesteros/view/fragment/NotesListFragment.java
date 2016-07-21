@@ -25,9 +25,9 @@
 package com.txusballesteros.view.fragment;
 
 import android.support.annotation.DrawableRes;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,11 +71,11 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
   @Override
   public void onResume() {
     super.onResume();
-    presenter.onResume();
   }
 
   @Override
   public void onViewReady() {
+    setRetainInstance(true);
     initializeFabButton();
   }
 
@@ -169,6 +169,7 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
   }
 
   private RecyclerView.LayoutManager buildGridLayoutManager() {
-    return new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false);
+    //return new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false);
+    return new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
   }
 }
