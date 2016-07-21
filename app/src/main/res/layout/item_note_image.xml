@@ -38,7 +38,8 @@
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:transitionName="@string/transition_note_image" />
 
     <LinearLayout
         android:layout_width="match_parent"

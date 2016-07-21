@@ -24,18 +24,28 @@
  */
 package com.txusballesteros.navigation.command;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.view.View;
+import com.txusballesteros.R;
 import com.txusballesteros.domain.model.Note;
+import com.txusballesteros.domain.model.NoteType;
 import com.txusballesteros.view.activity.NoteDetailActivity;
 
 public class NoteDetailNavigationCommand extends NavigationCommand {
   private final Note note;
+  private final View sharedView;
 
-  public NoteDetailNavigationCommand(Context context, Note note) {
+  public NoteDetailNavigationCommand(Context context, Note note, View sharedView) {
     super(context);
     this.note = note;
+    this.sharedView = sharedView;
   }
 
   @NonNull @Override
@@ -44,5 +54,18 @@ public class NoteDetailNavigationCommand extends NavigationCommand {
     intent.putExtra(NoteDetailActivity.EXTRA_NOTE_TYPE, note.getType().ordinal());
     intent.putExtra(NoteDetailActivity.EXTRA_NOTE_ID, note.getId());
     return intent;
+  }
+
+  @Nullable @Override
+  protected Bundle onRequestActivityOptions() {
+    Bundle result = null;
+    if (sharedView != null && note.getType() == NoteType.IMAGE) {
+      final Activity activity = (Activity) getContext();
+      final Resources resources = activity.getResources();
+      ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat
+              .makeSceneTransitionAnimation(activity, sharedView, resources.getString(R.string.transition_note_image));
+      result = activityOptionsCompat.toBundle();
+    }
+    return result;
   }
 }

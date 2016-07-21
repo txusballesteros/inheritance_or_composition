@@ -26,6 +26,8 @@ package com.txusballesteros.navigation;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.view.View;
 import com.txusballesteros.domain.model.Note;
 import com.txusballesteros.domain.model.NoteType;
 import com.txusballesteros.navigation.command.CreateNewNoteNavigationCommand;
@@ -44,8 +46,8 @@ public class ApplicationNavigator implements Navigator {
   }
 
   @Override
-  public void navigateToNoteDetail(@NonNull Context context, @NonNull Note note) {
-    final NavigationCommand navigationCommand = new NoteDetailNavigationCommand(context, note);
+  public void navigateToNoteDetail(@NonNull Context context, @NonNull Note note, @Nullable View sharedElement) {
+    final NavigationCommand navigationCommand = new NoteDetailNavigationCommand(context, note, sharedElement);
     navigate(navigationCommand);
   }
 

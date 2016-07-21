@@ -25,6 +25,8 @@
 package com.txusballesteros.presentation;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import com.txusballesteros.domain.model.Note;
 import java.util.List;
 
@@ -33,7 +35,7 @@ public interface NotesListPresenter {
   void onAddNewNoteClick(Context context);
   void onRequestChangePresentationMode();
   void onRequestAbout();
-  void onRequestNoteDetail(Context context, Note note);
+  void onRequestNoteDetail(@NonNull Context context, @NonNull Note note, @Nullable android.view.View sharedView);
 
   enum PresentationMode {
     LIST,

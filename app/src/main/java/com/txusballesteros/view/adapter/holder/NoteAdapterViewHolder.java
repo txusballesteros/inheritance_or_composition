@@ -25,6 +25,7 @@
 package com.txusballesteros.view.adapter.holder;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -32,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.txusballesteros.R;
 
-public class NoteAdapterViewHolder extends RecyclerView.ViewHolder {
+public abstract class NoteAdapterViewHolder extends RecyclerView.ViewHolder {
   private final View rootView;
   private final OnViewHolderClickListener listener;
   @BindView(R.id.title) TextView nameView;
@@ -63,12 +64,18 @@ public class NoteAdapterViewHolder extends RecyclerView.ViewHolder {
       @Override
       public void onClick(View view) {
         int position = getAdapterPosition();
-        listener.onViewHolderClick(NoteAdapterViewHolder.this, position);
+        View sharedView = getSharedView();
+        listener.onViewHolderClick(NoteAdapterViewHolder.this, sharedView, position);
       }
     });
   }
 
+  @Nullable
+  protected View getSharedView() {
+    return null;
+  }
+
   public interface OnViewHolderClickListener {
-    void onViewHolderClick(RecyclerView.ViewHolder holder, int position);
+    void onViewHolderClick(RecyclerView.ViewHolder holder, View view, int position);
   }
 }

@@ -26,6 +26,7 @@ package com.txusballesteros.view.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 import com.txusballesteros.domain.model.ImageNote;
 import com.txusballesteros.domain.model.Note;
@@ -114,14 +115,14 @@ public class NotesListAdapter extends RecyclerView.Adapter<NoteAdapterViewHolder
   }
 
   @Override
-  public void onViewHolderClick(RecyclerView.ViewHolder holder, int position) {
+  public void onViewHolderClick(RecyclerView.ViewHolder holder, View sharedView, int position) {
     if (listener != null) {
       Note note = dataSet.get(position);
-      listener.onNoteClick(note);
+      listener.onNoteClick(sharedView, note);
     }
   }
 
   public interface OnNoteClickListener {
-    void onNoteClick(@NonNull Note note);
+    void onNoteClick(View sharedView, @NonNull Note note);
   }
 }

@@ -25,6 +25,7 @@
 package com.txusballesteros.view.adapter.holder;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import butterknife.BindView;
@@ -40,5 +41,10 @@ public class ImageNoteAdapterViewHolder extends NoteAdapterViewHolder {
 
   public void renderImage(@NonNull ImageDownloader imageDownloader, @NonNull String imageUrl) {
     imageDownloader.downloadImage(imageUrl, imageView);
+  }
+
+  @Nullable @Override
+  protected View getSharedView() {
+    return imageView;
   }
 }

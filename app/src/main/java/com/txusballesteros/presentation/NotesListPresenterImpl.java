@@ -26,6 +26,7 @@ package com.txusballesteros.presentation;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import com.txusballesteros.domain.interactor.GetNotesUseCase;
 import com.txusballesteros.domain.model.Note;
 import com.txusballesteros.domain.model.NoteType;
@@ -91,7 +92,8 @@ public class NotesListPresenterImpl implements NotesListPresenter {
   }
 
   @Override
-  public void onRequestNoteDetail(@NonNull Context context, @NonNull Note note) {
-    navigator.navigateToNoteDetail(context, note);
+  public void onRequestNoteDetail(@NonNull Context context, @NonNull Note note,
+                                  @Nullable android.view.View sharedView) {
+    navigator.navigateToNoteDetail(context, note, sharedView);
   }
 }

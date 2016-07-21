@@ -165,8 +165,8 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
     }
     adapter.setOnNoteClickListener(new NotesListAdapter.OnNoteClickListener() {
       @Override
-      public void onNoteClick(@NonNull Note note) {
-        presenter.onRequestNoteDetail(getActivity(), note);
+      public void onNoteClick(View sharedView, @NonNull Note note) {
+        presenter.onRequestNoteDetail(getActivity(), note, sharedView);
       }
     });
     listView.setLayoutManager(layoutManager);
