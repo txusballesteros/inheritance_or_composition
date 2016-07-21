@@ -51,7 +51,7 @@ public class NotesListPresenterImpl implements NotesListPresenter {
   @Override
   public void onResume() {
     view.showLoading();
-    view.showPresentationModeList();
+    configurePresentationMode();
     getNotesUseCase.execute(new GetNotesUseCase.Callback() {
       @Override
       public void onActorReady(@NonNull List<Note> notes) {
@@ -59,6 +59,14 @@ public class NotesListPresenterImpl implements NotesListPresenter {
         view.renderNotesList(notes);
       }
     });
+  }
+
+  private void configurePresentationMode() {
+    if (presentationMode == PresentationMode.LIST) {
+      view.showPresentationModeList();
+    } else {
+      view.showPresentationModeGrid();
+    }
   }
 
   @Override
