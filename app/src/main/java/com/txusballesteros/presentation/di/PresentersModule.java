@@ -26,6 +26,8 @@ package com.txusballesteros.presentation.di;
 
 import com.txusballesteros.presentation.CreateNotePresenter;
 import com.txusballesteros.presentation.CreateNotePresenterImpl;
+import com.txusballesteros.presentation.NoteDetailPresenter;
+import com.txusballesteros.presentation.NoteDetailPresenterImpl;
 import com.txusballesteros.presentation.NotesListPresenter;
 import com.txusballesteros.presentation.NotesListPresenterImpl;
 import dagger.Module;
@@ -40,6 +42,11 @@ public class PresentersModule {
 
   @Provides
   CreateNotePresenter provideCreateNotePresenter(CreateNotePresenterImpl presenter) {
+    return presenter;
+  }
+
+  @Provides
+  NoteDetailPresenter provideNoteDetailPresenter(NoteDetailPresenterImpl presenter) {
     return presenter;
   }
 }

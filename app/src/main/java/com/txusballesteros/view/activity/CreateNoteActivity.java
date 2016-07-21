@@ -31,7 +31,6 @@ import com.txusballesteros.view.fragment.CreateTextNoteFragment;
 
 public class CreateNoteActivity extends AbsActivity {
   public static final String EXTRA_NOTE_TYPE = "note:type";
-  public static final String EXTRA_NOTE_ID = "note:id";
 
   @NonNull @Override
   Fragment onRequestFragment() {

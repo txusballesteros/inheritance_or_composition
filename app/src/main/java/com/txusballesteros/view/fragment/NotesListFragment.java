@@ -26,6 +26,7 @@ package com.txusballesteros.view.fragment;
 
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -51,7 +52,7 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
   @Inject ImageDownloader imageDownloader;
   @BindView(R.id.list) RecyclerView listView;
 
-  public static NotesListFragment newInstance() {
+  public static Fragment newInstance() {
     return new NotesListFragment();
   }
 

@@ -26,6 +26,7 @@ package com.txusballesteros.view.di;
 
 import com.txusballesteros.domain.interactor.di.UseCasesModule;
 import com.txusballesteros.presentation.CreateNotePresenter;
+import com.txusballesteros.presentation.NoteDetailPresenter;
 import com.txusballesteros.presentation.NotesListPresenter;
 import com.txusballesteros.presentation.di.PresentersModule;
 import dagger.Module;
@@ -38,6 +39,7 @@ import dagger.Provides;
 public class ViewModule {
   private NotesListPresenter.View actorsListPresenterView;
   private CreateNotePresenter.View createNotePresenterView;
+  private NoteDetailPresenter.View  noteDetailPresenterView;
 
   public ViewModule(NotesListPresenter.View view) {
     this.actorsListPresenterView = view;
@@ -45,6 +47,10 @@ public class ViewModule {
 
   public ViewModule(CreateNotePresenter.View view) {
     this.createNotePresenterView = view;
+  }
+
+  public ViewModule(NoteDetailPresenter.View view) {
+    this.noteDetailPresenterView = view;
   }
 
   @Provides
@@ -55,5 +61,10 @@ public class ViewModule {
   @Provides
   CreateNotePresenter.View provideCreateNotePresenterView() {
     return createNotePresenterView;
+  }
+
+  @Provides
+  NoteDetailPresenter.View provideNoteDetailPresenterView() {
+    return noteDetailPresenterView;
   }
 }

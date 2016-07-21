@@ -24,6 +24,7 @@
  */
 package com.txusballesteros.view.fragment;
 
+import android.support.v4.app.Fragment;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -42,7 +43,7 @@ public class CreateTextNoteFragment extends AbsFragment implements CreateNotePre
   @BindView(R.id.description) EditText descriptionView;
   @Inject CreateNotePresenter presenter;
 
-  public static CreateTextNoteFragment newInstance() {
+  public static Fragment newInstance() {
     return new CreateTextNoteFragment();
   }
 

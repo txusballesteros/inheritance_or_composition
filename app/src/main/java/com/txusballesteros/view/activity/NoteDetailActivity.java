@@ -26,11 +26,26 @@ package com.txusballesteros.view.activity;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import com.txusballesteros.domain.model.NoteType;
 import com.txusballesteros.view.fragment.NoteDetailFragment;
 
 public class NoteDetailActivity extends AbsActivity {
+  public static final String EXTRA_NOTE_TYPE = "note:type";
+  public static final String EXTRA_NOTE_ID = "note:id";
+
   @NonNull @Override
   Fragment onRequestFragment() {
-    return NoteDetailFragment.newInstance();
+    long noteId = getNoteId();
+    NoteType noteType = getNoteType();
+    return NoteDetailFragment.newInstance(noteId, noteType);
+  }
+
+  private long getNoteId() {
+    return getIntent().getExtras().getLong(EXTRA_NOTE_ID);
+  }
+
+  private NoteType getNoteType() {
+    int noteType = getIntent().getExtras().getInt(EXTRA_NOTE_TYPE);
+    return NoteType.fromInt(noteType);
   }
 }

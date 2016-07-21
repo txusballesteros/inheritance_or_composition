@@ -28,7 +28,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import com.txusballesteros.domain.model.Note;
-import com.txusballesteros.view.activity.CreateNoteActivity;
 import com.txusballesteros.view.activity.NoteDetailActivity;
 
 public class NoteDetailNavigationCommand extends NavigationCommand {
@@ -42,8 +41,8 @@ public class NoteDetailNavigationCommand extends NavigationCommand {
   @NonNull @Override
   Intent onRequestIntent(Context context) {
     final Intent intent = new Intent(context, NoteDetailActivity.class);
-    intent.putExtra(CreateNoteActivity.EXTRA_NOTE_TYPE, note.getType().ordinal());
-    intent.putExtra(CreateNoteActivity.EXTRA_NOTE_ID, note.getId());
+    intent.putExtra(NoteDetailActivity.EXTRA_NOTE_TYPE, note.getType().ordinal());
+    intent.putExtra(NoteDetailActivity.EXTRA_NOTE_ID, note.getId());
     return intent;
   }
 }

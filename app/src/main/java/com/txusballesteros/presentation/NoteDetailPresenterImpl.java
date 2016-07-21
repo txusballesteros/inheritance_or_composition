@@ -22,22 +22,20 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.view.di;
+package com.txusballesteros.presentation;
 
-import com.txusballesteros.di.ApplicationComponent;
-import com.txusballesteros.di.scope.PerView;
-import com.txusballesteros.view.fragment.CreateTextNoteFragment;
-import com.txusballesteros.view.fragment.NoteDetailFragment;
-import com.txusballesteros.view.fragment.NotesListFragment;
-import dagger.Component;
+import com.txusballesteros.domain.model.NoteType;
+import javax.inject.Inject;
 
-@PerView
-@Component(
-  dependencies = ApplicationComponent.class,
-  modules = { ViewModule.class }
-)
-public interface ViewComponent {
-  void inject(NotesListFragment view);
-  void inject(CreateTextNoteFragment view);
-  void inject(NoteDetailFragment view);
+public class NoteDetailPresenterImpl implements NoteDetailPresenter {
+  private final View view;
+
+  @Inject
+  public NoteDetailPresenterImpl(NoteDetailPresenter.View view) { this.view = view;}
+
+  @Override
+  public void onAttach(long noteId, NoteType type) {
+    String a = "";
+    a += "";
+  }
 }
