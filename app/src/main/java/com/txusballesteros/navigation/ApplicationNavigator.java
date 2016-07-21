@@ -27,7 +27,21 @@ package com.txusballesteros.navigation;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import com.txusballesteros.domain.model.NoteType;
+import com.txusballesteros.navigation.command.CreateNewNoteNavigationCommand;
+import com.txusballesteros.navigation.command.NavigationCommand;
+import javax.inject.Inject;
 
-public interface Navigator {
-  void navigateToCreateNewNote(@NonNull Context context, @NonNull NoteType type);
+public class ApplicationNavigator implements Navigator {
+  @Inject
+  public ApplicationNavigator() { }
+
+  @Override
+  public void navigateToCreateNewNote(@NonNull Context context, @NonNull NoteType type) {
+    final NavigationCommand navigationCommand = new CreateNewNoteNavigationCommand(context, type);
+    navigate(navigationCommand);
+  }
+
+  private void navigate(NavigationCommand navigationCommand) {
+    navigationCommand.execute();
+  }
 }

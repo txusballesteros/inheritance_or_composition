@@ -32,6 +32,7 @@ import com.txusballesteros.domain.executor.MainThreadExecutor;
 import com.txusballesteros.domain.executor.PostExecutionThread;
 import com.txusballesteros.domain.executor.ThreadExecutor;
 import com.txusballesteros.instrumentation.di.InstrumentationModule;
+import com.txusballesteros.navigation.di.NavigationModule;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
@@ -39,7 +40,8 @@ import javax.inject.Singleton;
 @Module(includes = {
      InstrumentationModule.class,
      RepositoriesModule.class,
-     DataSourcesModule.class
+     DataSourcesModule.class,
+     NavigationModule.class
 })
 public class ApplicationModule {
   private final Application application;
