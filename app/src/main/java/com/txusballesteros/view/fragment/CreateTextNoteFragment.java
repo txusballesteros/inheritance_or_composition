@@ -24,8 +24,6 @@
  */
 package com.txusballesteros.view.fragment;
 
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import butterknife.BindView;
@@ -68,9 +66,8 @@ public class CreateTextNoteFragment extends AbsFragment implements CreateNotePre
   }
 
   @Override
-  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-    menu.clear();
-    inflater.inflate(R.menu.create_new_note_menu, menu);
+  protected int onRequestMenuResourceId() {
+    return R.menu.create_new_note_menu;
   }
 
   @Override

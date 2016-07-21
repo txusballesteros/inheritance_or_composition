@@ -37,6 +37,7 @@ public class NotesListPresenterImpl implements NotesListPresenter {
   private final View view;
   private final GetNotesUseCase getNotesUseCase;
   private final Navigator navigator;
+  private PresentationMode presentationMode = PresentationMode.LIST;
 
   @Inject
   public NotesListPresenterImpl(NotesListPresenter.View view,
@@ -50,6 +51,7 @@ public class NotesListPresenterImpl implements NotesListPresenter {
   @Override
   public void onResume() {
     view.showLoading();
+    view.showPresentationModeList();
     getNotesUseCase.execute(new GetNotesUseCase.Callback() {
       @Override
       public void onActorReady(@NonNull List<Note> notes) {
@@ -62,5 +64,21 @@ public class NotesListPresenterImpl implements NotesListPresenter {
   @Override
   public void onAddNewNoteClick(@NonNull Context context) {
     navigator.navigateToCreateNewNote(context, NoteType.TEXT);
+  }
+
+  @Override
+  public void onRequestChangePresentationMode() {
+    if (presentationMode == PresentationMode.LIST) {
+      presentationMode = PresentationMode.GRID;
+      view.showPresentationModeGrid();
+    } else {
+      presentationMode = PresentationMode.LIST;
+      view.showPresentationModeList();
+    }
+  }
+
+  @Override
+  public void onRequestAbout() {
+
   }
 }

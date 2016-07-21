@@ -26,11 +26,14 @@ package com.txusballesteros.view.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.MenuRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import butterknife.ButterKnife;
@@ -38,6 +41,9 @@ import com.txusballesteros.AndroidApplication;
 import com.txusballesteros.di.ApplicationComponent;
 
 abstract class AbsFragment extends Fragment {
+  public static final int WITHOUT_MENU = 0;
+  private Menu menu;
+
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -62,6 +68,25 @@ abstract class AbsFragment extends Fragment {
     int layoutResourceId = onRequestLayoutResourceId();
     View result = inflater.inflate(layoutResourceId, container, false);
     return result;
+  }
+
+  protected Menu getMenu() {
+    return menu;
+  }
+
+  @Override
+  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    this.menu = menu;
+    this.menu.clear();
+    int menuResourceId = onRequestMenuResourceId();
+    if (menuResourceId != WITHOUT_MENU) {
+      inflater.inflate(menuResourceId, this.menu);
+    }
+  }
+
+  @MenuRes
+  protected int onRequestMenuResourceId() {
+    return WITHOUT_MENU;
   }
 
   @LayoutRes

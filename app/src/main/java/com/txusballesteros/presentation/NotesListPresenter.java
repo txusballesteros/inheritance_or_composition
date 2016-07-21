@@ -31,10 +31,19 @@ import java.util.List;
 public interface NotesListPresenter {
   void onResume();
   void onAddNewNoteClick(Context context);
+  void onRequestChangePresentationMode();
+  void onRequestAbout();
+
+  enum PresentationMode {
+    LIST,
+    GRID
+  }
 
   interface View {
     void renderNotesList(List<Note> notes);
     void showLoading();
     void hideLoading();
+    void showPresentationModeList();
+    void showPresentationModeGrid();
   }
 }

@@ -24,8 +24,12 @@
  */
 package com.txusballesteros.view.fragment;
 
+import android.support.annotation.DrawableRes;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import butterknife.BindView;
 import com.txusballesteros.R;
@@ -72,15 +76,29 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
 
   @Override
   public void onViewReady() {
-    initializeList();
     initializeFabButton();
   }
 
-  private void initializeList() {
-    adapter = new NotesListAdapter(imageDownloader);
-    listView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-    listView.setHasFixedSize(true);
-    listView.setAdapter(adapter);
+  @Override
+  protected int onRequestMenuResourceId() {
+    return R.menu.notes_list_menu;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    boolean result = true;
+    switch(item.getItemId()) {
+      case R.id.presentation_mode:
+        presenter.onRequestChangePresentationMode();
+        break;
+      case R.id.about:
+        presenter.onRequestAbout();
+        break;
+      default:
+        result = super.onOptionsItemSelected(item);
+        break;
+    }
+    return result;
   }
 
   @Override
@@ -113,5 +131,44 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
     if (isAdded()) {
       ((NotesListActivity) getActivity()).hideLoading();
     }
+  }
+
+  @Override
+  public void showPresentationModeList() {
+    final RecyclerView.LayoutManager layoutManager = buildListLayoutManager();
+    replaceLayoutManager(layoutManager);
+    changePresentationModeIcon(R.drawable.ic_mode_grid_white_24dp);
+  }
+
+  @Override
+  public void showPresentationModeGrid() {
+    final RecyclerView.LayoutManager layoutManager = buildGridLayoutManager();
+    replaceLayoutManager(layoutManager);
+    changePresentationModeIcon(R.drawable.ic_mode_list_white_24dp);
+  }
+
+  private void changePresentationModeIcon(@DrawableRes int iconResourceId) {
+    Menu menu = getMenu();
+    if (menu != null) {
+      MenuItem menuItem = menu.findItem(R.id.presentation_mode);
+      menuItem.setIcon(iconResourceId);
+    }
+  }
+
+  private void replaceLayoutManager(RecyclerView.LayoutManager layoutManager) {
+    if (adapter == null) {
+      adapter = new NotesListAdapter(imageDownloader);
+    }
+    listView.setLayoutManager(layoutManager);
+    listView.setHasFixedSize(true);
+    listView.setAdapter(adapter);
+  }
+
+  private RecyclerView.LayoutManager buildListLayoutManager() {
+    return new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+  }
+
+  private RecyclerView.LayoutManager buildGridLayoutManager() {
+    return new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false);
   }
 }
