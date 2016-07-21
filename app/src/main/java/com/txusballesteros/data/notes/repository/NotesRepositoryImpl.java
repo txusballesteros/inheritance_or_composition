@@ -26,6 +26,7 @@ package com.txusballesteros.data.notes.repository;
 
 import com.txusballesteros.data.model.NoteDataModel;
 import com.txusballesteros.data.model.NoteDataModelMapper;
+import com.txusballesteros.data.notes.strategy.DeleteNoteStrategy;
 import com.txusballesteros.data.notes.strategy.GetNoteByIdStrategy;
 import com.txusballesteros.data.notes.strategy.GetNotesStrategy;
 import com.txusballesteros.data.notes.strategy.StoreNoteStrategy;
@@ -36,6 +37,7 @@ import javax.inject.Inject;
 
 public class NotesRepositoryImpl implements NotesRepository {
   private final StoreNoteStrategy storeNoteStrategy;
+  private final DeleteNoteStrategy deleteNoteStrategy;
   private final NoteDataModelMapper mapper;
   private final GetNoteByIdStrategy getNoteByIdStrategy;
   private final GetNotesStrategy getNotesStrategy;
@@ -44,10 +46,12 @@ public class NotesRepositoryImpl implements NotesRepository {
   public NotesRepositoryImpl(GetNotesStrategy getNotesStrategy,
                              GetNoteByIdStrategy getNoteByIdStrategy,
                              StoreNoteStrategy storeNoteStrategy,
+                             DeleteNoteStrategy deleteNoteStrategy,
                              NoteDataModelMapper mapper) {
     this.getNotesStrategy = getNotesStrategy;
     this.getNoteByIdStrategy = getNoteByIdStrategy;
     this.storeNoteStrategy = storeNoteStrategy;
+    this.deleteNoteStrategy = deleteNoteStrategy;
     this.mapper = mapper;
   }
 
@@ -69,5 +73,10 @@ public class NotesRepositoryImpl implements NotesRepository {
   public void storeNote(Note note) {
     NoteDataModel noteDataModel = mapper.map(note);
     storeNoteStrategy.execute(noteDataModel);
+  }
+
+  @Override
+  public void deleteNote(long id) {
+    deleteNoteStrategy.execute(id);
   }
 }

@@ -25,6 +25,7 @@
 package com.txusballesteros.presentation;
 
 import android.support.annotation.NonNull;
+import com.txusballesteros.domain.interactor.DeleteNoteUseCase;
 import com.txusballesteros.domain.interactor.GetNoteByIdUseCase;
 import com.txusballesteros.domain.model.ImageNote;
 import com.txusballesteros.domain.model.Note;
@@ -36,13 +37,16 @@ import javax.inject.Inject;
 public class NoteDetailPresenterImpl implements NoteDetailPresenter {
   private final View view;
   private final GetNoteByIdUseCase getNoteByIdUseCase;
+  private final DeleteNoteUseCase deleteNoteUseCase;
   private Note note;
 
   @Inject
   public NoteDetailPresenterImpl(NoteDetailPresenter.View view,
-                                 GetNoteByIdUseCase getNoteByIdUseCase) {
+                                 GetNoteByIdUseCase getNoteByIdUseCase,
+                                 DeleteNoteUseCase deleteNoteUseCase) {
     this.view = view;
     this.getNoteByIdUseCase = getNoteByIdUseCase;
+    this.deleteNoteUseCase = deleteNoteUseCase;
   }
 
   @Override
@@ -58,7 +62,12 @@ public class NoteDetailPresenterImpl implements NoteDetailPresenter {
 
   @Override
   public void onRequestDeleteNote() {
-    view.closeView();
+    deleteNoteUseCase.execute(note.getId(), new DeleteNoteUseCase.Callback() {
+      @Override
+      public void onNoteDeleted() {
+        view.closeView();
+      }
+    });
   }
 
   private void displayNoteDetail() {

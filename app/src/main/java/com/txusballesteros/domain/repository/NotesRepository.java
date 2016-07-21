@@ -31,4 +31,5 @@ public interface NotesRepository {
   List<Note> getNotes();
   Note getNoteById(long id);
   void storeNote(Note note);
+  void deleteNote(long id);
 }

@@ -24,6 +24,7 @@
  */
 package com.txusballesteros.data.notes.datasource;
 
+import android.util.LongSparseArray;
 import com.txusballesteros.data.model.ImageNoteDataModel;
 import com.txusballesteros.data.model.NoteDataModel;
 import com.txusballesteros.data.model.NoteDataModelMapper;
@@ -31,14 +32,12 @@ import com.txusballesteros.data.model.TaskDataModel;
 import com.txusballesteros.data.model.TaskListNoteDataModel;
 import com.txusballesteros.data.model.TextNoteDataModel;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import javax.inject.Inject;
 
 public class NotesInMemoryLocalDataSource implements NotesLocalDataSource {
   private final NoteDataModelMapper mapper;
-  private Map<Long, NoteDataModel> dataSet;
+  private LongSparseArray<NoteDataModel> dataSet;
 
   @Inject
   public NotesInMemoryLocalDataSource(NoteDataModelMapper mapper) {
@@ -47,7 +46,7 @@ public class NotesInMemoryLocalDataSource implements NotesLocalDataSource {
   }
 
   private void initializeAndFetchDataSet() {
-    dataSet = new LinkedHashMap<>();
+    dataSet = new LongSparseArray<>();
     buildTextNote(1, "Learning Clean Code & SOLID", "Which is the best way to learn Clean Code and SOLID?");
     buildTasksListNote(2, "Pokemon GO", "Pokemons on my Pokédex", buildPokemonsList());
     buildImageNote(3, "My Best Picture...", "This is my favorite picture.", "http://lorempixel.com/400/400/nature/");
@@ -103,8 +102,17 @@ public class NotesInMemoryLocalDataSource implements NotesLocalDataSource {
   }
 
   @Override
+  public void deleteNote(long id) {
+    dataSet.remove(id);
+  }
+
+  @Override
   public List<NoteDataModel> getNotes() {
-    return new ArrayList<>(dataSet.values());
+    List<NoteDataModel> result = new ArrayList<>(dataSet.size());
+    for(int index = 0; index < dataSet.size(); index++) {
+      result.add(dataSet.valueAt(index));
+    }
+    return result;
   }
 
   @Override

@@ -22,14 +22,12 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.data.notes.datasource;
+package com.txusballesteros.domain.interactor;
 
-import com.txusballesteros.data.model.NoteDataModel;
-import java.util.List;
+public interface DeleteNoteUseCase {
+  void execute(long noteId, Callback callback);
 
-public interface NotesLocalDataSource {
-  List<NoteDataModel> getNotes();
-  NoteDataModel getNotesById(long id);
-  void storeNote(NoteDataModel note);
-  void deleteNote(long id);
+  interface Callback {
+    void onNoteDeleted();
+  }
 }

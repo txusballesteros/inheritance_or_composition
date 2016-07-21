@@ -22,14 +22,22 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.data.notes.datasource;
+package com.txusballesteros.data.notes.strategy;
 
-import com.txusballesteros.data.model.NoteDataModel;
-import java.util.List;
+import com.txusballesteros.data.notes.datasource.NotesLocalDataSource;
+import com.txusballesteros.data.strategy.StoreStrategy;
+import javax.inject.Inject;
 
-public interface NotesLocalDataSource {
-  List<NoteDataModel> getNotes();
-  NoteDataModel getNotesById(long id);
-  void storeNote(NoteDataModel note);
-  void deleteNote(long id);
+public class DeleteNoteStrategy extends StoreStrategy<Long> {
+  private final NotesLocalDataSource localDataSource;
+
+  @Inject
+  public DeleteNoteStrategy(NotesLocalDataSource localDataSource) {
+    this.localDataSource = localDataSource;
+  }
+
+  @Override
+  protected void storeOnLocalDataSource(Long id) {
+    localDataSource.deleteNote(id);
+  }
 }
