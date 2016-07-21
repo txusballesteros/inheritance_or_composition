@@ -30,6 +30,7 @@ public interface CreateNotePresenter {
   void onCreateNote(Note note);
 
   interface View {
+    void renderTitleRequiredMessage();
     void closeView();
   }
 }

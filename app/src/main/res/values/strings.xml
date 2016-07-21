@@ -26,9 +26,10 @@
 <resources>
   <string name="app_name">My Notes</string>
   <string name="title_create_new_note">New Note</string>
-  <string name="hint_title">Title</string>
-  <string name="hint_description">Description</string>
+  <string name="hint_title">Note Title</string>
+  <string name="hint_description">Write something....</string>
   <string name="menu_save">Save</string>
   <string name="menu_presentation_mode">Mode</string>
   <string name="menu_about">About</string>
+  <string name="message_title_required">Upps! You should write a title.</string>
 </resources>

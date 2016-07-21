@@ -26,6 +26,7 @@ package com.txusballesteros.view.fragment;
 
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 import butterknife.BindView;
 import com.txusballesteros.R;
 import com.txusballesteros.di.ApplicationComponent;
@@ -93,6 +94,12 @@ public class CreateTextNoteFragment extends AbsFragment implements CreateNotePre
                       .setDescription(descriptionView.getText().toString())
                       .build();
     presenter.onCreateNote(note);
+  }
+
+  @Override
+  public void renderTitleRequiredMessage() {
+    titleView.requestFocus();
+    Toast.makeText(getActivity(), R.string.message_title_required, Toast.LENGTH_LONG).show();
   }
 
   @Override

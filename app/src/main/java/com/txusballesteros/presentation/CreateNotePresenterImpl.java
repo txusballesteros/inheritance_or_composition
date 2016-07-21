@@ -17,11 +17,21 @@ public class CreateNotePresenterImpl implements CreateNotePresenter {
 
   @Override
   public void onCreateNote(@NonNull Note note) {
-    storeNoteUseCase.execute(note, new StoreNoteUseCase.Callback() {
-      @Override
-      public void onNoteSaved() {
-        view.closeView();
-      }
-    });
+    if (verifyNote(note)) {
+      storeNoteUseCase.execute(note, new StoreNoteUseCase.Callback() {
+        @Override public void onNoteSaved() {
+          view.closeView();
+        }
+      });
+    }
+  }
+
+  private boolean verifyNote(Note note) {
+    boolean result = true;
+    if (note.getTitle().isEmpty()) {
+      view.renderTitleRequiredMessage();
+      result = false;
+    }
+    return result;
   }
 }
