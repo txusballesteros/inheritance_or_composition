@@ -26,9 +26,11 @@ package com.txusballesteros.navigation;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import com.txusballesteros.domain.model.Note;
 import com.txusballesteros.domain.model.NoteType;
 import com.txusballesteros.navigation.command.CreateNewNoteNavigationCommand;
 import com.txusballesteros.navigation.command.NavigationCommand;
+import com.txusballesteros.navigation.command.NoteDetailNavigationCommand;
 import javax.inject.Inject;
 
 public class ApplicationNavigator implements Navigator {
@@ -38,6 +40,12 @@ public class ApplicationNavigator implements Navigator {
   @Override
   public void navigateToCreateNewNote(@NonNull Context context, @NonNull NoteType type) {
     final NavigationCommand navigationCommand = new CreateNewNoteNavigationCommand(context, type);
+    navigate(navigationCommand);
+  }
+
+  @Override
+  public void navigateToNoteDetail(@NonNull Context context, @NonNull Note note) {
+    final NavigationCommand navigationCommand = new NoteDetailNavigationCommand(context, note);
     navigate(navigationCommand);
   }
 

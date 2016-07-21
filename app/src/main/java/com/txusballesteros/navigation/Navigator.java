@@ -26,8 +26,10 @@ package com.txusballesteros.navigation;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import com.txusballesteros.domain.model.Note;
 import com.txusballesteros.domain.model.NoteType;
 
 public interface Navigator {
   void navigateToCreateNewNote(@NonNull Context context, @NonNull NoteType type);
+  void navigateToNoteDetail(@NonNull Context context, @NonNull Note note);
 }

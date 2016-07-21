@@ -22,13 +22,28 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.view.adapter.holder;
+package com.txusballesteros.navigation.command;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.view.View;
+import com.txusballesteros.domain.model.Note;
+import com.txusballesteros.view.activity.CreateNoteActivity;
+import com.txusballesteros.view.activity.NoteDetailActivity;
 
-public class TextNoteAdapterViewHolder extends NoteAdapterViewHolder {
-  public TextNoteAdapterViewHolder(@NonNull View view, @NonNull OnViewHolderClickListener listener) {
-    super(view, listener);
+public class NoteDetailNavigationCommand extends NavigationCommand {
+  private final Note note;
+
+  public NoteDetailNavigationCommand(Context context, Note note) {
+    super(context);
+    this.note = note;
+  }
+
+  @NonNull @Override
+  Intent onRequestIntent(Context context) {
+    final Intent intent = new Intent(context, NoteDetailActivity.class);
+    intent.putExtra(CreateNoteActivity.EXTRA_NOTE_TYPE, note.getType().ordinal());
+    intent.putExtra(CreateNoteActivity.EXTRA_NOTE_ID, note.getId());
+    return intent;
   }
 }

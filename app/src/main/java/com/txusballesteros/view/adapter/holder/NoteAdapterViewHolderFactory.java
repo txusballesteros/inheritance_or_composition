@@ -24,6 +24,7 @@
  */
 package com.txusballesteros.view.adapter.holder;
 
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,34 +32,39 @@ import com.txusballesteros.R;
 import com.txusballesteros.domain.model.NoteType;
 
 public class NoteAdapterViewHolderFactory {
-  public static NoteAdapterViewHolder build(ViewGroup parent, NoteType type) {
+  public static NoteAdapterViewHolder build(ViewGroup parent,
+                                            NoteType type,
+                                            @NonNull NoteAdapterViewHolder.OnViewHolderClickListener listener) {
     NoteAdapterViewHolder result;
     switch(type) {
       case IMAGE:
-        result = buildImageAdapterViewHolder(parent);
+        result = buildImageAdapterViewHolder(parent, listener);
         break;
       case TASK_LIST:
-        result = buildTasksListAdapterViewHolder(parent);
+        result = buildTasksListAdapterViewHolder(parent, listener);
         break;
       default:
-        result = buildTextAdapterViewHolder(parent);
+        result = buildTextAdapterViewHolder(parent, listener);
         break;
     }
     return result;
   }
 
-  private static NoteAdapterViewHolder buildImageAdapterViewHolder(ViewGroup parent) {
+  private static NoteAdapterViewHolder buildImageAdapterViewHolder(ViewGroup parent,
+                                                                   NoteAdapterViewHolder.OnViewHolderClickListener listener) {
     View holderView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_note_image, parent, false);
-    return new ImageNoteAdapterViewHolder(holderView);
+    return new ImageNoteAdapterViewHolder(holderView, listener);
   }
 
-  private static NoteAdapterViewHolder buildTextAdapterViewHolder(ViewGroup parent) {
+  private static NoteAdapterViewHolder buildTextAdapterViewHolder(ViewGroup parent,
+                                                                  NoteAdapterViewHolder.OnViewHolderClickListener listener) {
     View holderView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_note_text, parent, false);
-    return new TextNoteAdapterViewHolder(holderView);
+    return new TextNoteAdapterViewHolder(holderView, listener);
   }
 
-  private static NoteAdapterViewHolder buildTasksListAdapterViewHolder(ViewGroup parent) {
+  private static NoteAdapterViewHolder buildTasksListAdapterViewHolder(ViewGroup parent,
+                                                                       NoteAdapterViewHolder.OnViewHolderClickListener listener) {
     View holderView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_note_tasks_list, parent, false);
-    return new TasksListNoteAdapterViewHolder(holderView);
+    return new TasksListNoteAdapterViewHolder(holderView, listener);
   }
 }

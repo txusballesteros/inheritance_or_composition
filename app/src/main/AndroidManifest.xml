@@ -53,5 +53,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/title_create_new_note" />
 
+    <activity
+        android:name=".view.activity.NoteDetailActivity"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/title_create_new_note" />
+
   </application>
 </manifest>

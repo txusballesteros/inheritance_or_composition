@@ -38,8 +38,8 @@ import java.util.List;
 public class TasksListNoteAdapterViewHolder extends NoteAdapterViewHolder {
   @BindView(R.id.tasks_holder) ViewGroup tasksHolderView;
 
-  public TasksListNoteAdapterViewHolder(View view) {
-    super(view);
+  public TasksListNoteAdapterViewHolder(@NonNull View view, @NonNull OnViewHolderClickListener listener) {
+    super(view, listener);
   }
 
   public void renderTasks(@NonNull List<Task> tasks) {

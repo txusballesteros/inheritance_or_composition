@@ -33,6 +33,7 @@ public interface NotesListPresenter {
   void onAddNewNoteClick(Context context);
   void onRequestChangePresentationMode();
   void onRequestAbout();
+  void onRequestNoteDetail(Context context, Note note);
 
   enum PresentationMode {
     LIST,

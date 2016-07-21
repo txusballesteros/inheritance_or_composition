@@ -22,13 +22,15 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.view.adapter.holder;
+package com.txusballesteros.view.activity;
 
 import android.support.annotation.NonNull;
-import android.view.View;
+import android.support.v4.app.Fragment;
+import com.txusballesteros.view.fragment.NoteDetailFragment;
 
-public class TextNoteAdapterViewHolder extends NoteAdapterViewHolder {
-  public TextNoteAdapterViewHolder(@NonNull View view, @NonNull OnViewHolderClickListener listener) {
-    super(view, listener);
+public class NoteDetailActivity extends AbsActivity {
+  @NonNull @Override
+  Fragment onRequestFragment() {
+    return NoteDetailFragment.newInstance();
   }
 }

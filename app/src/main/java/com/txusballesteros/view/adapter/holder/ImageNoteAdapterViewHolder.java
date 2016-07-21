@@ -34,8 +34,8 @@ import com.txusballesteros.instrumentation.ImageDownloader;
 public class ImageNoteAdapterViewHolder extends NoteAdapterViewHolder {
   @BindView(R.id.image) ImageView imageView;
 
-  public ImageNoteAdapterViewHolder(View view) {
-    super(view);
+  public ImageNoteAdapterViewHolder(@NonNull View view, @NonNull OnViewHolderClickListener listener) {
+    super(view, listener);
   }
 
   public void renderImage(@NonNull ImageDownloader imageDownloader, @NonNull String imageUrl) {

@@ -29,23 +29,23 @@ import android.support.annotation.NonNull;
 import com.txusballesteros.domain.interactor.GetNotesUseCase;
 import com.txusballesteros.domain.model.Note;
 import com.txusballesteros.domain.model.NoteType;
-import com.txusballesteros.navigation.ApplicationNavigator;
+import com.txusballesteros.navigation.Navigator;
 import java.util.List;
 import javax.inject.Inject;
 
 public class NotesListPresenterImpl implements NotesListPresenter {
   private final View view;
   private final GetNotesUseCase getNotesUseCase;
-  private final ApplicationNavigator applicationNavigator;
+  private final Navigator navigator;
   private PresentationMode presentationMode = PresentationMode.LIST;
 
   @Inject
   public NotesListPresenterImpl(NotesListPresenter.View view,
                                 GetNotesUseCase getNotesUseCase,
-                                ApplicationNavigator applicationNavigator) {
+                                Navigator navigator) {
     this.view = view;
     this.getNotesUseCase = getNotesUseCase;
-    this.applicationNavigator = applicationNavigator;
+    this.navigator = navigator;
   }
 
   @Override
@@ -71,7 +71,7 @@ public class NotesListPresenterImpl implements NotesListPresenter {
 
   @Override
   public void onAddNewNoteClick(@NonNull Context context) {
-    applicationNavigator.navigateToCreateNewNote(context, NoteType.TEXT);
+    navigator.navigateToCreateNewNote(context, NoteType.TEXT);
   }
 
   @Override
@@ -88,5 +88,10 @@ public class NotesListPresenterImpl implements NotesListPresenter {
   @Override
   public void onRequestAbout() {
 
+  }
+
+  @Override
+  public void onRequestNoteDetail(@NonNull Context context, @NonNull Note note) {
+    navigator.navigateToNoteDetail(context, note);
   }
 }

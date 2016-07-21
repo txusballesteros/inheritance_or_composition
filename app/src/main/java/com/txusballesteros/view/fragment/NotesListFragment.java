@@ -25,6 +25,7 @@
 package com.txusballesteros.view.fragment;
 
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -159,7 +160,14 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
   private void replaceLayoutManager(RecyclerView.LayoutManager layoutManager) {
     if (adapter == null) {
       adapter = new NotesListAdapter(imageDownloader);
+
     }
+    adapter.setOnNoteClickListener(new NotesListAdapter.OnNoteClickListener() {
+      @Override
+      public void onNoteClick(@NonNull Note note) {
+        presenter.onRequestNoteDetail(getActivity(), note);
+      }
+    });
     listView.setLayoutManager(layoutManager);
     listView.setHasFixedSize(true);
     listView.setAdapter(adapter);
@@ -170,7 +178,6 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
   }
 
   private RecyclerView.LayoutManager buildGridLayoutManager() {
-    //return new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false);
     return new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
   }
 }

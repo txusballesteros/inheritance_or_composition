@@ -24,6 +24,7 @@
  */
 package com.txusballesteros.view.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 import com.txusballesteros.domain.model.ImageNote;
@@ -40,13 +41,19 @@ import com.txusballesteros.view.adapter.holder.TextNoteAdapterViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotesListAdapter extends RecyclerView.Adapter<NoteAdapterViewHolder> {
+public class NotesListAdapter extends RecyclerView.Adapter<NoteAdapterViewHolder>
+                              implements NoteAdapterViewHolder.OnViewHolderClickListener {
   private final List<Note> dataSet;
   private final ImageDownloader imageDownloader;
+  private OnNoteClickListener listener;
 
   public NotesListAdapter(ImageDownloader imageDownloader) {
     this.imageDownloader = imageDownloader;
     dataSet = new ArrayList<>();
+  }
+
+  public void setOnNoteClickListener(OnNoteClickListener listener) {
+    this.listener = listener;
   }
 
   public void clear() {
@@ -65,7 +72,7 @@ public class NotesListAdapter extends RecyclerView.Adapter<NoteAdapterViewHolder
 
   @Override
   public NoteAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    return NoteAdapterViewHolderFactory.build(parent, NoteType.fromInt(viewType));
+    return NoteAdapterViewHolderFactory.build(parent, NoteType.fromInt(viewType), this);
   }
 
   @Override
@@ -104,5 +111,17 @@ public class NotesListAdapter extends RecyclerView.Adapter<NoteAdapterViewHolder
   @Override
   public int getItemCount() {
     return dataSet.size();
+  }
+
+  @Override
+  public void onViewHolderClick(RecyclerView.ViewHolder holder, int position) {
+    if (listener != null) {
+      Note note = dataSet.get(position);
+      listener.onNoteClick(note);
+    }
+  }
+
+  public interface OnNoteClickListener {
+    void onNoteClick(@NonNull Note note);
   }
 }
