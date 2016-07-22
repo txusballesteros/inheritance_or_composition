@@ -39,8 +39,9 @@ import com.txusballesteros.di.ApplicationComponent;
 import com.txusballesteros.domain.model.Note;
 import com.txusballesteros.instrumentation.ImageDownloader;
 import com.txusballesteros.presentation.NotesListPresenter;
-import com.txusballesteros.view.activity.NotesListActivity;
 import com.txusballesteros.view.adapter.NotesListAdapter;
+import com.txusballesteros.view.behavior.FloatingActionButtonBehavior;
+import com.txusballesteros.view.behavior.LoadingBehavior;
 import com.txusballesteros.view.di.DaggerViewComponent;
 import com.txusballesteros.view.di.ViewModule;
 import java.util.List;
@@ -48,6 +49,8 @@ import javax.inject.Inject;
 
 public class NotesListFragment extends AbsFragment implements NotesListPresenter.View {
   private NotesListAdapter adapter;
+  private LoadingBehavior loadingBehavior;
+  private FloatingActionButtonBehavior floatingActionButtonBehavior;
   @Inject NotesListPresenter presenter;
   @Inject ImageDownloader imageDownloader;
   @BindView(R.id.list) RecyclerView listView;
@@ -84,7 +87,7 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
   @Override
   public void onViewReady() {
     setRetainInstance(true);
-    initializeFabButton();
+    initializeBehaviors();
   }
 
   @Override
@@ -120,28 +123,39 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
     adapter.update(notes);
   }
 
-  private void initializeFabButton() {
+  private void initializeBehaviors() {
     if (isAdded()) {
-      ((NotesListActivity) getActivity()).showFabButton(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-          presenter.onAddNewNoteClick(getActivity());
-        }
-      });
+      initializeFloatingButtonBehavior();
+      initializeLoadingBehavior();
     }
+  }
+
+  private void initializeFloatingButtonBehavior() {
+    floatingActionButtonBehavior = new FloatingActionButtonBehavior(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        presenter.onAddNewNoteClick(getActivity());
+      }
+    });
+    floatingActionButtonBehavior.inject(getActivity());
+  }
+
+  private void initializeLoadingBehavior() {
+    loadingBehavior = new LoadingBehavior();
+    loadingBehavior.inject(getActivity());
   }
 
   @Override
   public void showLoading() {
     if (isAdded()) {
-      ((NotesListActivity) getActivity()).showLoading();
+      loadingBehavior.showLoading();
     }
   }
 
   @Override
   public void hideLoading() {
     if (isAdded()) {
-      ((NotesListActivity) getActivity()).hideLoading();
+      loadingBehavior.hideLoading();
     }
   }
 

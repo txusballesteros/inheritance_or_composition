@@ -25,49 +25,35 @@
 package com.txusballesteros.view.activity;
 
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.txusballesteros.R;
+import com.txusballesteros.view.behavior.ToolbarDefaultBehavior;
 
 public abstract class AbsActivity extends AppCompatActivity {
+  @BindView(R.id.rootView) View rootView;
   @BindView(R.id.content_place_holder) ViewGroup contentPlaceHolder;
-  @BindView(R.id.loading_place_holder) ViewGroup loadingPlaceHolder;
-  @BindView(R.id.toolbar_place_holder) ViewGroup toolbarPlaceHolder;
-  @BindView(R.id.fab) FloatingActionButton fabView;
-  private Toolbar toolbar;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_base);
     injectViews();
-    attachToolbar();
+    onViewReady(rootView);
     initializeFragment();
-    initializeToolbar();
   }
 
-  private void attachToolbar() {
-    int toolbarLayoutResourceId = onRequestToolbarLayoutResourceId();
-    LayoutInflater.from(this).inflate(toolbarLayoutResourceId, toolbarPlaceHolder, true);
-    toolbar = (Toolbar) findViewById(R.id.toolbar);
+  protected void onViewReady(View rootView) {
+    initializeBehaviors(rootView);
   }
 
-  @LayoutRes
-  protected int onRequestToolbarLayoutResourceId() {
-    return R.layout.toolbar_default;
-  }
-
-  private void initializeToolbar() {
-    setSupportActionBar(toolbar);
+  private void initializeBehaviors(View rootView) {
+    new ToolbarDefaultBehavior(this).inject(rootView);
   }
 
   private void injectViews() {
@@ -79,21 +65,6 @@ public abstract class AbsActivity extends AppCompatActivity {
     getSupportFragmentManager().beginTransaction()
             .add(R.id.content_place_holder, fragment)
             .commit();
-  }
-
-  public void showLoading() {
-    contentPlaceHolder.setVisibility(View.GONE);
-    loadingPlaceHolder.setVisibility(View.VISIBLE);
-  }
-
-  public void hideLoading() {
-    contentPlaceHolder.setVisibility(View.VISIBLE);
-    loadingPlaceHolder.setVisibility(View.GONE);
-  }
-
-  public void showFabButton(View.OnClickListener listener) {
-    fabView.setOnClickListener(listener);
-    fabView.setVisibility(View.VISIBLE);
   }
 
   @NonNull

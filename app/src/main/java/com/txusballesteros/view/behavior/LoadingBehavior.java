@@ -22,23 +22,39 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.view.activity;
+package com.txusballesteros.view.behavior;
 
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import com.txusballesteros.domain.model.NoteType;
-import com.txusballesteros.view.fragment.CreateTextNoteFragment;
+import android.view.View;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import com.txusballesteros.R;
 
-public class CreateNoteActivity extends AbsActivity {
-  public static final String EXTRA_NOTE_TYPE = "note:type";
+public class LoadingBehavior extends Behavior {
+  @BindView(R.id.loading) View loadingView;
+  @BindView(R.id.content_place_holder) View contentView;
 
-  @NonNull @Override
-  Fragment onRequestFragment() {
-    return CreateTextNoteFragment.newInstance();
+  @Override
+  protected int onRequestPlaceHolderId() {
+    return R.id.loading_place_holder;
   }
 
-  private NoteType getNoteType() {
-    int noteType = getIntent().getExtras().getInt(EXTRA_NOTE_TYPE);
-    return NoteType.fromInt(noteType);
+  @Override
+  protected int onRequestLayoutResourceId() {
+    return R.layout.behavior_loading;
+  }
+
+  @Override
+  protected void onBehaviorReady(View rootView, View view) {
+    ButterKnife.bind(this, rootView);
+  }
+
+  public void showLoading() {
+    contentView.setVisibility(View.GONE);
+    loadingView.setVisibility(View.VISIBLE);
+  }
+
+  public void hideLoading() {
+    contentView.setVisibility(View.VISIBLE);
+    loadingView.setVisibility(View.GONE);
   }
 }

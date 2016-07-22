@@ -22,23 +22,37 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.view.activity;
+package com.txusballesteros.view.behavior;
 
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import com.txusballesteros.domain.model.NoteType;
-import com.txusballesteros.view.fragment.CreateTextNoteFragment;
+import android.view.View;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import com.txusballesteros.R;
 
-public class CreateNoteActivity extends AbsActivity {
-  public static final String EXTRA_NOTE_TYPE = "note:type";
+public class FloatingActionButtonBehavior extends Behavior {
+  private final View.OnClickListener listener;
 
-  @NonNull @Override
-  Fragment onRequestFragment() {
-    return CreateTextNoteFragment.newInstance();
+  public FloatingActionButtonBehavior(View.OnClickListener listener) {
+    this.listener = listener;
   }
 
-  private NoteType getNoteType() {
-    int noteType = getIntent().getExtras().getInt(EXTRA_NOTE_TYPE);
-    return NoteType.fromInt(noteType);
+  @Override
+  protected int onRequestPlaceHolderId() {
+    return R.id.floating_button_place_holder;
+  }
+
+  @Override
+  protected int onRequestLayoutResourceId() {
+    return R.layout.behavior_floating_button;
+  }
+
+  @Override
+  protected void onBehaviorReady(View rootView, View view) {
+    ButterKnife.bind(this, view);
+  }
+
+  @OnClick(R.id.fab)
+  protected void onFabClick(View view) {
+    listener.onClick(view);
   }
 }
