@@ -71,6 +71,11 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
   }
 
   @Override
+  public void onPresenterShouldBeAttached() {
+    presenter.onAttach();
+  }
+
+  @Override
   public void onResume() {
     super.onResume();
     presenter.onResume();
@@ -108,7 +113,11 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
   public void renderNotesList(List<Note> notes) {
     adapter.clear();
     adapter.addAll(notes);
-    adapter.notifyDataSetChanged();
+  }
+
+  @Override
+  public void updateNotesList(List<Note> notes) {
+    adapter.update(notes);
   }
 
   private void initializeFabButton() {

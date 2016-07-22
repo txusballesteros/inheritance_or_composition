@@ -25,6 +25,7 @@
 package com.txusballesteros.view.adapter;
 
 import android.support.annotation.NonNull;
+import android.support.v4.util.LongSparseArray;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,13 +45,13 @@ import java.util.List;
 
 public class NotesListAdapter extends RecyclerView.Adapter<NoteAdapterViewHolder>
                               implements NoteAdapterViewHolder.OnViewHolderClickListener {
-  private final List<Note> dataSet;
+  private final LongSparseArray<Note> dataSet;
   private final ImageDownloader imageDownloader;
   private OnNoteClickListener listener;
 
   public NotesListAdapter(ImageDownloader imageDownloader) {
     this.imageDownloader = imageDownloader;
-    dataSet = new ArrayList<>();
+    dataSet = new LongSparseArray<>();
   }
 
   public void setOnNoteClickListener(OnNoteClickListener listener) {
@@ -62,12 +63,58 @@ public class NotesListAdapter extends RecyclerView.Adapter<NoteAdapterViewHolder
   }
 
   public void addAll(List<Note> notes) {
-    dataSet.addAll(notes);
+    for(Note note : notes) {
+      dataSet.put(note.getId(), note);
+    }
+    notifyDataSetChanged();
+  }
+
+  public void update(List<Note> notes) {
+    insertNewNotes(notes);
+    removeNotes(notes);
+  }
+
+  private void insertNewNotes(List<Note> notes) {
+    List<Note> notesToBeInserted = new ArrayList<>();
+    for(Note note : notes) {
+      if (dataSet.indexOfKey(note.getId()) < 0) {
+        notesToBeInserted.add(note);
+      }
+    }
+    for(Note note : notesToBeInserted) {
+      dataSet.put(note.getId(), note);
+      int adapterPosition = dataSet.indexOfValue(note);
+      notifyItemInserted(adapterPosition);
+    }
+  }
+
+  private void removeNotes(List<Note> notes) {
+    List<Note> notesToBeDeleted = new ArrayList<>();
+    LongSparseArray<Note> notesMap = toMap(notes);
+    for(int position = 0; position < dataSet.size(); position++) {
+      Note cachedNote = dataSet.valueAt(position);
+      if (notesMap.indexOfKey(cachedNote.getId()) < 0) {
+        notesToBeDeleted.add(cachedNote);
+      }
+    }
+    for(Note note : notesToBeDeleted) {
+      int adapterPosition = dataSet.indexOfValue(note);
+      dataSet.remove(note.getId());
+      notifyItemRemoved(adapterPosition);
+    }
+  }
+
+  private LongSparseArray<Note> toMap(List<Note> notes) {
+    LongSparseArray result = new LongSparseArray(notes.size());
+    for(Note note : notes) {
+      result.put(note.getId(),note);
+    }
+    return result;
   }
 
   @Override
   public int getItemViewType(int position) {
-    Note note = dataSet.get(position);
+    Note note = dataSet.valueAt(position);
     return note.getType().ordinal();
   }
 
@@ -78,7 +125,7 @@ public class NotesListAdapter extends RecyclerView.Adapter<NoteAdapterViewHolder
 
   @Override
   public void onBindViewHolder(NoteAdapterViewHolder viewHolder, int position) {
-    Note note = dataSet.get(position);
+    Note note = dataSet.valueAt(position);
     switch(note.getType()) {
       case TEXT:
         renderTextNote((TextNote) note, (TextNoteAdapterViewHolder) viewHolder);
@@ -117,7 +164,7 @@ public class NotesListAdapter extends RecyclerView.Adapter<NoteAdapterViewHolder
   @Override
   public void onViewHolderClick(RecyclerView.ViewHolder holder, View sharedView, int position) {
     if (listener != null) {
-      Note note = dataSet.get(position);
+      Note note = dataSet.valueAt(position);
       listener.onNoteClick(sharedView, note);
     }
   }

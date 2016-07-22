@@ -39,6 +39,7 @@ public class NotesListPresenterImpl implements NotesListPresenter {
   private final GetNotesUseCase getNotesUseCase;
   private final Navigator navigator;
   private PresentationMode presentationMode = PresentationMode.LIST;
+  private boolean loadingInProgress = false;
 
   @Inject
   public NotesListPresenterImpl(NotesListPresenter.View view,
@@ -50,16 +51,29 @@ public class NotesListPresenterImpl implements NotesListPresenter {
   }
 
   @Override
-  public void onResume() {
+  public void onAttach() {
     view.showLoading();
     configurePresentationMode();
+    loadingInProgress = true;
     getNotesUseCase.execute(new GetNotesUseCase.Callback() {
       @Override
       public void onActorReady(@NonNull List<Note> notes) {
+        loadingInProgress = false;
         view.hideLoading();
         view.renderNotesList(notes);
       }
     });
+  }
+
+  @Override
+  public void onResume() {
+    if (!loadingInProgress) {
+      getNotesUseCase.execute(new GetNotesUseCase.Callback() {
+        @Override public void onActorReady(@NonNull List<Note> notes) {
+          view.updateNotesList(notes);
+        }
+      });
+    }
   }
 
   private void configurePresentationMode() {

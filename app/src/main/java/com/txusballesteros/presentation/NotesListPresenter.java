@@ -31,6 +31,7 @@ import com.txusballesteros.domain.model.Note;
 import java.util.List;
 
 public interface NotesListPresenter {
+  void onAttach();
   void onResume();
   void onAddNewNoteClick(Context context);
   void onRequestChangePresentationMode();
@@ -44,6 +45,7 @@ public interface NotesListPresenter {
 
   interface View {
     void renderNotesList(List<Note> notes);
+    void updateNotesList(List<Note> notes);
     void showLoading();
     void hideLoading();
     void showPresentationModeList();
