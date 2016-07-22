@@ -24,27 +24,31 @@
  */
 package com.txusballesteros.view.adapter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.util.LongSparseArray;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import com.txusballesteros.R;
 import com.txusballesteros.domain.model.ImageNote;
 import com.txusballesteros.domain.model.Note;
 import com.txusballesteros.domain.model.NoteType;
+import com.txusballesteros.domain.model.Task;
 import com.txusballesteros.domain.model.TaskListNote;
-import com.txusballesteros.domain.model.TextNote;
 import com.txusballesteros.instrumentation.ImageDownloader;
-import com.txusballesteros.view.adapter.holder.ImageNoteAdapterViewHolder;
-import com.txusballesteros.view.adapter.holder.NoteAdapterViewHolder;
-import com.txusballesteros.view.adapter.holder.NoteAdapterViewHolderFactory;
-import com.txusballesteros.view.adapter.holder.TasksListNoteAdapterViewHolder;
-import com.txusballesteros.view.adapter.holder.TextNoteAdapterViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotesListAdapter extends RecyclerView.Adapter<NoteAdapterViewHolder>
-                              implements NoteAdapterViewHolder.OnViewHolderClickListener {
+public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.ViewHolder> {
   private final LongSparseArray<Note> dataSet;
   private final ImageDownloader imageDownloader;
   private OnNoteClickListener listener;
@@ -119,41 +123,28 @@ public class NotesListAdapter extends RecyclerView.Adapter<NoteAdapterViewHolder
   }
 
   @Override
-  public NoteAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    return NoteAdapterViewHolderFactory.build(parent, NoteType.fromInt(viewType), this);
+  public NotesListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    NoteType type = NoteType.fromInt(viewType);
+    int viewHolderLayoutResourceId;
+    switch(type) {
+      case TASK_LIST:
+        viewHolderLayoutResourceId = R.layout.item_note_tasks_list;
+        break;
+      case IMAGE:
+        viewHolderLayoutResourceId = R.layout.item_note_image;
+        break;
+      default:
+        viewHolderLayoutResourceId = R.layout.item_note_text;
+        break;
+    }
+    View holderView = LayoutInflater.from(parent.getContext()).inflate(viewHolderLayoutResourceId, parent, false);
+    return new ViewHolder(holderView, this);
   }
 
   @Override
-  public void onBindViewHolder(NoteAdapterViewHolder viewHolder, int position) {
+  public void onBindViewHolder(ViewHolder holder, int position) {
     Note note = dataSet.valueAt(position);
-    switch(note.getType()) {
-      case TEXT:
-        renderTextNote((TextNote) note, (TextNoteAdapterViewHolder) viewHolder);
-        break;
-      case IMAGE:
-        renderImageNote((ImageNote) note, (ImageNoteAdapterViewHolder) viewHolder);
-        break;
-      case TASK_LIST:
-        renderTasksListNote((TaskListNote) note, (TasksListNoteAdapterViewHolder) viewHolder);
-        break;
-    }
-  }
-
-  private void renderTextNote(TextNote note, TextNoteAdapterViewHolder viewHolder) {
-    viewHolder.renderTitle(note.getTitle());
-    viewHolder.renderDescription(note.getDescription());
-  }
-
-  private void renderTasksListNote(TaskListNote note, TasksListNoteAdapterViewHolder viewHolder) {
-    viewHolder.renderTitle(note.getTitle());
-    viewHolder.renderDescription(note.getDescription());
-    viewHolder.renderTasks(note.getTasks());
-  }
-
-  private void renderImageNote(ImageNote note, ImageNoteAdapterViewHolder viewHolder) {
-    viewHolder.renderTitle(note.getTitle());
-    viewHolder.renderDescription(note.getDescription());
-    viewHolder.renderImage(imageDownloader, note.getImageUrl());
+    holder.render(note);
   }
 
   @Override
@@ -161,8 +152,7 @@ public class NotesListAdapter extends RecyclerView.Adapter<NoteAdapterViewHolder
     return dataSet.size();
   }
 
-  @Override
-  public void onViewHolderClick(RecyclerView.ViewHolder holder, View sharedView, int position) {
+  void onViewHolderClick(View sharedView, int position) {
     if (listener != null) {
       Note note = dataSet.valueAt(position);
       listener.onNoteClick(sharedView, note);
@@ -171,5 +161,81 @@ public class NotesListAdapter extends RecyclerView.Adapter<NoteAdapterViewHolder
 
   public interface OnNoteClickListener {
     void onNoteClick(View sharedView, @NonNull Note note);
+  }
+
+  public static class ViewHolder extends RecyclerView.ViewHolder {
+    private final View itemView;
+    private final NotesListAdapter adapter;
+    @Nullable @BindView(R.id.title)  TextView titleView;
+    @Nullable @BindView(R.id.description) TextView descriptionView;
+    @Nullable @BindView(R.id.image) ImageView imageView;
+    @Nullable @BindView(R.id.tasks_holder) ViewGroup tasksHolderView;
+
+    public ViewHolder(View itemView, final NotesListAdapter adapter) {
+      super(itemView);
+      this.itemView = itemView;
+      this.adapter = adapter;
+      ButterKnife.bind(this, itemView);
+      itemView.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          int position = getAdapterPosition();
+          View sharedView = getSharedView();
+          adapter.onViewHolderClick(sharedView, position);
+        }
+      });
+    }
+
+    public void render(Note note) {
+      switch(note.getType()) {
+        case TEXT:
+          renderTextNote(note);
+          break;
+        case TASK_LIST:
+          renderTasksListNote((TaskListNote) note);
+          break;
+        case IMAGE:
+          renderImageNote((ImageNote) note);
+          break;
+      }
+    }
+
+    public View getSharedView() {
+      return null;
+    }
+
+    private void renderTextNote(Note note) {
+      titleView.setText(note.getTitle());
+      descriptionView.setText(note.getDescription());
+    }
+
+    private void renderImageNote(ImageNote note) {
+      renderTextNote(note);
+      adapter.imageDownloader.downloadImage(note.getImageUrl(), imageView);
+    }
+
+    private void renderTasksListNote(TaskListNote note) {
+      renderTextNote(note);
+      renderTasks(note.getTasks());
+    }
+
+    private void renderTasks(@NonNull List<Task> tasks) {
+      tasksHolderView.removeAllViews();
+      for(Task task : tasks) {
+        renderTask(task);
+      }
+    }
+
+    @SuppressWarnings("deprecated")
+    private void renderTask(Task task) {
+      final Context context = itemView.getContext();
+      CheckBox taskView = new CheckBox(context);
+      taskView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                                             ViewGroup.LayoutParams.WRAP_CONTENT));
+      taskView.setTextAppearance(context, R.style.task);
+      taskView.setText(task.getTitle());
+      taskView.setChecked(task.isDone());
+      tasksHolderView.addView(taskView);
+    }
   }
 }
