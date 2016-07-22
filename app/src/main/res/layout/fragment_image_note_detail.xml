@@ -23,23 +23,38 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
 -->
-<RelativeLayout
+<android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-  <ImageView
-      android:id="@+id/image"
+  <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:scaleType="centerCrop"
-      android:elevation="4dp"/>
+      android:padding="@dimen/content_padding">
 
-  <FrameLayout
-      android:id="@+id/text_note_place_holder"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/content_padding"
-      android:layout_below="@+id/image"/>
+    <TextView
+        style="@style/title"
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/content_padding"
+        android:gravity="top|left"
+        android:textSize="@dimen/text_size_big"
+        tools:text="Note Title" />
 
-</RelativeLayout>
+    <TextView
+        style="@style/description"
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="@dimen/content_padding"
+        android:gravity="top|left"
+        tools:text="Note description..." />
+
+  </RelativeLayout>
+</android.support.v4.widget.NestedScrollView>

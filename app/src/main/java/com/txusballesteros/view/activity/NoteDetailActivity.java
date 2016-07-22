@@ -28,7 +28,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import com.txusballesteros.R;
 import com.txusballesteros.domain.model.NoteType;
-import com.txusballesteros.view.fragment.NoteDetailFragment;
+import com.txusballesteros.view.fragment.ImageNoteDetailFragment;
+import com.txusballesteros.view.fragment.TasksListNoteDetailFragment;
+import com.txusballesteros.view.fragment.TextNoteDetailFragment;
 
 public class NoteDetailActivity extends AbsActivity {
   public static final String EXTRA_NOTE_TYPE = "note:type";
@@ -38,16 +40,28 @@ public class NoteDetailActivity extends AbsActivity {
   Fragment onRequestFragment() {
     long noteId = getNoteId();
     NoteType noteType = getNoteType();
-    return NoteDetailFragment.newInstance(noteId, noteType);
+    Fragment result;
+    switch(noteType) {
+      case IMAGE:
+        result = ImageNoteDetailFragment.newInstance(noteId);
+        break;
+      case TASK_LIST:
+        result = TasksListNoteDetailFragment.newInstance(noteId);
+        break;
+      default:
+        result = TextNoteDetailFragment.newInstance(noteId);
+        break;
+    }
+    return result;
   }
 
   @Override
   protected int onRequestToolbarLayoutResourceId() {
-    int resut = super.onRequestToolbarLayoutResourceId();
+    int result = super.onRequestToolbarLayoutResourceId();
     if (getNoteType() == NoteType.IMAGE) {
-      resut = R.layout.toolbar_with_image;
+      result = R.layout.toolbar_with_image;
     }
-    return resut;
+    return result;
   }
 
   private long getNoteId() {

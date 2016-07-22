@@ -23,32 +23,55 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
 -->
-<RelativeLayout
+<android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-  <FrameLayout
-      android:id="@+id/text_note_place_holder"
+  <RelativeLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/content_padding"
-      android:layout_below="@+id/image"/>
+      android:layout_height="match_parent"
+      android:padding="@dimen/content_padding"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-  <View
-      android:id="@+id/separator"
-      android:layout_width="match_parent"
-      android:layout_height="0.5dp"
-      android:layout_below="@+id/text_note_place_holder"
-      android:layout_margin="@dimen/content_padding"
-      android:background="@color/background" />
+    <TextView
+        style="@style/title"
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/content_padding"
+        android:gravity="top|left"
+        android:textSize="@dimen/text_size_big"
+        tools:text="Note Title" />
 
-  <LinearLayout
-      android:id="@+id/tasks_holder"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/separator"
-      android:orientation="vertical"
-      android:gravity="left|center_vertical" />
+    <TextView
+        style="@style/description"
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="@dimen/content_padding"
+        android:gravity="top|left"
+        tools:text="Note description..."  />
 
-</RelativeLayout>
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/description"
+        android:layout_margin="@dimen/content_padding"
+        android:background="@color/background" />
+
+    <LinearLayout
+        android:id="@+id/tasks_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/separator"
+        android:orientation="vertical"
+        android:gravity="left|center_vertical" />
+
+  </RelativeLayout>
+</android.support.v4.widget.NestedScrollView>

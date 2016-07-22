@@ -1,34 +1,24 @@
 package com.txusballesteros.view.fragment;
 
-import android.support.annotation.NonNull;
+import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.Fragment;
 import android.widget.ImageView;
 import butterknife.BindView;
 import com.txusballesteros.R;
 import com.txusballesteros.domain.model.ImageNote;
-import com.txusballesteros.instrumentation.ImageDownloader;
+import com.txusballesteros.domain.model.Note;
 
-public class ImageNoteDetailFragment extends AbsFragment {
-  private ImageDownloader imageDownloader;
-  private ImageNote note;
+public class ImageNoteDetailFragment extends TextNoteDetailFragment {
   @BindView(R.id.headerImage) ImageView imageView;
   @BindView(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbarLayout;
 
-  public static ImageNoteDetailFragment newInstance() {
-    return new ImageNoteDetailFragment();
-  }
-
-  public void setImageDownloader(@NonNull ImageDownloader imageDownloader) {
-    this.imageDownloader = imageDownloader;
-  }
-
-  public void setNote(@NonNull ImageNote note) {
-    this.note = note;
-  }
-
-  @Override
-  protected boolean fragmentHasOptionsMenu() {
-    return false;
+  public static Fragment newInstance(long noteId) {
+    Bundle arguments = new Bundle(1);
+    arguments.putLong(EXTRA_NOTE_ID, noteId);
+    Fragment result = new ImageNoteDetailFragment();
+    result.setArguments(arguments);
+    return result;
   }
 
   @Override
@@ -37,27 +27,17 @@ public class ImageNoteDetailFragment extends AbsFragment {
   }
 
   @Override
-  public void onViewReady() {
-    renderImage();
-    renderText();
-    renderToolbar();
+  public void renderNote(Note note) {
+    super.renderNote(note);
+    renderImage((ImageNote) note);
+    renderToolbar(note);
   }
 
-  private void renderToolbar() {
-    collapsingToolbarLayout.setTitle(note.getTitle());
-  }
-
-  private void renderText() {
-
-    TextNoteDetailFragment fragment = TextNoteDetailFragment.newInstance();
-    fragment.setNote(note);
-    getActivity().getSupportFragmentManager()
-        .beginTransaction()
-        .add(R.id.text_note_place_holder, fragment)
-        .commit();
-  }
-
-  private void renderImage() {
+  private void renderImage(ImageNote note) {
     imageDownloader.downloadImage(note.getImageUrl(), imageView);
+  }
+
+  private void renderToolbar(Note note) {
+    collapsingToolbarLayout.setTitle(note.getTitle());
   }
 }

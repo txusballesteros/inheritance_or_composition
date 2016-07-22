@@ -1,30 +1,26 @@
 package com.txusballesteros.view.fragment;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import butterknife.BindView;
 import com.txusballesteros.R;
+import com.txusballesteros.domain.model.Note;
 import com.txusballesteros.domain.model.Task;
 import com.txusballesteros.domain.model.TaskListNote;
 
-public class TasksListNoteDetailFragment extends AbsFragment {
+public class TasksListNoteDetailFragment extends TextNoteDetailFragment {
   @BindView(R.id.tasks_holder) ViewGroup tasksHolderView;
-  private TaskListNote note;
 
-  public static TasksListNoteDetailFragment newInstance() {
-    return new TasksListNoteDetailFragment();
-  }
-
-  public void setNote(@NonNull TaskListNote note) {
-    this.note = note;
-  }
-
-  @Override
-  protected boolean fragmentHasOptionsMenu() {
-    return false;
+  public static Fragment newInstance(long noteId) {
+    Bundle arguments = new Bundle(1);
+    arguments.putLong(EXTRA_NOTE_ID, noteId);
+    Fragment result = new TasksListNoteDetailFragment();
+    result.setArguments(arguments);
+    return result;
   }
 
   @Override
@@ -33,21 +29,12 @@ public class TasksListNoteDetailFragment extends AbsFragment {
   }
 
   @Override
-  public void onViewReady() {
-    renderText();
-    renderTask();
+  public void renderNote(Note note) {
+    super.renderNote(note);
+    renderTask((TaskListNote) note);
   }
 
-  private void renderText() {
-    TextNoteDetailFragment fragment = TextNoteDetailFragment.newInstance();
-    fragment.setNote(note);
-    getActivity().getSupportFragmentManager()
-        .beginTransaction()
-        .add(R.id.text_note_place_holder, fragment)
-        .commit();
-  }
-
-  private void renderTask() {
+  private void renderTask(TaskListNote note) {
     tasksHolderView.removeAllViews();
     for(Task task : note.getTasks()) {
       renderTask(task);

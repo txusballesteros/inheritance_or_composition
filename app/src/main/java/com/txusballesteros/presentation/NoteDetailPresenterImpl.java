@@ -27,11 +27,7 @@ package com.txusballesteros.presentation;
 import android.support.annotation.NonNull;
 import com.txusballesteros.domain.interactor.DeleteNoteUseCase;
 import com.txusballesteros.domain.interactor.GetNoteByIdUseCase;
-import com.txusballesteros.domain.model.ImageNote;
 import com.txusballesteros.domain.model.Note;
-import com.txusballesteros.domain.model.NoteType;
-import com.txusballesteros.domain.model.TaskListNote;
-import com.txusballesteros.domain.model.TextNote;
 import javax.inject.Inject;
 
 public class NoteDetailPresenterImpl implements NoteDetailPresenter {
@@ -50,12 +46,12 @@ public class NoteDetailPresenterImpl implements NoteDetailPresenter {
   }
 
   @Override
-  public void onAttach(long noteId, NoteType type) {
+  public void onAttach(long noteId) {
     getNoteByIdUseCase.execute(noteId, new GetNoteByIdUseCase.Callback() {
       @Override
       public void onNoteReady(@NonNull Note note) {
         NoteDetailPresenterImpl.this.note = note;
-        displayNoteDetail();
+        view.renderNote(note);
       }
     });
   }
@@ -73,19 +69,5 @@ public class NoteDetailPresenterImpl implements NoteDetailPresenter {
         view.closeView();
       }
     });
-  }
-
-  private void displayNoteDetail() {
-    switch(note.getType()) {
-      case TEXT:
-        view.showTextNoteDetail((TextNote) note);
-        break;
-      case TASK_LIST:
-        view.showTasksListNoteDetail((TaskListNote) note);
-        break;
-      case IMAGE:
-        view.showImageNoteDetail((ImageNote) note);
-        break;
-    }
   }
 }
