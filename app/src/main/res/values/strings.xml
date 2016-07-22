@@ -28,6 +28,9 @@
   <string name="title_create_new_note">New Note</string>
   <string name="title_about">About</string>
   <string name="title_note_detail">Note</string>
+  <string name="title_delete_note">Delete</string>
+  <string name="button_yes">Yes</string>
+  <string name="button_cancel">Cancel</string>
   <string name="hint_title">Note Title</string>
   <string name="hint_description">Write something....</string>
   <string name="menu_save">Save</string>
@@ -35,6 +38,7 @@
   <string name="menu_presentation_mode">Mode</string>
   <string name="menu_about">About</string>
   <string name="message_title_required">Upps! You should write a title.</string>
+  <string name="message_confirm_deletion">Do you want to delete this Note?</string>
   <string name="about_text">
     <![CDATA[
     <p>Copyright Txus Ballesteros 2016 (<a href=\'https://twitter.com/txusballesteros\'>@txusballesteros</a>)</p>

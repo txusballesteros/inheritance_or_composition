@@ -24,8 +24,10 @@
  */
 package com.txusballesteros.view.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 import com.txusballesteros.R;
 import com.txusballesteros.di.ApplicationComponent;
@@ -137,6 +139,27 @@ public class NoteDetailFragment extends AbsFragment implements NoteDetailPresent
     fragment.setImageDownloader(imageDownloader);
     fragment.setNote(note);
     showContent(fragment);
+  }
+
+  @Override
+  public void askToConfirmDeletion() {
+    new AlertDialog.Builder(getActivity())
+          .setCancelable(false)
+          .setMessage(R.string.message_confirm_deletion)
+          .setPositiveButton(R.string.button_yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+              presenter.onDeleteConfirmed();
+            }
+          })
+          .setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+              dialog.dismiss();
+            }
+          })
+          .create()
+          .show();
   }
 
   private void showContent(Fragment content) {

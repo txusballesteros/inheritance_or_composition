@@ -62,6 +62,11 @@ public class NoteDetailPresenterImpl implements NoteDetailPresenter {
 
   @Override
   public void onRequestDeleteNote() {
+    view.askToConfirmDeletion();
+  }
+
+  @Override
+  public void onDeleteConfirmed() {
     deleteNoteUseCase.execute(note.getId(), new DeleteNoteUseCase.Callback() {
       @Override
       public void onNoteDeleted() {
