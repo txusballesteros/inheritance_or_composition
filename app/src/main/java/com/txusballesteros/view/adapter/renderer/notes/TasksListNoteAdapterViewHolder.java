@@ -22,7 +22,7 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.view.adapter.holder;
+package com.txusballesteros.view.adapter.renderer.notes;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -32,20 +32,30 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import butterknife.BindView;
 import com.txusballesteros.R;
+import com.txusballesteros.domain.model.Note;
 import com.txusballesteros.domain.model.Task;
-import java.util.List;
+import com.txusballesteros.domain.model.TaskListNote;
 
-public class TasksListNoteAdapterViewHolder extends NoteAdapterViewHolder {
+public class TasksListNoteAdapterViewHolder extends TextNoteAdapterViewHolder {
   @BindView(R.id.tasks_holder) ViewGroup tasksHolderView;
 
   public TasksListNoteAdapterViewHolder(@NonNull View view, @NonNull OnViewHolderClickListener listener) {
     super(view, listener);
   }
 
-  public void renderTasks(@NonNull List<Task> tasks) {
-    tasksHolderView.removeAllViews();
-    for(Task task : tasks) {
-      renderTask(task);
+  @Override
+  public void render(@NonNull Note note) {
+    super.render(note);
+    renderTasks(note);
+  }
+
+  private void renderTasks(@NonNull Note note) {
+    if (note instanceof TaskListNote) {
+      final TaskListNote tasksListNote = (TaskListNote) note;
+      tasksHolderView.removeAllViews();
+      for(Task task : tasksListNote.getTasks()) {
+        renderTask(task);
+      }
     }
   }
 

@@ -22,7 +22,7 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.view.adapter.holder;
+package com.txusballesteros.view.adapter.renderer.notes;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,17 +30,32 @@ import android.view.View;
 import android.widget.ImageView;
 import butterknife.BindView;
 import com.txusballesteros.R;
+import com.txusballesteros.domain.model.ImageNote;
+import com.txusballesteros.domain.model.Note;
 import com.txusballesteros.instrumentation.ImageDownloader;
 
-public class ImageNoteAdapterViewHolder extends NoteAdapterViewHolder {
+public class ImageNoteAdapterViewHolder extends TextNoteAdapterViewHolder {
+  @NonNull private final ImageDownloader imageDownloader;
   @BindView(R.id.image) ImageView imageView;
 
-  public ImageNoteAdapterViewHolder(@NonNull View view, @NonNull OnViewHolderClickListener listener) {
+  public ImageNoteAdapterViewHolder(@NonNull View view,
+                                    @NonNull OnViewHolderClickListener listener,
+                                    @NonNull ImageDownloader imageDownloader) {
     super(view, listener);
+    this.imageDownloader = imageDownloader;
   }
 
-  public void renderImage(@NonNull ImageDownloader imageDownloader, @NonNull String imageUrl) {
-    imageDownloader.downloadImage(imageUrl, imageView);
+  @Override
+  public void render(@NonNull Note note) {
+    super.render(note);
+    renderImage(note);
+  }
+
+  private void renderImage(@NonNull Note note) {
+    if (note instanceof ImageNote) {
+      final ImageNote imageNote = (ImageNote) note;
+      imageDownloader.downloadImage(imageNote.getImageUrl(), imageView);
+    }
   }
 
   @Nullable @Override

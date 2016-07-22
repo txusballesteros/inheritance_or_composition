@@ -22,13 +22,34 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.view.adapter.holder;
+package com.txusballesteros.view.adapter.renderer.notes;
 
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.TextView;
+import butterknife.BindView;
+import com.txusballesteros.R;
+import com.txusballesteros.domain.model.Note;
 
 public class TextNoteAdapterViewHolder extends NoteAdapterViewHolder {
+  @BindView(R.id.title) TextView nameView;
+  @BindView(R.id.description) TextView descriptionView;
+
   public TextNoteAdapterViewHolder(@NonNull View view, @NonNull OnViewHolderClickListener listener) {
     super(view, listener);
+  }
+
+  @Override
+  public void render(@NonNull Note note) {
+    renderTitle(note.getTitle());
+    renderDescription(note.getDescription());
+  }
+
+  private void renderTitle(@NonNull String name) {
+    nameView.setText(name);
+  }
+
+  private void renderDescription(@NonNull String description) {
+    descriptionView.setText(description);
   }
 }

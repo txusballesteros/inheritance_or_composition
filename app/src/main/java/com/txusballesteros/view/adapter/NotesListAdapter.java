@@ -25,33 +25,25 @@
 package com.txusballesteros.view.adapter;
 
 import android.support.annotation.NonNull;
-import android.support.v4.util.LongSparseArray;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import com.txusballesteros.domain.model.ImageNote;
 import com.txusballesteros.domain.model.Note;
 import com.txusballesteros.domain.model.NoteType;
-import com.txusballesteros.domain.model.TaskListNote;
-import com.txusballesteros.domain.model.TextNote;
 import com.txusballesteros.instrumentation.ImageDownloader;
-import com.txusballesteros.view.adapter.holder.ImageNoteAdapterViewHolder;
-import com.txusballesteros.view.adapter.holder.NoteAdapterViewHolder;
-import com.txusballesteros.view.adapter.holder.NoteAdapterViewHolderFactory;
-import com.txusballesteros.view.adapter.holder.TasksListNoteAdapterViewHolder;
-import com.txusballesteros.view.adapter.holder.TextNoteAdapterViewHolder;
-import java.util.ArrayList;
+import com.txusballesteros.view.adapter.renderer.notes.NoteAdapterViewHolder;
+import com.txusballesteros.view.adapter.renderer.notes.NoteAdapterViewHolderFactory;
 import java.util.List;
 
 public class NotesListAdapter extends RecyclerView.Adapter<NoteAdapterViewHolder>
                               implements NoteAdapterViewHolder.OnViewHolderClickListener {
-  private final LongSparseArray<Note> dataSet;
   private final ImageDownloader imageDownloader;
+  private final NotesListAdapterCache cache;
   private OnNoteClickListener listener;
 
   public NotesListAdapter(ImageDownloader imageDownloader) {
+    this.cache = new NotesListAdapterCache(this);
     this.imageDownloader = imageDownloader;
-    dataSet = new LongSparseArray<>();
   }
 
   public void setOnNoteClickListener(OnNoteClickListener listener) {
@@ -59,112 +51,43 @@ public class NotesListAdapter extends RecyclerView.Adapter<NoteAdapterViewHolder
   }
 
   public void clear() {
-    dataSet.clear();
+    cache.clear();
   }
 
   public void addAll(List<Note> notes) {
-    for(Note note : notes) {
-      dataSet.put(note.getId(), note);
-    }
-    notifyDataSetChanged();
+    cache.addAll(notes);
   }
 
   public void update(List<Note> notes) {
-    insertNewNotes(notes);
-    removeNotes(notes);
-  }
-
-  private void insertNewNotes(List<Note> notes) {
-    List<Note> notesToBeInserted = new ArrayList<>();
-    for(Note note : notes) {
-      if (dataSet.indexOfKey(note.getId()) < 0) {
-        notesToBeInserted.add(note);
-      }
-    }
-    for(Note note : notesToBeInserted) {
-      dataSet.put(note.getId(), note);
-      int adapterPosition = dataSet.indexOfValue(note);
-      notifyItemInserted(adapterPosition);
-    }
-  }
-
-  private void removeNotes(List<Note> notes) {
-    List<Note> notesToBeDeleted = new ArrayList<>();
-    LongSparseArray<Note> notesMap = toMap(notes);
-    for(int position = 0; position < dataSet.size(); position++) {
-      Note cachedNote = dataSet.valueAt(position);
-      if (notesMap.indexOfKey(cachedNote.getId()) < 0) {
-        notesToBeDeleted.add(cachedNote);
-      }
-    }
-    for(Note note : notesToBeDeleted) {
-      int adapterPosition = dataSet.indexOfValue(note);
-      dataSet.remove(note.getId());
-      notifyItemRemoved(adapterPosition);
-    }
-  }
-
-  private LongSparseArray<Note> toMap(List<Note> notes) {
-    LongSparseArray result = new LongSparseArray(notes.size());
-    for(Note note : notes) {
-      result.put(note.getId(),note);
-    }
-    return result;
+    cache.update(notes);
   }
 
   @Override
   public int getItemViewType(int position) {
-    Note note = dataSet.valueAt(position);
+    Note note = cache.get(position);
     return note.getType().ordinal();
   }
 
   @Override
   public NoteAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    return NoteAdapterViewHolderFactory.build(parent, NoteType.fromInt(viewType), this);
+    return NoteAdapterViewHolderFactory.build(parent, NoteType.fromInt(viewType), imageDownloader, this);
   }
 
   @Override
   public void onBindViewHolder(NoteAdapterViewHolder viewHolder, int position) {
-    Note note = dataSet.valueAt(position);
-    switch(note.getType()) {
-      case TEXT:
-        renderTextNote((TextNote) note, (TextNoteAdapterViewHolder) viewHolder);
-        break;
-      case IMAGE:
-        renderImageNote((ImageNote) note, (ImageNoteAdapterViewHolder) viewHolder);
-        break;
-      case TASK_LIST:
-        renderTasksListNote((TaskListNote) note, (TasksListNoteAdapterViewHolder) viewHolder);
-        break;
-    }
-  }
-
-  private void renderTextNote(TextNote note, TextNoteAdapterViewHolder viewHolder) {
-    viewHolder.renderTitle(note.getTitle());
-    viewHolder.renderDescription(note.getDescription());
-  }
-
-  private void renderTasksListNote(TaskListNote note, TasksListNoteAdapterViewHolder viewHolder) {
-    viewHolder.renderTitle(note.getTitle());
-    viewHolder.renderDescription(note.getDescription());
-    viewHolder.renderTasks(note.getTasks());
-  }
-
-  private void renderImageNote(ImageNote note, ImageNoteAdapterViewHolder viewHolder) {
-    viewHolder.renderTitle(note.getTitle());
-    viewHolder.renderDescription(note.getDescription());
-    viewHolder.renderImage(imageDownloader, note.getImageUrl());
+    Note note = cache.get(position);
+    viewHolder.render(note);
   }
 
   @Override
   public int getItemCount() {
-    return dataSet.size();
+    return cache.size();
   }
 
   @Override
   public void onViewHolderClick(RecyclerView.ViewHolder holder, View sharedView, int position) {
     if (listener != null) {
-      Note note = dataSet.valueAt(position);
+      Note note = cache.get(position);
       listener.onNoteClick(sharedView, note);
     }
   }

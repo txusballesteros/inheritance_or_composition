@@ -22,7 +22,7 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.view.adapter.holder;
+package com.txusballesteros.view.adapter.renderer.notes;
 
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -30,15 +30,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.txusballesteros.R;
 import com.txusballesteros.domain.model.NoteType;
+import com.txusballesteros.instrumentation.ImageDownloader;
 
 public class NoteAdapterViewHolderFactory {
-  public static NoteAdapterViewHolder build(ViewGroup parent,
-                                            NoteType type,
+
+  public static NoteAdapterViewHolder build(@NonNull ViewGroup parent,
+                                            @NonNull NoteType type,
+                                            @NonNull ImageDownloader imageDownloader,
                                             @NonNull NoteAdapterViewHolder.OnViewHolderClickListener listener) {
     NoteAdapterViewHolder result;
     switch(type) {
       case IMAGE:
-        result = buildImageAdapterViewHolder(parent, listener);
+        result = buildImageAdapterViewHolder(parent, imageDownloader, listener);
         break;
       case TASK_LIST:
         result = buildTasksListAdapterViewHolder(parent, listener);
@@ -51,9 +54,10 @@ public class NoteAdapterViewHolderFactory {
   }
 
   private static NoteAdapterViewHolder buildImageAdapterViewHolder(ViewGroup parent,
+                                                                   ImageDownloader imageDownloader,
                                                                    NoteAdapterViewHolder.OnViewHolderClickListener listener) {
     View holderView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_note_image, parent, false);
-    return new ImageNoteAdapterViewHolder(holderView, listener);
+    return new ImageNoteAdapterViewHolder(holderView, listener, imageDownloader);
   }
 
   private static NoteAdapterViewHolder buildTextAdapterViewHolder(ViewGroup parent,

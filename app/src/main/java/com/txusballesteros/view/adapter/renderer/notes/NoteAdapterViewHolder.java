@@ -22,33 +22,21 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.txusballesteros.view.adapter.holder;
+package com.txusballesteros.view.adapter.renderer.notes;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
-import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.txusballesteros.R;
+import com.txusballesteros.domain.model.Note;
 
 public abstract class NoteAdapterViewHolder extends RecyclerView.ViewHolder {
   private final View rootView;
   private final OnViewHolderClickListener listener;
-  @BindView(R.id.title) TextView nameView;
-  @BindView(R.id.description) TextView descriptionView;
 
   protected View getView() {
     return rootView;
-  }
-
-  public void renderTitle(@NonNull String name) {
-    nameView.setText(name);
-  }
-
-  public void renderDescription(@NonNull String description) {
-    descriptionView.setText(description);
   }
 
   public NoteAdapterViewHolder(@NonNull View view, @NonNull OnViewHolderClickListener listener) {
@@ -78,4 +66,6 @@ public abstract class NoteAdapterViewHolder extends RecyclerView.ViewHolder {
   public interface OnViewHolderClickListener {
     void onViewHolderClick(RecyclerView.ViewHolder holder, View view, int position);
   }
+
+  public abstract void render(@NonNull Note note);
 }
