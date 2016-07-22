@@ -144,7 +144,7 @@ public class NoteDetailFragment extends AbsFragment implements NoteDetailPresent
   @Override
   public void askToConfirmDeletion() {
     new AlertDialog.Builder(getActivity())
-          .setCancelable(false)
+          .setCancelable(true)
           .setMessage(R.string.message_confirm_deletion)
           .setPositiveButton(R.string.button_yes, new DialogInterface.OnClickListener() {
             @Override
