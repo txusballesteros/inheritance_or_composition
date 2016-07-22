@@ -122,6 +122,13 @@ public class NotesInMemoryLocalDataSource implements NotesLocalDataSource {
   }
 
   private long calculateNoteId() {
-    return dataSet.size() + 1;
+    long maximumId = 0;
+    for(int position = 0; position < dataSet.size(); position++) {
+      long noteId = dataSet.valueAt(position).getId();
+      if (noteId > maximumId) {
+        maximumId = noteId;
+      }
+    }
+    return maximumId + 1;
   }
 }
