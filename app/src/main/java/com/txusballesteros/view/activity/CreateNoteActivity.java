@@ -26,19 +26,11 @@ package com.txusballesteros.view.activity;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import com.txusballesteros.domain.model.NoteType;
 import com.txusballesteros.view.fragment.CreateTextNoteFragment;
 
 public class CreateNoteActivity extends AbsActivity {
-  public static final String EXTRA_NOTE_TYPE = "note:type";
-
   @NonNull @Override
   Fragment onRequestFragment() {
     return CreateTextNoteFragment.newInstance();
-  }
-
-  private NoteType getNoteType() {
-    int noteType = getIntent().getExtras().getInt(EXTRA_NOTE_TYPE);
-    return NoteType.fromInt(noteType);
   }
 }

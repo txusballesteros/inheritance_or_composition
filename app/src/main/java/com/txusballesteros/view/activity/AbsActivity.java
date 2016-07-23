@@ -29,7 +29,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.txusballesteros.R;
@@ -37,36 +36,31 @@ import com.txusballesteros.view.behavior.ToolbarDefaultBehavior;
 
 public abstract class AbsActivity extends AppCompatActivity {
   @BindView(R.id.rootView) View rootView;
-  @BindView(R.id.content_place_holder) ViewGroup contentPlaceHolder;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_base);
     injectViews();
-    onViewReady(rootView);
-    initializeFragment();
-  }
-
-  protected void onViewReady(View rootView) {
-    initializeBehaviors(rootView);
-  }
-
-  private void initializeBehaviors(View rootView) {
-    new ToolbarDefaultBehavior(this).inject(rootView);
+    onRequestBehaviors(rootView);
+    injectFragment();
   }
 
   private void injectViews() {
     ButterKnife.bind(this);
   }
 
-  private void initializeFragment() {
+  private void injectFragment() {
     final Fragment fragment = onRequestFragment();
     getSupportFragmentManager().beginTransaction()
             .add(R.id.content_place_holder, fragment)
             .commit();
   }
 
-  @NonNull
-  abstract Fragment onRequestFragment();
+  @NonNull abstract Fragment onRequestFragment();
+
+  protected void onRequestBehaviors(View rootView) {
+    new ToolbarDefaultBehavior(this)
+              .inject(rootView);
+  }
 }

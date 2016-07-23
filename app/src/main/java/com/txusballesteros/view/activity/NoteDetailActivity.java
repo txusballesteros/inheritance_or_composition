@@ -36,12 +36,12 @@ public class NoteDetailActivity extends AbsActivity {
   public static final String EXTRA_NOTE_ID = "note:id";
 
   @Override
-  protected void onViewReady(View rootView) {
+  protected void onRequestBehaviors(View rootView) {
     NoteType type = getNoteType();
     if (type == NoteType.IMAGE) {
       initializeBehaviors(rootView);
     } else {
-      super.onViewReady(rootView);
+      super.onRequestBehaviors(rootView);
     }
   }
 
