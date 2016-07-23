@@ -34,7 +34,8 @@
     app:expandedTitleMarginStart="48dp"
     app:expandedTitleMarginEnd="64dp"
     app:expandedTitleTextAppearance="@style/toolbar_expanded_title"
-    app:collapsedTitleTextAppearance="@style/toolbar_collapsed_title">
+    app:collapsedTitleTextAppearance="@style/toolbar_collapsed_title"
+    android:fitsSystemWindows="true">
 
   <ImageView
       android:id="@+id/headerImage"
@@ -42,7 +43,8 @@
       android:layout_height="@dimen/toolbar_image_height"
       android:scaleType="centerCrop"
       app:layout_collapseMode="parallax"
-      android:transitionName="@string/transition_note_image" />
+      android:transitionName="@string/transition_note_image"
+      android:fitsSystemWindows="true"/>
 
   <android.support.v7.widget.Toolbar
       android:id="@+id/toolbar"
