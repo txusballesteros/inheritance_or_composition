@@ -30,7 +30,7 @@ allprojects {
 
 ext {
   //Android
-  androidApplicationId = "com.txusballesteros"
+  androidApplicationId = "com.txusballesteros.labs"
   androidBuildToolsVersion = "24.0.1"
   androidMinSdkVersion = 21
   androidTargetSdkVersion = 24
@@ -43,16 +43,18 @@ ext {
   daggerVersion = "2.5"
   butterKnifeVersion = "8.2.1"
   piccasoVersion = "2.5.2"
+  autoScaleEditTextVersion = "1.0"
 
   mobileDependencies = [
-      AppCompat: "com.android.support:appcompat-v7:${androidSupportVersion}",
-      CardView: "com.android.support:cardview-v7:${androidSupportVersion}",
-      RecyclerView: "com.android.support:recyclerview-v7:${androidSupportVersion}",
-      Design: "com.android.support:design:${androidSupportVersion}",
-      ButterKnife: "com.jakewharton:butterknife:${butterKnifeVersion}",
-      Dagger: "com.google.dagger:dagger:${daggerVersion}",
-      ButterKnifeCompiler: "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
-      DaggerCompiler: "com.google.dagger:dagger-compiler:${daggerVersion}",
-      Picasso: "com.squareup.picasso:picasso:${piccasoVersion}"
+    AppCompat: "com.android.support:appcompat-v7:${androidSupportVersion}",
+    CardView: "com.android.support:cardview-v7:${androidSupportVersion}",
+    RecyclerView: "com.android.support:recyclerview-v7:${androidSupportVersion}",
+    Design: "com.android.support:design:${androidSupportVersion}",
+    ButterKnife: "com.jakewharton:butterknife:${butterKnifeVersion}",
+    Dagger: "com.google.dagger:dagger:${daggerVersion}",
+    ButterKnifeCompiler: "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
+    DaggerCompiler: "com.google.dagger:dagger-compiler:${daggerVersion}",
+    Picasso: "com.squareup.picasso:picasso:${piccasoVersion}",
+    AutoScaleTextView: "com.txusballesteros:AutoscaleEditText:${autoScaleEditTextVersion}",
   ]
 }

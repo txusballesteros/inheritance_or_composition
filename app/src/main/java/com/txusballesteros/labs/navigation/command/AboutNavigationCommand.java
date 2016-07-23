@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+/*
  * Copyright Txus Ballesteros 2016 (@txusballesteros)
  *
- * This file is part of some open source androidApplication.
+ * This file is part of some open source application.
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -22,14 +21,22 @@
  * under the License.
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
--->
-<resources>
-  <dimen name="vertical_margin">4dp</dimen>
-  <dimen name="horizontal_margin">8dp</dimen>
-  <dimen name="content_padding">8dp</dimen>
-  <dimen name="fab_padding">16dp</dimen>
-  <dimen name="text_size_big">25sp</dimen>
-  <dimen name="text_size_medium">18sp</dimen>
-  <dimen name="text_size_normal">15sp</dimen>
-  <dimen name="toolbar_image_height">300dp</dimen>
-</resources>
+ */
+package com.txusballesteros.labs.navigation.command;
+
+import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import com.txusballesteros.labs.view.activity.AboutActivity;
+
+public class AboutNavigationCommand extends NavigationCommand {
+  public AboutNavigationCommand(Context context) {
+    super(context);
+  }
+
+  @NonNull @Override
+  Intent onRequestIntent(Context context) {
+    final Intent intent = new Intent(context, AboutActivity.class);
+    return intent;
+  }
+}

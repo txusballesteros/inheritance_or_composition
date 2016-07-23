@@ -24,7 +24,7 @@
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.txusballesteros">
+          package="com.txusballesteros.labs">
 
   <uses-permission android:name="android.permission.INTERNET" />
 

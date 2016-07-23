@@ -24,15 +24,16 @@
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
 -->
 <RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:padding="@dimen/content_padding"
-  android:background="@color/white"
-  tools:context=".view.activity.CreateNoteActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/content_padding"
+    android:background="@color/white"
+    tools:context=".view.activity.CreateNoteActivity">
 
-  <EditText
+  <com.txusballesteros.AutoscaleEditText
       style="@style/title"
       android:id="@+id/title"
       android:layout_width="match_parent"
@@ -41,7 +42,9 @@
       android:gravity="top|left"
       android:hint="@string/hint_title"
       android:background="@android:color/transparent"
-      android:textSize="@dimen/text_size_big"/>
+      android:textSize="@dimen/text_size_big"
+      app:linesLimit="3"
+      app:textScale="0.75"/>
 
   <EditText
       style="@style/description"

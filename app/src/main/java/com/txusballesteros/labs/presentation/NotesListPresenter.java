@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+/*
  * Copyright Txus Ballesteros 2016 (@txusballesteros)
  *
- * This file is part of some open source androidApplication.
+ * This file is part of some open source application.
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -22,14 +21,34 @@
  * under the License.
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
--->
-<resources>
-  <dimen name="vertical_margin">4dp</dimen>
-  <dimen name="horizontal_margin">8dp</dimen>
-  <dimen name="content_padding">8dp</dimen>
-  <dimen name="fab_padding">16dp</dimen>
-  <dimen name="text_size_big">25sp</dimen>
-  <dimen name="text_size_medium">18sp</dimen>
-  <dimen name="text_size_normal">15sp</dimen>
-  <dimen name="toolbar_image_height">300dp</dimen>
-</resources>
+ */
+package com.txusballesteros.labs.presentation;
+
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import com.txusballesteros.labs.domain.model.Note;
+import java.util.List;
+
+public interface NotesListPresenter {
+  void onAttach();
+  void onResume();
+  void onAddNewNoteClick(Context context);
+  void onRequestChangePresentationMode();
+  void onRequestAbout(@NonNull Context context);
+  void onRequestNoteDetail(@NonNull Context context, @NonNull Note note, @Nullable android.view.View sharedView);
+
+  enum PresentationMode {
+    LIST,
+    GRID
+  }
+
+  interface View {
+    void renderNotesList(List<Note> notes);
+    void updateNotesList(List<Note> notes);
+    void showLoading();
+    void hideLoading();
+    void showPresentationModeList();
+    void showPresentationModeGrid();
+  }
+}
