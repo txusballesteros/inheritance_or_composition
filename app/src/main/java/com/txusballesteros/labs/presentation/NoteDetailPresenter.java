@@ -29,12 +29,12 @@ import com.txusballesteros.labs.domain.model.NoteType;
 import com.txusballesteros.labs.domain.model.TaskListNote;
 import com.txusballesteros.labs.domain.model.TextNote;
 
-public interface NoteDetailPresenter {
-  void onAttach(long noteId, NoteType type);
+public interface NoteDetailPresenter extends Presenter<NoteDetailPresenter.View> {
+  void onRequestNote(long noteId, NoteType type);
   void onRequestDeleteNote();
   void onDeleteConfirmed();
 
-  interface View {
+  interface View extends Presenter.View {
     void closeView();
     void showTextNoteDetail(TextNote note);
     void showTasksListNoteDetail(TaskListNote note);

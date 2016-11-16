@@ -26,10 +26,10 @@ package com.txusballesteros.labs.presentation;
 
 import com.txusballesteros.labs.domain.model.Note;
 
-public interface CreateNotePresenter {
+public interface CreateNotePresenter extends Presenter<CreateNotePresenter.View> {
   void onCreateNote(Note note);
 
-  interface View {
+  interface View extends Presenter.View {
     void renderTitleRequiredMessage();
     void closeView();
   }

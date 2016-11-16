@@ -34,23 +34,20 @@ import com.txusballesteros.labs.domain.model.TaskListNote;
 import com.txusballesteros.labs.domain.model.TextNote;
 import javax.inject.Inject;
 
-public class NoteDetailPresenterImpl implements NoteDetailPresenter {
-  private final View view;
+public class NoteDetailPresenterImpl extends AbsPresenter<NoteDetailPresenter.View> implements NoteDetailPresenter {
   private final GetNoteByIdUseCase getNoteByIdUseCase;
   private final DeleteNoteUseCase deleteNoteUseCase;
   private Note note;
 
   @Inject
-  public NoteDetailPresenterImpl(NoteDetailPresenter.View view,
-                                 GetNoteByIdUseCase getNoteByIdUseCase,
+  public NoteDetailPresenterImpl(GetNoteByIdUseCase getNoteByIdUseCase,
                                  DeleteNoteUseCase deleteNoteUseCase) {
-    this.view = view;
     this.getNoteByIdUseCase = getNoteByIdUseCase;
     this.deleteNoteUseCase = deleteNoteUseCase;
   }
 
   @Override
-  public void onAttach(long noteId, NoteType type) {
+  public void onRequestNote(long noteId, NoteType type) {
     getNoteByIdUseCase.execute(noteId, new GetNoteByIdUseCase.Callback() {
       @Override
       public void onNoteReady(@NonNull Note note) {
@@ -62,7 +59,7 @@ public class NoteDetailPresenterImpl implements NoteDetailPresenter {
 
   @Override
   public void onRequestDeleteNote() {
-    view.askToConfirmDeletion();
+    getView().askToConfirmDeletion();
   }
 
   @Override
@@ -70,7 +67,7 @@ public class NoteDetailPresenterImpl implements NoteDetailPresenter {
     deleteNoteUseCase.execute(note.getId(), new DeleteNoteUseCase.Callback() {
       @Override
       public void onNoteDeleted() {
-        view.closeView();
+        getView().closeView();
       }
     });
   }
@@ -78,13 +75,13 @@ public class NoteDetailPresenterImpl implements NoteDetailPresenter {
   private void displayNoteDetail() {
     switch(note.getType()) {
       case TEXT:
-        view.showTextNoteDetail((TextNote) note);
+        getView().showTextNoteDetail((TextNote) note);
         break;
       case TASK_LIST:
-        view.showTasksListNoteDetail((TaskListNote) note);
+        getView().showTasksListNoteDetail((TaskListNote) note);
         break;
       case IMAGE:
-        view.showImageNoteDetail((ImageNote) note);
+        getView().showImageNoteDetail((ImageNote) note);
         break;
     }
   }

@@ -38,7 +38,6 @@ import com.txusballesteros.labs.domain.model.TextNote;
 import com.txusballesteros.labs.instrumentation.ImageDownloader;
 import com.txusballesteros.labs.presentation.NoteDetailPresenter;
 import com.txusballesteros.labs.view.di.DaggerViewComponent;
-import com.txusballesteros.labs.view.di.ViewModule;
 import javax.inject.Inject;
 
 public class NoteDetailFragment extends AbsFragment implements NoteDetailPresenter.View {
@@ -60,7 +59,6 @@ public class NoteDetailFragment extends AbsFragment implements NoteDetailPresent
   void onRequestInjection(ApplicationComponent applicationComponent) {
     DaggerViewComponent.builder()
       .applicationComponent(applicationComponent)
-      .viewModule(new ViewModule(this))
       .build()
       .inject(this);
   }
@@ -72,9 +70,19 @@ public class NoteDetailFragment extends AbsFragment implements NoteDetailPresent
 
   @Override
   public void onPresenterShouldBeAttached() {
+    presenter.onAttach(this);
+  }
+
+  @Override
+  public void onViewReady() {
     long noteId = getNoteId();
     NoteType noteType = getNoteType();
-    presenter.onAttach(noteId, noteType);
+    presenter.onRequestNote(noteId, noteType);
+  }
+
+  @Override
+  protected void onPresenterShouldBeDetached() {
+    presenter.onDetach();
   }
 
   @Override

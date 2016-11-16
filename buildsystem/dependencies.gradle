@@ -31,7 +31,7 @@ allprojects {
 ext {
   //Android
   androidApplicationId = "com.txusballesteros.labs"
-  androidBuildToolsVersion = "24.0.1"
+  androidBuildToolsVersion = "25.0.0"
   androidMinSdkVersion = 21
   androidTargetSdkVersion = 24
   androidCompileSdkVersion = 24
@@ -39,7 +39,7 @@ ext {
   androidVersionName = "1.0.0"
 
   //Libraries Versions
-  androidSupportVersion = "24.1.0"
+  androidSupportVersion = "25.0.1"
   daggerVersion = "2.5"
   butterKnifeVersion = "8.2.1"
   piccasoVersion = "2.5.2"

@@ -65,8 +65,7 @@ abstract class AbsFragment extends Fragment {
     return ((AppCompatActivity) getActivity()).getSupportActionBar();
   }
 
-  @Nullable
-  @Override
+  @Nullable @Override
   public View onCreateView(LayoutInflater inflater,
                            @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState) {
@@ -78,9 +77,15 @@ abstract class AbsFragment extends Fragment {
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     doViewInjection(view);
-    onViewReady();
     onPresenterShouldBeAttached();
+    onViewReady();
     initializeToolbar();
+  }
+
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    onPresenterShouldBeDetached();
   }
 
   protected Menu getMenu() {
@@ -121,7 +126,9 @@ abstract class AbsFragment extends Fragment {
     ButterKnife.bind(this, bindingView);
   }
 
-  public void onPresenterShouldBeAttached() { }
+  protected void onPresenterShouldBeAttached() { }
+
+  protected void onPresenterShouldBeDetached() { }
 
   public void onViewReady() { }
 
