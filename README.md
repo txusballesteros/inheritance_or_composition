@@ -1,3 +1,5 @@
+[![codebeat badge](https://codebeat.co/badges/0de35d2a-72a9-4535-bec9-b213b260aa18)](https://codebeat.co/projects/github-com-txusballesteros-inheritance_or_composition)
+
 Inheritance Or Composition
 ==========================
 
