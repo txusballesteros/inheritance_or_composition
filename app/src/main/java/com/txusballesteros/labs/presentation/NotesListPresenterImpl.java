@@ -33,43 +33,40 @@ import com.txusballesteros.labs.navigation.Navigator;
 import java.util.List;
 import javax.inject.Inject;
 
-public class NotesListPresenterImpl implements NotesListPresenter {
-  private final View view;
+public class NotesListPresenterImpl extends AbsPresenter<NotesListPresenter.View> implements NotesListPresenter {
   private final GetNotesUseCase getNotesUseCase;
   private final Navigator navigator;
   private PresentationMode presentationMode = PresentationMode.LIST;
   private boolean loadingInProgress = false;
 
   @Inject
-  public NotesListPresenterImpl(NotesListPresenter.View view,
-                                GetNotesUseCase getNotesUseCase,
+  public NotesListPresenterImpl(GetNotesUseCase getNotesUseCase,
                                 Navigator navigator) {
-    this.view = view;
     this.getNotesUseCase = getNotesUseCase;
     this.navigator = navigator;
   }
 
   @Override
-  public void onAttach() {
-    view.showLoading();
+  public void onRequestNotes() {
+    getView().showLoading();
     configurePresentationMode();
     loadingInProgress = true;
     getNotesUseCase.execute(new GetNotesUseCase.Callback() {
       @Override
       public void onActorReady(@NonNull List<Note> notes) {
         loadingInProgress = false;
-        view.hideLoading();
-        view.renderNotesList(notes);
+        getView().hideLoading();
+        getView().renderNotesList(notes);
       }
     });
   }
 
   @Override
-  public void onResume() {
+  public void onRequestRefreshNotes() {
     if (!loadingInProgress) {
       getNotesUseCase.execute(new GetNotesUseCase.Callback() {
         @Override public void onActorReady(@NonNull List<Note> notes) {
-          view.updateNotesList(notes);
+          getView().updateNotesList(notes);
         }
       });
     }
@@ -77,9 +74,9 @@ public class NotesListPresenterImpl implements NotesListPresenter {
 
   private void configurePresentationMode() {
     if (presentationMode == PresentationMode.LIST) {
-      view.showPresentationModeList();
+      getView().showPresentationModeList();
     } else {
-      view.showPresentationModeGrid();
+      getView().showPresentationModeGrid();
     }
   }
 
@@ -92,10 +89,10 @@ public class NotesListPresenterImpl implements NotesListPresenter {
   public void onRequestChangePresentationMode() {
     if (presentationMode == PresentationMode.LIST) {
       presentationMode = PresentationMode.GRID;
-      view.showPresentationModeGrid();
+      getView().showPresentationModeGrid();
     } else {
       presentationMode = PresentationMode.LIST;
-      view.showPresentationModeList();
+      getView().showPresentationModeList();
     }
   }
 

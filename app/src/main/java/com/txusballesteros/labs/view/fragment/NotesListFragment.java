@@ -43,7 +43,6 @@ import com.txusballesteros.labs.view.adapter.NotesListAdapter;
 import com.txusballesteros.labs.view.behavior.FloatingActionButtonBehavior;
 import com.txusballesteros.labs.view.behavior.LoadingBehavior;
 import com.txusballesteros.labs.view.di.DaggerViewComponent;
-import com.txusballesteros.labs.view.di.ViewModule;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -63,7 +62,6 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
   void onRequestInjection(ApplicationComponent applicationComponent) {
     DaggerViewComponent.builder()
         .applicationComponent(applicationComponent)
-        .viewModule(new ViewModule(this))
         .build()
         .inject(this);
   }
@@ -75,19 +73,25 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
 
   @Override
   public void onPresenterShouldBeAttached() {
-    presenter.onAttach();
+    presenter.onAttach(this);
+  }
+
+  @Override
+  protected void onPresenterShouldBeDetached() {
+    presenter.onDetach();
   }
 
   @Override
   public void onResume() {
     super.onResume();
-    presenter.onResume();
+    presenter.onRequestRefreshNotes();
   }
 
   @Override
   public void onViewReady() {
     setRetainInstance(true);
     initializeBehaviors();
+    presenter.onRequestNotes();
   }
 
   @Override

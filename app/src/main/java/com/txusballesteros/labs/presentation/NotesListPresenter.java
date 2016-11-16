@@ -30,9 +30,9 @@ import android.support.annotation.Nullable;
 import com.txusballesteros.labs.domain.model.Note;
 import java.util.List;
 
-public interface NotesListPresenter {
-  void onAttach();
-  void onResume();
+public interface NotesListPresenter extends Presenter<NotesListPresenter.View> {
+  void onRequestNotes();
+  void onRequestRefreshNotes();
   void onAddNewNoteClick(Context context);
   void onRequestChangePresentationMode();
   void onRequestAbout(@NonNull Context context);
@@ -43,7 +43,7 @@ public interface NotesListPresenter {
     GRID
   }
 
-  interface View {
+  interface View extends Presenter.View {
     void renderNotesList(List<Note> notes);
     void updateNotesList(List<Note> notes);
     void showLoading();

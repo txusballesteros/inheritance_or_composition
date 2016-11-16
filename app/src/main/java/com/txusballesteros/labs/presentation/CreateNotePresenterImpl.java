@@ -29,13 +29,11 @@ import com.txusballesteros.labs.domain.interactor.StoreNoteUseCase;
 import com.txusballesteros.labs.domain.model.Note;
 import javax.inject.Inject;
 
-public class CreateNotePresenterImpl implements CreateNotePresenter {
-  private final View view;
+public class CreateNotePresenterImpl extends AbsPresenter<CreateNotePresenter.View> implements CreateNotePresenter {
   private final StoreNoteUseCase storeNoteUseCase;
 
   @Inject
-  public CreateNotePresenterImpl(View view, StoreNoteUseCase storeNoteUseCase) {
-    this.view = view;
+  public CreateNotePresenterImpl(StoreNoteUseCase storeNoteUseCase) {
     this.storeNoteUseCase = storeNoteUseCase;
   }
 
@@ -44,7 +42,7 @@ public class CreateNotePresenterImpl implements CreateNotePresenter {
     if (verifyNote(note)) {
       storeNoteUseCase.execute(note, new StoreNoteUseCase.Callback() {
         @Override public void onNoteSaved() {
-          view.closeView();
+          getView().closeView();
         }
       });
     }
@@ -53,7 +51,7 @@ public class CreateNotePresenterImpl implements CreateNotePresenter {
   private boolean verifyNote(Note note) {
     boolean result = true;
     if (note.getTitle().isEmpty()) {
-      view.renderTitleRequiredMessage();
+      getView().renderTitleRequiredMessage();
       result = false;
     }
     return result;

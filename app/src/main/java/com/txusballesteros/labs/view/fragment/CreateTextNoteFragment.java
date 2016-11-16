@@ -35,7 +35,6 @@ import com.txusballesteros.labs.domain.model.Note;
 import com.txusballesteros.labs.domain.model.TextNote;
 import com.txusballesteros.labs.presentation.CreateNotePresenter;
 import com.txusballesteros.labs.view.di.DaggerViewComponent;
-import com.txusballesteros.labs.view.di.ViewModule;
 import javax.inject.Inject;
 
 public class CreateTextNoteFragment extends AbsFragment implements CreateNotePresenter.View {
@@ -51,9 +50,18 @@ public class CreateTextNoteFragment extends AbsFragment implements CreateNotePre
   void onRequestInjection(ApplicationComponent applicationComponent) {
     DaggerViewComponent.builder()
       .applicationComponent(applicationComponent)
-      .viewModule(new ViewModule(this))
       .build()
       .inject(this);
+  }
+
+  @Override
+  protected void onPresenterShouldBeAttached() {
+    presenter.onAttach(this);
+  }
+
+  @Override
+  protected void onPresenterShouldBeDetached() {
+    presenter.onDetach();
   }
 
   @Override

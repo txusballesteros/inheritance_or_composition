@@ -25,46 +25,11 @@
 package com.txusballesteros.labs.view.di;
 
 import com.txusballesteros.labs.domain.interactor.di.UseCasesModule;
-import com.txusballesteros.labs.presentation.CreateNotePresenter;
-import com.txusballesteros.labs.presentation.NoteDetailPresenter;
-import com.txusballesteros.labs.presentation.NotesListPresenter;
 import com.txusballesteros.labs.presentation.di.PresentersModule;
 import dagger.Module;
-import dagger.Provides;
 
 @Module( includes = {
     PresentersModule.class,
     UseCasesModule.class
 })
-public class ViewModule {
-  private NotesListPresenter.View actorsListPresenterView;
-  private CreateNotePresenter.View createNotePresenterView;
-  private NoteDetailPresenter.View  noteDetailPresenterView;
-
-  public ViewModule(NotesListPresenter.View view) {
-    this.actorsListPresenterView = view;
-  }
-
-  public ViewModule(CreateNotePresenter.View view) {
-    this.createNotePresenterView = view;
-  }
-
-  public ViewModule(NoteDetailPresenter.View view) {
-    this.noteDetailPresenterView = view;
-  }
-
-  @Provides
-  NotesListPresenter.View provideActorsListPresenterView() {
-    return actorsListPresenterView;
-  }
-
-  @Provides
-  CreateNotePresenter.View provideCreateNotePresenterView() {
-    return createNotePresenterView;
-  }
-
-  @Provides
-  NoteDetailPresenter.View provideNoteDetailPresenterView() {
-    return noteDetailPresenterView;
-  }
-}
+public class ViewModule { }
