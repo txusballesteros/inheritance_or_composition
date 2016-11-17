@@ -31,6 +31,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import com.txusballesteros.labs.R;
 import com.txusballesteros.labs.di.ApplicationComponent;
@@ -104,8 +106,8 @@ public class NoteDetailFragment extends AbsFragment implements NoteDetailPresent
   }
 
   @Override
-  protected int onRequestMenuResourceId() {
-    return R.menu.note_detail_menu;
+  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    inflater.inflate(R.menu.note_detail_menu, menu);
   }
 
   @Override

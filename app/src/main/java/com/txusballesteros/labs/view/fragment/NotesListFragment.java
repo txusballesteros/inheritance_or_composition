@@ -33,6 +33,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import butterknife.BindView;
@@ -55,6 +56,7 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
   @Inject NotesListPresenter presenter;
   @Inject ImageDownloader imageDownloader;
   @BindView(R.id.list) RecyclerView listView;
+  private Menu menu;
 
   public static Fragment newInstance() {
     return new NotesListFragment();
@@ -103,8 +105,9 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
   }
 
   @Override
-  protected int onRequestMenuResourceId() {
-    return R.menu.notes_list_menu;
+  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    this.menu = menu;
+    inflater.inflate(R.menu.notes_list_menu, menu);
   }
 
   @Override
@@ -186,7 +189,6 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
   }
 
   private void changePresentationModeIcon(@DrawableRes int iconResourceId) {
-    Menu menu = getMenu();
     if (menu != null) {
       MenuItem menuItem = menu.findItem(R.id.presentation_mode);
       menuItem.setIcon(iconResourceId);

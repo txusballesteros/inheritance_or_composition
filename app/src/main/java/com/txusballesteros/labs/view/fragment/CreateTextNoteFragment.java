@@ -27,6 +27,8 @@ package com.txusballesteros.labs.view.fragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -85,8 +87,8 @@ public class CreateTextNoteFragment extends AbsFragment implements CreateNotePre
   }
 
   @Override
-  protected int onRequestMenuResourceId() {
-    return R.menu.create_new_note_menu;
+  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    inflater.inflate(R.menu.create_new_note_menu, menu);
   }
 
   @Override
