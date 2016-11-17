@@ -26,8 +26,11 @@ package com.txusballesteros.labs.view.fragment;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import com.txusballesteros.labs.R;
 import com.txusballesteros.labs.di.ApplicationComponent;
@@ -64,7 +67,7 @@ public class NoteDetailFragment extends AbsFragment implements NoteDetailPresent
   }
 
   @Override
-  int onRequestLayoutResourceId() {
+  protected int onRequestLayoutResourceId() {
     return R.layout.fragment_note_detail;
   }
 
@@ -74,21 +77,30 @@ public class NoteDetailFragment extends AbsFragment implements NoteDetailPresent
   }
 
   @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setHasOptionsMenu(true);
+  }
+
+  @Override
   public void onViewReady() {
+    initializeToolbar();
     long noteId = getNoteId();
     NoteType noteType = getNoteType();
     presenter.onRequestNote(noteId, noteType);
   }
 
-  @Override
-  protected void onPresenterShouldBeDetached() {
-    presenter.onDetach();
+  private void initializeToolbar() {
+    ActionBar actionBar  = ((AppCompatActivity) getActivity()).getSupportActionBar();
+    if (actionBar != null) {
+      actionBar.setDisplayHomeAsUpEnabled(true);
+      actionBar.setHomeButtonEnabled(true);
+    }
   }
 
   @Override
-  public void onInitializeToolbar() {
-    getToolbar().setDisplayHomeAsUpEnabled(true);
-    getToolbar().setHomeButtonEnabled(true);
+  protected void onPresenterShouldBeDetached() {
+    presenter.onDetach();
   }
 
   @Override

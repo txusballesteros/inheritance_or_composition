@@ -26,8 +26,9 @@ public class TextNoteDetailFragment extends AbsFragment {
   }
 
   @Override
-  protected boolean fragmentHasOptionsMenu() {
-    return false;
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setHasOptionsMenu(false);
   }
 
   @Override
@@ -47,7 +48,7 @@ public class TextNoteDetailFragment extends AbsFragment {
   }
 
   @Override
-  int onRequestLayoutResourceId() {
+  protected int onRequestLayoutResourceId() {
     return R.layout.fragment_text_note_detail;
   }
 

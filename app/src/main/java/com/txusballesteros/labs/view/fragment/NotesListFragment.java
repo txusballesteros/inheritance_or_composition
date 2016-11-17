@@ -24,8 +24,10 @@
  */
 package com.txusballesteros.labs.view.fragment;
 
+import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -67,7 +69,7 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
   }
 
   @Override
-  int onRequestLayoutResourceId() {
+  protected int onRequestLayoutResourceId() {
     return R.layout.fragment_notes_list;
   }
 
@@ -79,6 +81,12 @@ public class NotesListFragment extends AbsFragment implements NotesListPresenter
   @Override
   protected void onPresenterShouldBeDetached() {
     presenter.onDetach();
+  }
+
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setHasOptionsMenu(true);
   }
 
   @Override
