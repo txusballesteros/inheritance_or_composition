@@ -29,8 +29,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.MenuRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -49,44 +47,52 @@ abstract class AbsFragment extends Fragment {
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     onRequestInjection(getApplicationComponent());
-    setHasOptionsMenu(fragmentHasOptionsMenu());
-    initializeToolbar();
+    setHasOptionsMenu(true);
   }
 
-  protected boolean fragmentHasOptionsMenu() {
-    return true;
+  private ApplicationComponent getApplicationComponent() {
+    return ((AndroidApplication) getActivity().getApplication()).getApplicationComponent();
   }
 
   void onRequestInjection(ApplicationComponent applicationComponent) { }
-
-  public void onInitializeToolbar() { }
-
-  protected ActionBar getToolbar() {
-    return ((AppCompatActivity) getActivity()).getSupportActionBar();
-  }
 
   @Nullable @Override
   public View onCreateView(LayoutInflater inflater,
                            @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState) {
     int layoutResourceId = onRequestLayoutResourceId();
-    View result = inflater.inflate(layoutResourceId, container, false);
-    return result;
+    return inflater.inflate(layoutResourceId, container, false);
   }
+
+  @LayoutRes
+  protected abstract int onRequestLayoutResourceId();
 
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     doViewInjection(view);
     onPresenterShouldBeAttached();
     onViewReady();
-    initializeToolbar();
   }
+
+  private void doViewInjection(View view) {
+    View bindingView = view;
+    if (isAdded()) {
+      bindingView = getActivity().findViewById(R.id.rootView);
+    }
+    ButterKnife.bind(this, bindingView);
+  }
+
+  protected void onPresenterShouldBeAttached() { }
+
+  protected void onViewReady() { }
 
   @Override
   public void onDestroyView() {
     super.onDestroyView();
     onPresenterShouldBeDetached();
   }
+
+  protected void onPresenterShouldBeDetached() { }
 
   protected Menu getMenu() {
     return menu;
@@ -107,32 +113,5 @@ abstract class AbsFragment extends Fragment {
   @MenuRes
   protected int onRequestMenuResourceId() {
     return WITHOUT_MENU;
-  }
-
-  @LayoutRes
-  abstract int onRequestLayoutResourceId();
-
-  private void initializeToolbar() {
-    if (getToolbar() != null) {
-      onInitializeToolbar();
-    }
-  }
-
-  private void doViewInjection(View view) {
-    View bindingView = view;
-    if (isAdded()) {
-      bindingView = getActivity().findViewById(R.id.rootView);
-    }
-    ButterKnife.bind(this, bindingView);
-  }
-
-  protected void onPresenterShouldBeAttached() { }
-
-  protected void onPresenterShouldBeDetached() { }
-
-  public void onViewReady() { }
-
-  private ApplicationComponent getApplicationComponent() {
-    return ((AndroidApplication) getActivity().getApplication()).getApplicationComponent();
   }
 }

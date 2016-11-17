@@ -9,12 +9,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.txusballesteros.labs.R;
 
-public abstract class ToolbarBehavior extends Behavior {
+abstract class ToolbarBehavior extends Behavior {
   private final AppCompatActivity activity;
   @BindView(R.id.toolbar) Toolbar toolbar;
 
-  public ToolbarBehavior(@NonNull Activity activity) {
-    if (activity instanceof AppCompatActivity == false) {
+  ToolbarBehavior(@NonNull Activity activity) {
+    if (!(activity instanceof AppCompatActivity)) {
       throw new IllegalArgumentException();
     }
     this.activity = (AppCompatActivity) activity;

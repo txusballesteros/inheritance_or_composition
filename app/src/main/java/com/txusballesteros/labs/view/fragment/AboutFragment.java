@@ -25,6 +25,8 @@
 package com.txusballesteros.labs.view.fragment;
 
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.MenuItem;
@@ -40,20 +42,23 @@ public class AboutFragment extends AbsFragment {
   }
 
   @Override
-  int onRequestLayoutResourceId() {
+  protected int onRequestLayoutResourceId() {
     return R.layout.fragment_about;
   }
 
   @Override
-  public void onInitializeToolbar() {
-    getToolbar().setDisplayHomeAsUpEnabled(true);
-    getToolbar().setHomeButtonEnabled(true);
-  }
-
-  @Override
   public void onViewReady() {
+    initializeToolbar();
     Spanned content = Html.fromHtml(getString(R.string.about_text));
     aboutView.setText(content);
+  }
+
+  private void initializeToolbar() {
+    ActionBar actionBar  = ((AppCompatActivity) getActivity()).getSupportActionBar();
+    if (actionBar != null) {
+      actionBar.setDisplayHomeAsUpEnabled(true);
+      actionBar.setHomeButtonEnabled(true);
+    }
   }
 
   @Override

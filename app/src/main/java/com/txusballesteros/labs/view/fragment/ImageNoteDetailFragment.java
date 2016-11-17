@@ -1,6 +1,8 @@
 package com.txusballesteros.labs.view.fragment;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.widget.ImageView;
 import butterknife.BindView;
@@ -27,12 +29,13 @@ public class ImageNoteDetailFragment extends AbsFragment {
   }
 
   @Override
-  protected boolean fragmentHasOptionsMenu() {
-    return false;
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setHasOptionsMenu(false);
   }
 
   @Override
-  int onRequestLayoutResourceId() {
+  protected int onRequestLayoutResourceId() {
     return R.layout.fragment_image_note_detail;
   }
 

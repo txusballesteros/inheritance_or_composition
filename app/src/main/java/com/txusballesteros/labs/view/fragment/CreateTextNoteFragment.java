@@ -25,6 +25,8 @@
 package com.txusballesteros.labs.view.fragment;
 
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -55,6 +57,11 @@ public class CreateTextNoteFragment extends AbsFragment implements CreateNotePre
   }
 
   @Override
+  public void onViewReady() {
+    initializeToolbar();
+  }
+
+  @Override
   protected void onPresenterShouldBeAttached() {
     presenter.onAttach(this);
   }
@@ -64,14 +71,16 @@ public class CreateTextNoteFragment extends AbsFragment implements CreateNotePre
     presenter.onDetach();
   }
 
-  @Override
-  public void onInitializeToolbar() {
-    getToolbar().setDisplayHomeAsUpEnabled(true);
-    getToolbar().setHomeButtonEnabled(true);
+  private void initializeToolbar() {
+    ActionBar actionBar  = ((AppCompatActivity) getActivity()).getSupportActionBar();
+    if (actionBar != null) {
+      actionBar.setDisplayHomeAsUpEnabled(true);
+      actionBar.setHomeButtonEnabled(true);
+    }
   }
 
   @Override
-  int onRequestLayoutResourceId() {
+  protected int onRequestLayoutResourceId() {
     return R.layout.fragment_create_text_note;
   }
 

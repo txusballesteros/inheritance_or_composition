@@ -1,7 +1,9 @@
 package com.txusballesteros.labs.view.fragment;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
@@ -23,12 +25,13 @@ public class TasksListNoteDetailFragment extends AbsFragment {
   }
 
   @Override
-  protected boolean fragmentHasOptionsMenu() {
-    return false;
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setHasOptionsMenu(false);
   }
 
   @Override
-  int onRequestLayoutResourceId() {
+  protected int onRequestLayoutResourceId() {
     return R.layout.fragment_tasks_list_note_detail;
   }
 
